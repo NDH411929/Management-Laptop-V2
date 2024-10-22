@@ -6,6 +6,7 @@ cloudinary.config({
     cloud_name: "dorqc0zyj",
     api_key: "825358217848781",
     api_secret: "phTMlKMWP7kE5Xl9DV9qLgZh8IQ",
+    secure: true,
 });
 //End Cloudinary
 
