@@ -1,0 +1,113 @@
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success("10000")
+    h1 Thùng rác
+
+    .card.mb-3 
+        .card-header Bộ lọc và tìm kiếm 
+        .card-body 
+            .row 
+                .col-6 
+                    +filter-status(filterStatus)
+                .col-6 
+                    +search(keyword)
+    .card.mb-3
+      .card-header Danh sách sản phẩm đã xóa
+        .card-body 
+            form(
+                action=`${prefixAdmin}/bin-products/return-multi?_method=PATCH`
+                method="post"
+                form-change-multi
+            ) 
+                .d-flex.align-items-start 
+                    .form-group 
+                        select(name="type" class="form-control" style="cursor: pointer")
+                            option(disabled selected) -- Chọn hành động --
+                            option(value="delete-all") Xóa tất cả
+                            option(value="return-all") Khôi phục tất cả
+                    .form-group 
+                        input(
+                            type="text"
+                            name="ids"
+                            value=""
+                            class="form-control d-none"
+                        )
+                    button(type="submit" class="btn btn-primary") Áp dụng 
+            table(
+                class="table table-hover table-sm"
+                checkbox-multi
+            )
+                thead 
+                    tr 
+                        th 
+                            input(type="checkbox", name="checkall")
+                        th STT
+                        th Hình ảnh
+                        th Tiêu đề
+                        th Giá
+                        th Trạng thái
+                        th Người xóa
+                        th Hành động
+                tbody 
+                    each product, index in products 
+                        tr 
+                            td 
+                                input(type="checkbox", name="id", value=product.id)
+                            td #{index+1}
+                            td 
+                                img(src=product.thumbnail, alt= product.title, width="80px", height="auto")
+                            td #{product.title}
+                            td #{product.price}$
+                            td 
+                                if(product.status==="active")
+                                    a(href="javascript:;"
+                                    data-status=product.status
+                                    data-id=product.id
+                                    button-change-status
+                                    class="badge badge-success") Hoạt động
+                                else 
+                                    a(href="javascript:;" 
+                                    data-status=product.status
+                                    data-id=product.id
+                                    button-change-status
+                                    class="badge badge-danger") Dừng hoạt động
+                            td
+                                div #{product.deletedByFullName}
+                                div #{moment(product.deletedBy.deletedAt).format("DD-MM-YYYY HH:mm")}
+                            td
+                                button(
+                                    class="btn btn-warning btn-sm"
+                                    data-id=product.id
+                                    button-return
+                                ) Khôi phục 
+                                button(
+                                    class="btn btn-danger btn-sm ml-1" 
+                                    data-id=product.id
+                                    button-delete
+                                ) Xóa 
+    +pagination(pagination)
+    form(action=""
+        method="POST"
+        id="form-change-status"
+        path=`${prefixAdmin}/bin-products/change-status`
+    ) 
+    form(action=""
+        method="POST"
+        id="form-delete"
+        path=`${prefixAdmin}/bin-products/delete`
+    ) 
+    form(action=""
+        method="POST"
+        id="form-return"
+        path=`${prefixAdmin}/bin-products/return-products`
+    ) 
+    script(src="/admin/JS/bin-product.js") 
+    
+            
+
+

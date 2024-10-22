@@ -1,0 +1,10 @@
+mixin product-item(product)
+    .col-3.mb-3 
+        a(class="product-item" href=(product.slug?`/products/detail/${product.slug}`:"/products")) 
+            .inner-image 
+                img(src=product.thumbnail, alt="green-house" class="img-product")
+            .inner-content
+                h3.inner-title #{product.title}
+                .inner-price-new #{product.priceNew}
+                .inner-price-old #{product.price}
+                .inner-discount #{product.discountPercentage}

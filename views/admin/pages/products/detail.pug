@@ -1,0 +1,63 @@
+extends ../../layouts/default.pug
+
+block main
+  if (product.title)
+    h1(class="mb-4") #{product.title}
+
+  if (product.brand)
+    div(class="mb-4") Thương hiệu: <b>#{product.brand}</b>
+
+  if (product.productCategory)
+    div(class="mb-4") Danh mục: <b>#{product.productCategory}</b>
+
+  if (product.price)
+    div(class="mb-4") Giá: <b>#{product.price}$</b>
+
+  if (product.discountPercentage)
+    div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
+
+  if (product.stock)
+    div(class="mb-4") Còn lại: <b>#{product.stock}</b>
+
+  if (product.thumbnail)
+    div(class="mb-4")
+      img(
+        src=product.thumbnail
+        style="width: 100px"
+      )
+
+  if (product.status)
+    div(class="mb-4")
+      span Trạng thái:
+      if (product.status === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+
+  if (product.position)
+    div(class="mb-4") Vị trí: <b>#{product.position}</b>
+  if(product.specifications)
+    h3.mb-4 Bảng thông số kỹ thuật
+    table(
+      class="table table-bordered table-specifications"
+    )
+      thead
+        tr
+          th Tên thông số
+          th Mô tả
+      tbody
+        each value,key in product.specifications 
+          tr 
+            td(style="background-color: #f7f7f7 !important;border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 208px;") #{key}
+            td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 625px;") #{value}
+  if (product.description)
+    div(class="mb-4") Mô tả: !{product.description}
+  
+  if(product.createdBy.createdAt && product.createdByFullName)
+    div(class="mb-4") Người tạo: #{product.createdByFullName}
+    div(class="mb-4") Thời gian: #{moment(product.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+  -var length=product.updatedBy.length
+  if(length>0)
+    div(class="mb-4") <b>Cập nhật lần cuối</b>
+    div(class="mb-4") Người cập nhật: #{product.fullNameUpdated}
+    div(class="mb-4") Thời gian: #{moment(product.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}

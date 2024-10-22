@@ -1,0 +1,12 @@
+mixin filter-status(filterStatus)
+    each item in filterStatus
+        if(item.status)
+            button(class=`btn btn-sm ml-1 btn-outline-success ${item.class}`, button-status=item.status) #{item.name}
+        if(item.statusDelivery)
+            button(class=`btn btn-sm ml-1 btn-outline-success ${item.class}`, button-status-delivery=item.statusDelivery) #{item.name}
+        if(!item.statusDelivery && !item.status)
+            button(class=`btn btn-sm ml-1 btn-outline-success ${item.class}`, button-status="") #{item.name}
+
+//- mixin filter-status-delivery(filterStatus)
+//-     each item in filterStatus
+//-         button(class=`btn btn-sm ml-1 btn-outline-success ${item.class}`, button-status-delivery=item.statusDelivery) #{item.name}

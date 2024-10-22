@@ -1,0 +1,57 @@
+html
+    head 
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{title} 
+        //CSS Bootstrap
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css")
+        //CSS local
+        link(rel="stylesheet", href="/css/style.css")
+        //Google Fonts
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        //Font Roboto Slab
+        link(href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet")
+        //Font Manrope
+        link(href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet")
+        style. 
+            .gradient-custom {
+                background-image: radial-gradient( circle farthest-corner at -8.9% 51.2%,  rgba(255,124,0,1) 0%, rgba(255,124,0,1) 15.9%, rgba(255,163,77,1) 15.9%, rgba(255,163,77,1) 24.4%, rgba(19,30,37,1) 24.5%, rgba(19,30,37,1) 66% );
+            }
+    body
+        section.vh-100.gradient-custom
+            .container.py-5.h-100
+                .row.d-flex.justify-content-center.align-items-center.h-100
+                    .col-12.col-md-8.col-lg-6.col-xl-5
+                        .card.text-dark(style="border-radius: 1rem;background-color:white")
+                            .card-body.p-5.text-center
+                                .mb-md-5.mt-md-4.pb-5(style="margin-bottom:4rem !important")
+                                    h2.fw-bold.mb-2.text-uppercase Đăng ký
+                                    p(style="margin-bottom:45px") Nhập email và mật khẩu của bạn!
+                                    form(action="/user/register" method="POST")
+                                        .input-group.mb-3
+                                            .input-group-prepend(style="width:45px")
+                                                img#basic-addon1.input-group-text(src="/images/icon-user.svg" style="width:100%;background-color:#fff")
+                                            input.form-control.input-user(type="text", placeholder="Họ tên", aria-label="Họ tên", aria-describedby="basic-addon1" name="fullName")
+                                        .input-group.mb-3
+                                            .input-group-prepend(style="width:45px")
+                                                img#basic-addon1.input-group-text(src="/images/icon-email.svg" style="width:100%;background-color:#fff")
+                                            input.form-control.input-user(type="text", placeholder="Email", aria-label="Email", aria-describedby="basic-addon1" name="email")
+                                        .input-group.mb-3
+                                            .input-group-prepend(style="width:45px")
+                                                img#basic-addon1.input-group-text(src="/images/icon-log.svg" style="width:100%;background-color:#fff")
+                                            input.form-control.input-user(type="password", placeholder="Mật khẩu", aria-label="Mật khẩu", aria-describedby="basic-addon1" name="password")
+                                        button.btn.btn-grad.btn-lg.px-5(data-mdb-button-init, data-mdb-ripple-init, type="submit" style="background-image: linear-gradient(to right, #232526 0%, #414345 51%, #232526 100%);background-position: right center;color: #fff;width:100%;font-size:16px;border-radius:0;margin-top:10px") Đăng ký
+                                div
+                                    p.mb-0 Bạn đã có tài khoản? 
+                                        a.fw-bold(href="/user/login") Đăng nhập 
+        //Script bootstrap 
+        script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js") 
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js") 
+    
+
+
+
+    

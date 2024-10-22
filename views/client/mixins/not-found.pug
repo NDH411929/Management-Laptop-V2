@@ -1,0 +1,7 @@
+mixin page-not-found(desc, contentBtn)
+    .page-not-found
+        .container.my-3
+            .content.d-flex.flex-column.justify-content-center.align-items-center(style="background:#fff;padding:50px")
+                img(src="/images/sorry.png", alt="alt" style="width:300px;")
+                p.desc(style="font-family: Manrope;font-weight:400") #{desc}
+                a(class="btn btn-modal" href="/products") #{contentBtn}

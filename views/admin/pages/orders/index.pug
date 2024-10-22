@@ -1,0 +1,187 @@
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success("10000")
+    h1 Trang đặt hàng       
+    .card.mb-3 
+        .card-header Bộ lọc và tìm kiếm 
+        .card-body 
+            .row 
+                .col-6 
+                    +filter-status(filterStatus)
+                    
+                .col-6 
+                    +search(keyword)
+    .card.mb-3
+        .card-header Sắp xếp
+        .card-body
+            .row
+                .col-4
+                    div(sort)
+                        select(
+                        class="form-control"
+                        name="sort"
+                        sort-select
+                        )
+                            option(value="createdAt-desc") Thời gian đặt hàng mới nhất
+                            option(value="createdAt-asc") Thời gian đặt hàng cũ nhất
+                            option(value="addressDelivery-desc") Địa chỉ A - Z
+                            option(value="addressDelivery-asc") Địa chỉ Z - A
+                        button(
+                            class="btn btn-danger mt-2"
+                            sort-clear
+                        ) Clear
+    .card.mb-3
+        .card-header Danh sách đơn đặt hàng
+        .card-body 
+            .row 
+                .col-8 
+                    if(roleUser.permissions.includes("orders-user_edit"))
+                        +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`) 
+            table(
+                class="table table-hover table-sm"
+                checkbox-multi
+            )
+                thead 
+                    tr 
+                        th 
+                            if(roleUser.permissions.includes("orders-user_edit") || (roleUser.permissions.includes("orders-user_delete")))
+                                input(type="checkbox", name="checkall")
+                        th STT
+                        //- th Mã đơn hàng
+                        th Tên khách hàng
+                        th Email khách hàng
+                        th Thời gian đặt hàng
+                        th Địa chỉ vận chuyển
+                        th Trạng thái đơn hàng
+                        //- th Người tạo
+                        th Hành động
+                tbody 
+                    each order,index in orders
+                        tr 
+                            td 
+                                if(roleUser.permissions.includes("orders-user_edit") || (roleUser.permissions.includes("orders-user_delete")))
+                                    input(type="checkbox", name="id", value=order.id)
+                            td #{index+1}
+                            //- td #{order.id}
+                            td #{order.userInfo.fullName}
+                            td #{order.userInfo.email}
+                            td
+                                if(order.createdAt)
+                                    #{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}
+                                //- input(
+                                //-     type="number"
+                                //-     value="0" 
+                                //-     style="width: 60px"
+                                //-     min="1"
+                                //-     name="position"
+                                //- )
+                                
+                            td #{order.addressDelivery.cityAddress}
+                            td 
+                                if(order.status=="initial")
+                                    a(
+                                        href="javascript:;" 
+                                        data-id=order.id 
+                                        data-status=order.status
+                                        button-change-status
+                                    ).badge.badge-secondary #{order.status}
+                                else 
+                                    a(
+                                        href="javascript:;" 
+                                        data-id=order.id 
+                                        data-status=order.status
+                                        button-change-status
+                                    ).badge.badge-success #{order.status}
+                                    if(order.statusDelivery=="processing")
+                                        a(
+                                            href="javascript:;" 
+                                            data-id=order.id 
+                                            data-status=order.statusDelivery
+                                            button-change-status-delivery
+                                            style ="color:white;margin-left:10px"
+                                        ).badge.badge-secondary #{order.statusDelivery}
+                                    if(order.statusDelivery=="stop-shipping")
+                                        a(
+                                            href="javascript:;" 
+                                            data-id=order.id 
+                                            data-status=order.statusDelivery
+                                            button-change-status-delivery
+                                            style ="color:white;margin-left:10px"
+                                        ).badge.badge-danger #{order.statusDelivery}
+                                    if(order.statusDelivery=="shipping")
+                                        a(
+                                            href="javascript:;" 
+                                            data-id=order.id 
+                                            data-status=order.statusDelivery
+                                            button-change-status-delivery
+                                            style ="color:white;margin-left:10px"
+                                        ).badge.badge-warning #{order.statusDelivery}
+                                    if(order.statusDelivery=="delivered")
+                                        a(
+                                            href="javascript:;" 
+                                            data-id=order.id 
+                                            data-status=order.statusDelivery
+                                            button-change-status-delivery
+                                            style ="color:white;margin-left:10px"
+                                        ).badge.badge-success #{order.statusDelivery}
+                            td
+                                if(roleUser.permissions.includes("orders-user_view"))
+                                    a(
+                                        href=`${prefixAdmin}/users/orders/detail/${order.id}`
+                                        class="btn btn-secondary btn-sm"
+                                    ) Chi tiết
+                                else 
+                                    a(
+                                        href=`${prefixAdmin}/users/orders/`
+                                        class="btn btn-secondary btn-sm"
+                                        no-view
+                                    ) Chi tiết
+                                if(roleUser.permissions.includes("orders-user_delete"))
+                                    a(
+                                        href=`${prefixAdmin}/users/orders/edit/${order.id}`
+                                        class="btn btn-success btn-sm ml-1"
+                                    ) Duyệt 
+                                else 
+                                    a(
+                                        href=`${prefixAdmin}/users/orders/`
+                                        class="btn btn-success btn-sm ml-1"
+                                        no-edit
+                                    ) Duyệt
+                                if(roleUser.permissions.includes("orders-user_delete"))
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1" 
+                                        data-id=order.id
+                                        button-delete
+                                    ) Xóa 
+                                else 
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        no-delete
+                                    ) Xóa
+    +pagination(pagination)
+    form(action=""
+        method="POST"
+        id="form-change-status"
+        path=`${prefixAdmin}/users/orders/change-status`
+    ) 
+    form(action=""
+        method="POST"
+        id="form-change-status-delivery"
+        path=`${prefixAdmin}/users/orders/change-status-delivery`
+    )
+    form(action=""
+        method="POST"
+        id="form-delete"
+        path=`${prefixAdmin}/users/orders/delete`
+    ) 
+    script(src="/admin/JS/order.js") 
+    
+            
+
+

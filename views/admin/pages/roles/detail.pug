@@ -1,0 +1,75 @@
+extends ../../layouts/default.pug
+
+block main
+
+    h1(class="mb-4") #{record.title}
+
+    
+    div(data-records=array)
+    if(array.length>0)
+        .card.mb-3 
+            div(class="card-header") Danh sách các quyền
+                div(class="card-body")
+                    table(
+                        class="table table-hover table-sm"
+                        table-permissions
+                    )
+                        thead
+                            tr
+                            th Tính năng
+                            each item in array 
+                                if(item.title=="products-category")
+                                    th(class="text-center") Danh mục sản phẩm
+                                if(item.title=="products")
+                                    th(class="text-center") Sản phẩm 
+                                if(item.title=="roles")
+                                    th(class="text-center") Nhóm quyền
+                                if(item.title=="account")
+                                    th(class="text-center") Tài khoản
+                                
+                        tbody
+                            each item in totalPermission 
+                                if(item=="view")
+                                    tr(data-name=item)
+                                        td Xem
+                                        each i in array
+                                            td(class="text-center")
+                                                input(type="checkbox" data-name=item+"_"+i.title)
+                                if(item=="create")
+                                    tr(data-name=item)
+                                        td Thêm mới
+                                        each i in array
+                                            td(class="text-center")
+                                                input(type="checkbox" data-name=item+"_"+i.title)
+                                if(item=="edit")
+                                    tr(data-name=item)
+                                        td Chỉnh sửa
+                                        each i in array
+                                            td(class="text-center")
+                                                input(type="checkbox" data-name=item+"_"+i.title)
+                                if(item=="delete")
+                                    tr(data-name=item)
+                                        td Xóa
+                                        each i in array
+                                            td(class="text-center")
+                                                input(type="checkbox" data-name=item+"_"+i.title)
+                                if(item=="permissions")
+                                    tr(data-name=item)
+                                        td Phân quyền
+                                        each i in array
+                                            td(class="text-center")
+                                                input(type="checkbox" data-name=item+"_"+i.title)
+    else 
+        div(class="mb-4") <b>Không có quyền nào, vui lòng phân quyền!</b>
+    if(record.createdBy.createdAt && record.fullNameCreated)
+        div(class="mb-4") Người tạo: #{record.fullNameCreated}
+        div(class="mb-4") Thời gian: #{moment(record.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+    -var length=record.updatedBy.length
+    if(length>0)
+        div(class="mb-4") <b>Cập nhật lần cuối</b>
+        div(class="mb-4") Người cập nhật: #{record.fullNameUpdated}
+        div(class="mb-4") Thời gian: #{moment(record.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}
+    script(src="/admin/JS/detail-permission.js") 
+
+    
+                

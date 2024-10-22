@@ -1,0 +1,73 @@
+extends ../../layouts/default.pug
+//- include ../../mixins/not-found.pug
+
+block main
+    .review-order
+        .container.my-3
+            .row
+                .col-12
+                    h4(class="mb-2") Thông tin người đặt
+                    table(class="table table-bordered")
+                        tbody
+                            tr
+                                td Họ tên
+                                td
+                                    b #{order.userInfo.fullName}
+                            tr
+                                td Số điện thoại
+                                td
+                                    b #{order.userInfo.phoneNumber}
+                            tr
+                                td Địa chỉ người đặt
+                                td
+                                    b #{order.userInfo.address}
+                            tr
+                                td Email
+                                td
+                                    b #{order.userInfo.email}
+            .row
+                .col-12
+                    h4(class="mb-2") Thông tin đơn hàng
+                    table(class="table table-bordered")
+                        thead
+                            tr
+                                th STT
+                                th Ảnh
+                                th Tên
+                                th Màu sắc
+                                th Trạng thái
+                                th Giá
+                                th Số lượng
+                                th Tổng tiền
+                                th Địa chỉ vận chuyển
+                        tbody
+                            if(order.products.length > 0)
+                                each item, index in order.products
+                                    tr
+                                        td #{index + 1}
+                                        td
+                                            img(
+                                                src=item.thumbnail
+                                                alt=item.title
+                                                width="80px"
+                                            )
+                                        td #{item.title}
+                                        td #{item.color}
+                                        td 
+                                            if(order.statusDelivery=="processing")
+                                                a.badge.badge-secondary(style="color:#fff") #{order.statusDelivery}
+                                            if(order.statusDelivery=="stop-shipping")
+                                                a.badge.badge-danger(style="color:#fff") #{order.statusDelivery}
+                                            if(order.statusDelivery=="delivered")
+                                                a.badge.badge-success(style="color:#fff") #{order.statusDelivery}
+                                            if(order.statusDelivery=="shipping")
+                                                a.badge.badge-warning(style="color:#fff") #{order.statusDelivery}
+                                        td #{item.priceNew}$
+                                        td #{item.quantity}
+                                        td #{item.totalPrice}$
+                                        td 
+                                            p #{order.addressDelivery.cityAddress}
+                                            p Số nhà: <b>#{order.addressDelivery.homeNumber}</b>
+
+                    if(order.products.length > 0)
+                        h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$

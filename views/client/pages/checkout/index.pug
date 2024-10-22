@@ -1,0 +1,193 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+    .checkout
+        .container.my-3
+            .checkout-content(style="background:#fff;padding:24px")
+                .row 
+                    .col-12 
+                        +box-head("CHI TIẾT HÓA ĐƠN")
+                .row.justify-content-between
+                    .col-5.column-left 
+                        form(
+                            action="/checkout/order"
+                            method="POST"
+                        )
+                            h2.sub-title THÔNG TIN CÁ NHÂN
+                            div(class="form-group")
+                                input(
+                                    type="text"
+                                    class="form-control form-checkout"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Họ tên"
+                                    required
+                                )
+                            div(class="form-group")
+                                input(
+                                    type="text"
+                                    class="form-control form-checkout"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    placeholder="Số điện thoại"
+                                    required
+                                )
+                            div(class="form-group")
+                                input(
+                                    type="text"
+                                    class="form-control form-checkout"
+                                    id="address"
+                                    name="address"
+                                    placeholder="Địa chỉ"
+                                    required
+                                )
+                            div(class="form-group")
+                                input(
+                                    type="email"
+                                    class="form-control form-checkout"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    required
+                                )
+                            h2.sub-title ĐỊA CHỈ NHẬN HÀNG
+                            .d-flex.justify-content-between.align-items-center(style="gap:15px")
+                                div(class="form-group" style="width:50%")
+                                    input(
+                                        type="text"
+                                        class="form-control form-checkout"
+                                        name="cityAddress"
+                                        placeholder="Thành phố"
+                                        required
+                                    )
+                                div(class="form-group" style="width:50%")
+                                    input(
+                                        type="text"
+                                        class="form-control form-checkout"
+                                        name="districAddress"
+                                        placeholder="Quận/ Huyện"
+                                        required
+                                    )
+                            div(class="form-group")
+                                input(
+                                    type="text"
+                                    class="form-control form-checkout"
+                                    name="homeNumber"
+                                    placeholder="Làng/ Xóm/ Số nhà"
+                                    required
+                                )
+                            h2.sub-title GHI CHÚ
+                            div(class="form-group")
+                                textarea(name="userNote", cols="60", rows="4" style="width:100%" class="form-control form-checkout" placeholder="Thêm ghi chú của bạn") Thêm ghi chú của bạn
+                            div(class="form-group")
+                                button(
+                                    type="submit"
+                                    class="btn btn-success btn-block btn-checkout"
+                                ) ĐẶT HÀNG
+                            //- a(href="/checkout" class="btn btn-checkout btn-modal") ĐẶT HÀNG
+                    .col-5.column-right
+                        .detail-order
+                            h2(class="sub-title") ĐƠN HÀNG CỦA BẠN
+                            .decorate 
+                            .row-info.border-bottom.d-flex.justify-content-between.align-items-center 
+                                p.desc-row-info(style="color:#fff") Sản phẩm
+                                p.desc-row-info(style="color:#fff") Tạm tính
+                            each item in cartDetail.products
+                                .row-info.border-bottom.d-flex.justify-content-between.align-items-center
+                                    p.desc-row-info(style="color:#fff;font-size:14px") #{item.infoProduct.title}-#{item.color} <span style="color:#ffe07d;font-size:18px"> x#{item.quantity}</span>
+                                    p.desc-row-info(style="color:#fff;font-size:16px").saving  #{item.infoProduct.totalPrice} $
+                            //- .row-info.d-flex.justify-content-between.align-items-center
+                            //-     p.desc-row-info(style="color:#fff") Giảm giá từ mã
+                            //-     p.desc-row-info(style="color:#fff") 0 $
+                            .row-info.d-flex.justify-content-between.align-items-center(style="padding-top:15px") 
+                                p.desc-row-info(style="color:#fff;font-size:14px") Phí vận chuyển
+                                p.desc-row-info(style="color:#fff;font-size:14px") miễn phí
+                            //- .row-info.d-flex.justify-content-between.align-items-center 
+                            //-     p.desc-row-info(style="color:#fff").saving Tiết kiệm
+                            //-     p.desc-row-info(style="color:#fff").saving 0 $
+                            .decorate
+                            .row-info.d-flex.justify-content-between.align-items-center(style="margin-top:50px")
+                                p.title-order(style="color:#fff;font-size:20px;font-weight:600") TỔNG TIỀN
+                                p.title-order(style="color:#fff;font-size:20px;font-weight:600") #{cartDetail.totalPrice} $
+                        
+            //- .row
+            //-     .col-12
+            //-         +box-head("Đặt hàng")
+
+            //- if(cartDetail.products.length > 0)
+            //-     .row
+            //-         .col-12
+            //-             table(class="table table-bordered" table-cart)
+            //-                 thead
+            //-                     tr
+            //-                         th Ảnh
+            //-                         th Tên
+            //-                         th Giá
+            //-                         th Số lượng
+            //-                         th Tổng tiền
+            //-                 tbody
+            //-                     each item, index in cartDetail.products
+            //-                         tr
+            //-                             td
+            //-                                 img(
+            //-                                     src=item.infoProduct.thumbnail
+            //-                                     alt=item.infoProduct.title
+            //-                                     width="80px"
+            //-                                 )
+            //-                             td #{item.infoProduct.title}
+            //-                             td #{item.infoProduct.priceNew}$
+            //-                             td #{item.quantity}
+            //-                             td #{item.infoProduct.totalPrice}$
+                            
+            //-             h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+
+            //- if(cartDetail.products.length > 0)
+            //-     .row
+            //-         .col-12
+            //-             .card.p-4.my-4
+            //-                 form(
+            //-                     action="/checkout/order"
+            //-                     method="POST"
+            //-                 )
+            //-                     div(class="form-group")
+            //-                         label(for="fullName") Họ tên
+            //-                         input(
+            //-                             type="text"
+            //-                             class="form-control"
+            //-                             id="fullName"
+            //-                             name="fullName"
+            //-                             required
+            //-                         )
+            //-                     div(class="form-group")
+            //-                         label(for="phoneNumber") Số điện thoại
+            //-                         input(
+            //-                             type="text"
+            //-                             class="form-control"
+            //-                             id="phoneNumber"
+            //-                             name="phoneNumber"
+            //-                             required
+            //-                         )
+            //-                     div(class="form-group")
+            //-                         label(for="address") Địa chỉ
+            //-                         input(
+            //-                             type="text"
+            //-                             class="form-control"
+            //-                             id="address"
+            //-                             name="address"
+            //-                             required
+            //-                         )
+            //-                     div(class="form-group")
+            //-                         label(for="email") Email
+            //-                         input(
+            //-                             type="email"
+            //-                             class="form-control"
+            //-                             id="email"
+            //-                             name="email"
+            //-                             required
+            //-                         )
+            //-                     div(class="form-group")
+            //-                         button(
+            //-                             type="submit"
+            //-                             class="btn btn-success btn-block"
+            //-                         ) ĐẶT HÀNG

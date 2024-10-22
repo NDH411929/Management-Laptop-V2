@@ -1,0 +1,167 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+
+block main
+    +alert-success(1000000)
+    +alert-error(5000)
+    h1(class="mb-4") Danh sách tài khoản
+    .card.mb-3 
+        .card-header Bộ lọc và tìm kiếm 
+        .card-body 
+            .row 
+                .col-6 
+                    +filter-status(filterStatus)
+                .col-6 
+                    +search(keyword)
+    .card.mb-3
+        .card-header Sắp xếp
+        .card-body
+            .row
+                .col-4
+                    div(sort)
+                        select(
+                        class="form-control"
+                        name="sort"
+                        sort-select
+                        )
+                            option(value="createdAt-desc") Ngày tạo tài khoản mới
+                            option(value="createdAt-asc") Ngày tạo tài khoản cũ
+                            option(value="countOrders-desc") Số lượng đơn giảm 
+                            option(value="countOrders-asc") Số lượng đơn tăng 
+                            option(value="fullName-asc") Tên người dùng A-Z
+                            option(value="fullName-desc") Tên người dùng Z-A
+                        button(
+                            class="btn btn-danger mt-2"
+                            sort-clear
+                        ) Clear
+
+    .card.mb-3
+        .card-header Danh sách
+        .card-body
+            .row 
+                .col-8 
+                    if(roleUser.permissions.includes("accounts-user_edit"))
+                        +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+            table(
+                class="table table-hover table-sm"
+            )
+                thead
+                    tr
+                        th 
+                            if(roleUser.permissions.includes("accounts-user_edit") || (roleUser.permissions.includes("accounts-user_delete")))
+                                input(type="checkbox", name="checkall")
+                        th STT
+                        th Avatar
+                        th Tên người dùng
+                        th Email
+                        th Trạng thái
+                        th Thời gian tạo
+                        th Số đơn hàng đã đặt
+                        th Hành động
+                tbody
+                    each item, index in records
+                        tr 
+                            td 
+                                if(roleUser.permissions.includes("accounts-user_edit") || (roleUser.permissions.includes("accounts-user_delete")))
+                                    input(type="checkbox", name="id", value=item.id)
+                            td #{index+1}
+                            td
+                                if(item.avatar)
+                                    img(
+                                        src=item.avatar
+                                        alt=item.fullName
+                                        width="80px"
+                                        height="80px"
+                                    )
+                                else 
+                                    img(
+                                        src="/images/test.png"
+                                        alt=""
+                                        width="80px"
+                                        height="80px"
+                                    )
+                            td #{item.fullName}
+                            td #{item.email}
+                            td
+                                if(roleUser.permissions.includes("accounts-user_edit"))
+                                    if (item.status === "active")
+                                        a(
+                                            href="javascript:;"
+                                            class="badge badge-success"
+                                            data-status=item.status
+                                            data-id=item.id
+                                            button-change-status
+                                        ) Hoạt động
+                                    else
+                                        a(
+                                            href="javascript:;"
+                                            class="badge badge-danger"
+                                            data-status=item.status
+                                            data-id=item.id
+                                            button-change-status
+                                        ) Dừng hoạt động
+                                else 
+                                    if (item.status === "active")
+                                        a(
+                                            class="badge badge-success"
+                                        ) Hoạt động
+                                    else
+                                        a(
+                                            class="badge badge-danger"
+                                        ) Dừng hoạt động
+                            td 
+                                if(item.createdAt)
+                                    #{moment(item.createdAt).format("DD-MM-YYYY HH:mm")}
+                            td #{item.countOrders}
+                            td
+                                if(roleUser.permissions.includes("accounts-user_view"))
+                                    a(
+                                        class="btn btn-secondary btn-sm"
+                                        href=`${prefixAdmin}/users/accounts/detail/${item.id}`
+                                    ) Chi tiết
+                                else 
+                                    a(
+                                        class="btn btn-secondary btn-sm"
+                                        href=`${prefixAdmin}/users/accounts/`
+                                        no-view
+                                    ) Chi tiết
+                                if(roleUser.permissions.includes("accounts-user_edit"))
+                                    a(
+                                        class="btn btn-warning btn-sm ml-1"
+                                        href=`${prefixAdmin}/user/accounts/edit/${item.id}`
+                                    ) Sửa
+                                else 
+                                    a(
+                                        class="btn btn-warning btn-sm ml-1"
+                                        href=`${prefixAdmin}/user/accounts/`
+                                        no-edit
+                                    ) Sửa
+                                if(roleUser.permissions.includes("accounts-user_delete"))
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        button-delete 
+                                        data-id=item.id
+                                    ) Xóa
+                                else 
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        no-delete
+                                    ) Xóa
+    +pagination(pagination)
+    form(
+        action=""
+        method="post"
+        path=`${prefixAdmin}/users/accounts/change-status`
+        id="form-change-status"
+    )
+    form(
+        action=""
+        method="post"
+        path=`${prefixAdmin}/users/accounts/delete`
+        id="form-delete"
+    ) 
+    script(src="/admin/JS/account.js") 

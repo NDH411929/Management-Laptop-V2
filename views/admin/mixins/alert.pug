@@ -1,0 +1,25 @@
+mixin alert-success(time)
+    - if (messages.success)
+            .message.info
+                div(class="wrapper-success" show-alert data-time=time)
+                    .card
+                        .icon
+                            i.fas.fa-check-circle
+                        .subject
+                            h3 Success
+                            p #{messages.success}
+                        .icon-times
+                            i(class="fas fa-times" close-alert)
+
+mixin alert-error(time)
+    - if (messages.error)
+            .message.info
+                div(class="wrapper-warning" show-alert data-time=time)
+                    .card
+                        .icon
+                            i.fas.fa-exclamation-circle
+                        .subject
+                            h3 Warning
+                            p #{messages.error}
+                        .icon-times
+                            i(class="fas fa-times" close-alert)

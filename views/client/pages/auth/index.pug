@@ -1,0 +1,51 @@
+.modal.modal-login.d-flex
+    .body-modal 
+        .row-top.d-flex.justify-content-between.align-items-center
+            h1(class="title") Đăng nhập
+            button(class="register" id="register") Đăng ký
+        form(
+            action="/user/login"
+            method="POST"
+            form-login
+        )
+            div(class="form-group")
+                input(
+                    type="email"
+                    class="form-input"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    autocomplete="off"
+                )
+            div(class="form-group")
+                input(
+                    type="password"
+                    class="form-input"
+                    id="password"
+                    name="password"
+                    placeholder="Mật khẩu"
+                    required
+                    autocomplete="off"
+                )
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-modal"
+                ) Đăng nhập
+                .row-forgot.d-flex.align-items-center.justify-content-between
+                    //- .desc-forgot Ghi nhớ tôi
+                    a(href="/user/forgot-password" class="desc-forgot") Quên mật khẩu?
+        .row-decorate.d-flex.align-items-center.justify-content-between
+            .line
+            .desc(style="width:100%") Tiếp tục bằng
+            .line
+        .list-social.d-flex.flex-column.align-items-center(style="gap:16px")
+            .link-social.d-flex.align-items-center(style="width:255px;gap:13px") 
+                img(src="/images/social/facebook.svg", alt="facebook")
+                p.desc Continue with Facebook
+            .link-social.d-flex.align-items-center(style="width:255px;gap:13px") 
+                img(src="/images/social/google.svg", alt="google")
+                p.desc Continue with Google
+        .close-modal.close-modal-login.d-flex.align-items-center.justify-content-center
+            img(src="/images/social/close.svg", alt="close")

@@ -1,0 +1,69 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/table-tree.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+
+block main
+  +alert-success("10000")
+  +alert-error("10000")
+  h1(class="mb-4") Danh mục sản phẩm
+  .card.mb-3 
+    .card-header Bộ lọc và tìm kiếm 
+    .card-body 
+        .row 
+          .col-6 
+            +filter-status(filterStatus)
+          .col-6 
+            +search(keyword)
+
+  .card.mb-3
+    .card-header Danh sách
+    .card-body
+      .row
+        .col-8
+        .col-4.text-right
+          if(roleUser.permissions.includes("products-category_create"))
+            a(
+              href=`${prefixAdmin}/products-category/create`
+              class="btn btn-outline-success"
+          ) + Thêm mới
+          else
+            a(
+              href=`${prefixAdmin}/products-category`
+              class="btn btn-outline-success"
+              no-create
+          ) + Thêm mới
+          
+      table(
+        class="table table-hover table-sm"
+      )
+        thead
+          tr
+            th STT
+            th Hình ảnh
+            th Tiêu đề
+            th Vị trí
+            th Trạng thái
+            th Thông số
+            th Thương hiệu
+            th Hành động
+
+        tbody
+          +table-tree(records)
+          form(
+            action=""
+            method="POST"
+            id="form-change-status"
+            path=`${prefixAdmin}/products-category/change-status`
+          )
+          form(
+            action=""
+            method="POST"
+            id="form-delete"
+            path=`${prefixAdmin}/products-category/delete`
+          )
+            
+  script(src="/admin/JS/product-category.js") 

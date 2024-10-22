@@ -1,0 +1,19 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/not-found.pug
+
+block main
+    .order-success
+        .container.my-3
+            .row
+                .col-12.d-flex.flex-column.align-items-center.justify-content-center(style="background:#fff;padding-bottom:24px") 
+                    .icon-success.d-flex.flex-column.align-items-center.justify-content-center 
+                        img(src="/images/order-success.png", alt="alt" style="width:300px;margin:0 auto")
+                        h1.title(style="font-family:Roboto Slab;font-size:28px;font-weight:700;width:400px;text-align:center;line-height:38px") Chúc mừng bạn đã đặt hàng thành công!
+                    div(class="alert alert-success text-center" style="width:750px;margin-top:20px")  Cảm ơn bạn đã đặt hàng! Chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất.
+                    .row(style="min-width:375px")
+                        .col-6
+                            a(class="btn btn-modal btn-review" href=`/checkout/review`) Xem đơn hàng
+                        .col-6
+                            a(class="btn btn-modal" href="/products") Tiếp tục mua sắm
+            

@@ -1,0 +1,42 @@
+.sider 
+    .inner-menu
+        ul
+            li
+                a(href="/admin/dashboard") Tổng quan
+            if(roleUser.permissions.includes("products_view"))
+                li
+                    a(href="/admin/products") Quản lý sản phẩm
+            
+            if(roleUser.permissions.includes("products-category_view"))
+                li
+                    a(href="/admin/products-category") Quản lý danh mục sản phẩm
+            //- if(roleUser.permissions.includes("products-category_view"))
+            li
+                a(href="/admin/blogs-category") Quản lý danh mục bài viết
+            if(roleUser.permissions.includes("blogs_view"))
+                li
+                    a(href="/admin/brands") Quản lý thương hiệu
+            if(roleUser.permissions.includes("blogs_view"))
+                li
+                    a(href="/admin/blogs") Quản lý bài viết
+            if(roleUser.permissions.includes("orders-user_view"))
+                li
+                    a(href="/admin/users/orders") Quản lý đơn hàng 
+            if(roleUser.permissions.includes("accounts-user_view"))
+                li
+                    a(href="/admin/users/accounts") Quản lý tài khoản người dùng
+            if(roleUser.permissions.includes("roles_view"))
+                li
+                    a(href="/admin/roles") Nhóm quyền
+            if(roleUser.permissions.includes("roles_permissions"))
+                li
+                    a(href="/admin/roles/permissions") Phân quyền
+            if(roleUser.permissions.includes("account_view"))
+                li
+                    a(href="/admin/accounts") Tài khoản
+            if(roleUser.permissions.includes("products_view"))
+                //- Sua thanh bin-view
+                li
+                    a(href="/admin/bin-products") Thùng rác
+            li
+                a(href="/admin/setting/general") Cài đặt chung

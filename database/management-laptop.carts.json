@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "670e45ecce0d6a19bae1d768"
+  },
+  "account_id": "670e45ecce0d6a19bae1d766",
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e4601ce0d6a19bae1dc2c"
+  },
+  "account_id": "670e4601ce0d6a19bae1dc2a",
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e461dce0d6a19bae1e0f0"
+  },
+  "account_id": "670e461dce0d6a19bae1e0ee",
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e4636ce0d6a19bae1e5b4"
+  },
+  "account_id": "670e4636ce0d6a19bae1e5b2",
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e4648ce0d6a19bae1ea78"
+  },
+  "account_id": "670e4648ce0d6a19bae1ea76",
+  "products": [
+    {
+      "product_id": "6714cddd6c19ae572325973d",
+      "color": "Trắng",
+      "quantity": 1,
+      "_id": {
+        "$oid": "671638354e1bdba50ec643ae"
+      }
+    }
+  ],
+  "__v": 0
+}]

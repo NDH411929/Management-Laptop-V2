@@ -1,0 +1,189 @@
+[{
+  "_id": {
+    "$oid": "670521765b7bb8f40d05f085"
+  },
+  "cart_id": "6704cd2bc1d67b43ad64368c",
+  "status": "approved",
+  "statusDelivery": "processing",
+  "userInfo": {
+    "fullName": "Nguyễn Đức Huy",
+    "phoneNumber": "0705138837",
+    "address": "Cổ Loa- Đông Anh- Hà Nội",
+    "email": "huyn0634@gmail.com"
+  },
+  "addressDelivery": {
+    "cityAddress": "Đông Anh, Hà Nội",
+    "districAddress": "Đông Anh",
+    "homeNumber": "Xã Cổ Loa"
+  },
+  "userNote": "Thêm ghi chú của bạn",
+  "products": [
+    {
+      "product_id": "67039f8382c79538567fa728",
+      "price": 299,
+      "discountPercentage": 20,
+      "quantity": 1,
+      "_id": {
+        "$oid": "670521765b7bb8f40d05f086"
+      }
+    },
+    {
+      "product_id": "6700b4b79d7ac0a652418cd2",
+      "price": 2999,
+      "discountPercentage": 15,
+      "quantity": 1,
+      "_id": {
+        "$oid": "670521765b7bb8f40d05f087"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-10-08T12:11:34.578Z"
+  },
+  "deleted": "true",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e15c56c360a4cf6fb9f2b"
+  },
+  "cart_id": "67072b745fd11169b22ee942",
+  "status": "approved",
+  "statusDelivery": "delivered",
+  "userInfo": {
+    "fullName": "Nguyễn Đức Huy",
+    "phoneNumber": "0705138837",
+    "address": "Cổ Loa- Đông Anh- Hà Nội",
+    "email": "huyn0634@gmail.com"
+  },
+  "addressDelivery": {
+    "cityAddress": "Đông Anh, Hà Nội",
+    "districAddress": "Đông Anh",
+    "homeNumber": "Xã Cổ Loa"
+  },
+  "userNote": "Thêm ghi chú của bạn",
+  "products": [
+    {
+      "product_id": "6700edc3e2260170a6f3cef8",
+      "price": 2999,
+      "discountPercentage": 15,
+      "quantity": 1,
+      "_id": {
+        "$oid": "670e15c56c360a4cf6fb9f2c"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-10-15T07:12:05.907Z"
+  },
+  "deleted": "true",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e79d8084de6b851e81239"
+  },
+  "cart_id": "670e45ecce0d6a19bae1d768",
+  "status": "initial",
+  "statusDelivery": "processing",
+  "userInfo": {
+    "fullName": "Nguyễn Đức Huy",
+    "phoneNumber": "0705138837",
+    "address": "Cổ Loa- Đông Anh- Hà Nội",
+    "email": "huyn0634@gmail.com"
+  },
+  "addressDelivery": {
+    "cityAddress": "Đông Anh, Hà Nội",
+    "districAddress": "Đông Anh",
+    "homeNumber": "Xã Cổ Loa"
+  },
+  "userNote": "Thêm ghi chú của bạn",
+  "products": [
+    {
+      "product_id": "6700edc3e2260170a6f3cef8",
+      "price": 2999,
+      "discountPercentage": 15,
+      "quantity": 1,
+      "_id": {
+        "$oid": "670e79d8084de6b851e8123a"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-10-15T14:19:04.907Z"
+  },
+  "deleted": "false",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "670e7a26084de6b851e815a8"
+  },
+  "cart_id": "670e45ecce0d6a19bae1d768",
+  "status": "initial",
+  "statusDelivery": "processing",
+  "userInfo": {
+    "fullName": "Nguyễn Đức Huy",
+    "phoneNumber": "0705138837",
+    "address": "Cổ Loa- Đông Anh- Hà Nội",
+    "email": "huyn0634@gmail.com"
+  },
+  "addressDelivery": {
+    "cityAddress": "Đông Anh, Hà Nội",
+    "districAddress": "Đông Anh",
+    "homeNumber": "Xã Cổ Loa"
+  },
+  "userNote": "Thêm ghi chú của bạn",
+  "products": [
+    {
+      "product_id": "6703a37ba784bc498795cfb3",
+      "price": 999,
+      "discountPercentage": 10,
+      "quantity": 1,
+      "_id": {
+        "$oid": "670e7a26084de6b851e815a9"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-10-15T14:20:22.545Z"
+  },
+  "deleted": "false",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6710fe88c6f7b40d8471390e"
+  },
+  "cart_id": "670e4648ce0d6a19bae1ea78",
+  "status": "initial",
+  "statusDelivery": "processing",
+  "userInfo": {
+    "fullName": "Thong",
+    "phoneNumber": "9834989390",
+    "address": "Cao duc",
+    "email": "thong181@gmail.com"
+  },
+  "addressDelivery": {
+    "cityAddress": "H",
+    "districAddress": "hh",
+    "homeNumber": "gggggg"
+  },
+  "userNote": "oke",
+  "products": [
+    {
+      "product_id": "67039f8382c79538567fa728",
+      "price": 299,
+      "discountPercentage": 20,
+      "quantity": 1,
+      "_id": {
+        "$oid": "6710fe88c6f7b40d8471390f"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2024-10-17T12:09:44.810Z"
+  },
+  "deleted": "false",
+  "__v": 0
+}]

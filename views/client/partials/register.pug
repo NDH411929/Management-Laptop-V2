@@ -1,0 +1,119 @@
+//- .modal.modal-register
+//-     .body-modal
+//-         h1(class="text-center title" style="margin-bottom:45px") Đăng ký tài khoản
+//-         form(
+//-             action="/user/register"
+//-             method="POST"
+//-             form-register
+//-         )
+//-             div(class="form-group")
+//-                 input(
+//-                     type="text"
+//-                     class="form-input"
+//-                     id="fullName"
+//-                     name="fullName"
+//-                     placeholder="Họ và tên"
+//-                     required
+//-                     autocomplete="off"
+//-                 )
+//-             div(class="form-group")
+//-                 input(
+//-                     type="email"
+//-                     class="form-input"
+//-                     id="email"
+//-                     name="email"
+//-                     placeholder="Email"
+//-                     required
+//-                     autocomplete="off"
+//-                 )
+//-             div(class="form-group")
+//-                 input(
+//-                     type="password"
+//-                     class="form-input"
+//-                     id="password"
+//-                     name="password"
+//-                     placeholder="Mật khẩu"
+//-                     required
+//-                     autocomplete="off"
+//-                 )
+//-             div(class="form-group")
+//-                 button(
+//-                     type="submit"
+//-                     class="btn btn-modal"
+//-                 ) Đăng ký
+//-         .row-decorate.d-flex.align-items-center.justify-content-between
+//-             .line
+//-             .desc(style="width:100%") Tiếp tục bằng
+//-             .line
+//-         .list-social.d-flex.flex-column.align-items-center(style="gap:16px")
+//-             .link-social.d-flex.align-items-center(style="width:255px;gap:13px") 
+//-                 img(src="/images/social/facebook.svg", alt="facebook")
+//-                 p.desc Continue with Facebook
+//-             .link-social.d-flex.align-items-center(style="width:255px;gap:13px") 
+//-                 img(src="/images/social/google.svg", alt="google")
+//-                 p.desc Continue with Google
+//-         .close-modal.close-modal-register.d-flex.align-items-center.justify-content-center
+//-             img(src="/images/social/close.svg", alt="close")
+
+#modal-register.modal-register.modal.fade
+    .modal-dialog.modal-dialog-centered(role="document")
+        .modal-content
+            .modal-header(style="padding:0;border-bottom:0;margin:15px 0 30px 0").d-flex.justify-content-between.align-items-center
+                h5.modal-title Đăng ký tài khoản
+                button.close-modal.close-modal-register.close(type="button", data-dismiss="modal", aria-label="Close")
+                    img(src="/images/social/close.svg", alt="close")
+            .modal-body(style="padding:0;border-bottom:0")
+                form(
+                    action="/user/register"
+                    method="POST"
+                    form-register
+                )
+                    div(class="form-group")
+                        input(
+                            type="text"
+                            class="form-input"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Họ và tên"
+                            required
+                            autocomplete="off"
+                        )
+                    div(class="form-group")
+                        input(
+                            type="email"
+                            class="form-input"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            required
+                            autocomplete="off"
+                        )
+                    div(class="form-group")
+                        input(
+                            type="password"
+                            class="form-input"
+                            id="password"
+                            name="password"
+                            placeholder="Mật khẩu"
+                            required
+                            autocomplete="off"
+                        )
+                    div(class="form-group")
+                        button(
+                            type="submit"
+                            class="btn btn-modal"
+                        ) Đăng ký
+            .modal-footer(style="padding:0;border-top:0")
+                .row-decorate.d-flex.align-items-center.justify-content-between
+                    .line
+                    .desc(style="width:100%") Tiếp tục bằng
+                    .line
+                .list-social.d-flex.flex-column.align-items-center(style="gap:16px;width:100%")
+                    .link-social.d-flex.align-items-center(style="width:255px;gap:13px") 
+                        img(src="/images/social/facebook.svg", alt="facebook")
+                        p.desc Continue with Facebook
+                    .link-social.d-flex.align-items-center(style="width:255px;gap:13px") 
+                        img(src="/images/social/google.svg", alt="google")
+                        p.desc Continue with Google
+
+        

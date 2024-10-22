@@ -1,0 +1,101 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/not-found.pug
+//- if(userCart.products.length>0)
+block main
+    .cart(style="min-height:calc(100vh - 155px);") 
+        .container.my-3   
+            .row.cart-content.justify-content-between
+                .col-8(style="padding-right:0")
+                    .cart-info(style="background:#fff;padding:24px")
+                        +box-head("GIỎ HÀNG")
+                        table(class="table table-bordered mt-4" table-cart)
+                            thead
+                                tr
+                                    th.title-table Tất cả (#{userCart.products.length} sản phẩm)
+                                    th.title-table Đơn giá
+                                    th.title-table Số lượng
+                                    th.title-table Tổng tiền
+                                    th.title-table Xóa
+                            tbody
+                                each item in userCart.products
+                                    tr(data-record)
+                                        td(style="max-width:250px")
+                                            .d-flex(style="gap:10px")
+                                                img(
+                                                    src=item.detailProduct.thumbnail
+                                                    alt=`${item.detailProduct.title}`
+                                                    width="120px"
+                                                    style="object-fit: contain;"
+                                                )
+                                                .d-flex.flex-column
+                                                    a(href=`/products/detail/${item.detailProduct.slug}` class="desc-table" style="color:#000") #{item.detailProduct.title}
+                                                    //- a(href=`/products/${item.detailProduct.slugCategory}` class="category-table" style="font-size:13px") #{item.detailProduct.titleCategory}
+                                                    if(item.color)
+                                                        span(style="font-family:Manrope;color:#333;font-size:13px") Màu sắc: <b>#{item.color}</b>
+                                        td 
+                                            div.price $#{item.detailProduct.priceNew}
+                                        td
+                                            .d-flex 
+                                                button.decrease.d-flex.justify-content-between.align-items-center
+                                                    img(src="/images/Group 18001.svg", alt="alt")
+                                                input(
+                                                    type="tel"
+                                                    class="input-quantity"
+                                                    name="quantity"
+                                                    value=(item.quantity>item.detailProduct.stock?item.detailProduct.stock:item.quantity)
+                                                    min="1"
+                                                    max=item.detailProduct.stock
+                                                    item-id=item.detailProduct.id
+                                                    color=item.color
+                                                )
+                                                button.increase.d-flex.justify-content-between.align-items-center
+                                                    img(src="/images/Group 18002.svg", alt="alt")
+                                        td
+                                            .price $#{item.detailProduct.totalPriceNew}
+                                        td(style="width:70px")
+                                            if(item.color)
+                                                a(
+                                                    href=`/cart/delete/${item.detailProduct.id}/${item.color}`
+                                                ) 
+                                                    img(src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg", alt="icon-delete")
+                                            else 
+                                                a(
+                                                    href=`/cart/delete/${item.detailProduct.id}`
+                                                ) 
+                                                    img(src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg", alt="icon-delete")
+                                    tr 
+                                        td(style="display:flex;align-items:center;gap:10px") 
+                                            input(type="text" placeholder="Nhập mã giảm giá" class="form-control")
+                                            button(type="submit" class="btn btn-danger" style="background:#e30019") Nhập
+                .col-4
+                    .detail-order(style="background:#fff;padding:24px")
+                        h2(class="title-order") HÓA ĐƠN
+                        .decorate 
+                        .row-info.d-flex.justify-content-between.align-items-center 
+                            p.desc-row-info Giá gốc
+                            p.desc-row-info #{userCart.totalPrice} $
+                        .row-info.d-flex.justify-content-between.align-items-center
+                            p.desc-row-info Giảm giá từ deal
+                            p.desc-row-info.saving #{userCart.saleDeal} $
+                        .row-info.d-flex.justify-content-between.align-items-center
+                            p.desc-row-info Giảm giá từ mã
+                            p.desc-row-info 0 $
+                        .row-info.d-flex.justify-content-between.align-items-center 
+                            p.desc-row-info Phí vận chuyển
+                            p.desc-row-info miễn phí
+                        .row-info.d-flex.justify-content-between.align-items-center 
+                            p.desc-row-info.saving Tiết kiệm
+                            p.desc-row-info.saving #{userCart.saleDeal} $
+                        .decorate
+                        .row-info.d-flex.justify-content-between.align-items-center
+                            p.title-order Tổng tiền
+                            p.title-order #{userCart.totalPriceNew} $
+                        a(href="/checkout" class="btn btn-checkout") THANH TOÁN
+        //- else 
+        //-     +page-not-found("Hiện không có sản phẩm nào trong giỏ hàng","Tiếp tục mua sắm")
+                //- .row 
+                //-     .col-12.d-flex.flex-column.justify-content-center.align-items-center(style="margin-top:-40px")
+                //-         img(src="/images/sorry.png", alt="alt" style="width:300px;")
+                //-         p.desc(style="font-family: Manrope;font-weight:400") 
+                //-         a(class="btn btn-modal" href="/products") 

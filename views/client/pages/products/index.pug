@@ -1,0 +1,52 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/layout-product.pug
+include ../../mixins/not-found.pug
+include ../../mixins/filter-products.pug
+block main
+    .products
+        .container.my-3 
+            if(products.length>0)
+                .section-header
+                    .slide(style="margin-bottom:16px")
+                        a(href="")
+                            img(src="/images/ads/ads-head5.png", alt="alt" style="width:100%")
+                    if(category)
+                        .list-brand
+                            each item in category.listBrand
+                                a(href=`/products/${category.slug}/brand/${item.slug}` data=item.slug class="brand" keyword=keyword)
+                                    img(src=item.thumbnail, alt="alt")
+                .section-product 
+                    //- filter products
+                    if(filterSpec && arrFilter)
+                    +filter-products(filterSpec,arrFilter)
+                    .section-content   
+                        .list-item.d-flex(style="flex-wrap:wrap;padding:8px 4px 0 4px")
+                            each product in products
+                                .item
+                                    .item-box
+                                        .item-image
+                                            .proloop-label--top
+                                            a.aspect-ratio(href=`/products/detail/${product.slug}`, aria-label="Nguồn" )
+                                                picture.d-flex.justify-content-between.align-items-center
+                                                    img(src=product.thumbnail, alt=product.slug class="item-img" style="width:100%;")
+                                        .item-detail
+                                            h3(style="font-size:14px")
+                                                a(href=`/products/detail/${product.slug}` ) #{product.title}
+                                            .proloop-technical
+                                                each tech in product.features_spec
+                                                    if(tech.nameFeaturesSpec.length<=5)
+                                                        span(style="background: #f2f4f7;border: none;color: #667085;border: 1px solid #e0e0e0;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;line-height: 12px;margin-right: 5px;padding: 4px 5px;white-space: nowrap;") #{tech.nameFeaturesSpec} #{tech.valueDefault}
+                                                    else 
+                                                        span(style="background: #f2f4f7;border: none;color: #667085;border: 1px solid #e0e0e0;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;line-height: 12px;margin-right: 5px;padding: 4px 5px;white-space: nowrap;") #{tech.valueDefault}
+                                            .proloop-price
+                                                .proloop-price-old 
+                                                    span #{product.price}$
+                                                .proloop-price-new
+                                                    span #{product.priceNew}$
+                                                    span(class="proloop-label--on-sale") -#{product.discountPercentage}%
+                    .section-view-all
+                        a(href=`/products/`) Xem sản phẩm khác
+            else 
+                +page-not-found("Hiện không tìm thấy sản phẩm nào","Xem thêm sản phẩm")
+    script(src="/JS/product.js")

@@ -1,0 +1,969 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/layout-product.pug
+include ../../mixins/alert.pug
+block main 
+    +alert-success(100000)
+    +alert-error(100000)
+    .home.section-slider(style="padding-top:17px")
+        .container 
+            .home-slider--wrap(style="display:flex")
+                .home-slider--nav(style="margin-right:8px;background-color:#fff;position:relative") 
+                    .sidebar-menu
+                        nav.megamenu-nav 
+                            ul.mega-nav-main(style="padding-left:0;margin-bottom:0")
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        svg.bi.bi-laptop(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5")
+                                        p.mega-name Laptop
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        svg(width="16", height="16", viewBox="0 0 23 16", fill="none", xmlns="http://www.w3.org/2000/svg"  style="margin-right:8px")
+                                            mask(id="path-1-inside-1_5068_8558", fill="white")
+                                                path(d="M3.96432 4C3.41203 4 2.96432 4.44772 2.96432 5V11.5C2.96432 12.0523 3.41203 12.5 3.96432 12.5H15.9643C16.5166 12.5 16.9643 12.0523 16.9643 11.5V4H3.96432ZM3.66432 3H9.96432H16.2643C16.7417 3 17.1995 3.18437 17.5371 3.51256C17.8747 3.84075 18.0643 4.28587 18.0643 4.75V11.75C18.0643 12.2141 17.8747 12.6592 17.5371 12.9874C17.1995 13.3156 16.7417 13.5 16.2643 13.5H3.66432C3.18693 13.5 2.72909 13.3156 2.39153 12.9874C2.05396 12.6592 1.86432 12.2141 1.86432 11.75V4.75C1.86432 4.28587 2.05396 3.84075 2.39153 3.51256C2.72909 3.18437 3.18693 3 3.66432 3Z")
+                                            path(d="M3.96432 4C3.41203 4 2.96432 4.44772 2.96432 5V11.5C2.96432 12.0523 3.41203 12.5 3.96432 12.5H15.9643C16.5166 12.5 16.9643 12.0523 16.9643 11.5V4H3.96432ZM3.66432 3H9.96432H16.2643C16.7417 3 17.1995 3.18437 17.5371 3.51256C17.8747 3.84075 18.0643 4.28587 18.0643 4.75V11.75C18.0643 12.2141 17.8747 12.6592 17.5371 12.9874C17.1995 13.3156 16.7417 13.5 16.2643 13.5H3.66432C3.18693 13.5 2.72909 13.3156 2.39153 12.9874C2.05396 12.6592 1.86432 12.2141 1.86432 11.75V4.75C1.86432 4.28587 2.05396 3.84075 2.39153 3.51256C2.72909 3.18437 3.18693 3 3.66432 3Z", fill="currentcolor")
+                                            path(d="M0.964294 15L18.9643 15", stroke="currentcolor", stroke-linecap="round")
+                                            path(d="M10.9754 1.87868C11.5771 1.31607 12.3931 1 13.244 1H17.8274C18.2487 1 18.6659 1.0776 19.0551 1.22836C19.4444 1.37913 19.7981 1.6001 20.096 1.87868C20.3939 2.15726 20.6303 2.48797 20.7915 2.85195C20.9527 3.21593 21.0357 3.60603 21.0357 4C21.0357 4.39397 20.9527 4.78407 20.7915 5.14805C20.6303 5.51203 20.3939 5.84274 20.096 6.12132C19.7981 6.3999 19.4444 6.62087 19.0551 6.77164C18.6659 6.9224 18.2487 7 17.8274 7H13.244C12.3931 7 11.5771 6.68393 10.9754 6.12132C10.3737 5.55871 10.0357 4.79565 10.0357 4C10.0357 3.20435 10.3737 2.44129 10.9754 1.87868Z", fill="white", stroke="white", stroke-width="2")
+                                            path(d="M10.9754 1.87868C11.5771 1.31607 12.3931 1 13.244 1H17.8274C18.2487 1 18.6659 1.0776 19.0551 1.22836C19.4444 1.37913 19.7981 1.6001 20.096 1.87868C20.3939 2.15726 20.6303 2.48797 20.7915 2.85195C20.9527 3.21593 21.0357 3.60603 21.0357 4C21.0357 4.39397 20.9527 4.78407 20.7915 5.14805C20.6303 5.51203 20.3939 5.84274 20.096 6.12132C19.7981 6.3999 19.4444 6.62087 19.0551 6.77164C18.6659 6.9224 18.2487 7 17.8274 7H13.244C12.3931 7 11.5771 6.68393 10.9754 6.12132C10.3737 5.55871 10.0357 4.79565 10.0357 4C10.0357 3.20435 10.3737 2.44129 10.9754 1.87868Z", stroke="currentcolor")
+                                            path(d="M17.625 3.79696C17.5852 3.75567 17.5379 3.72292 17.486 3.70056C17.434 3.67821 17.3782 3.66669 17.322 3.66667C17.2657 3.66665 17.2099 3.67813 17.1579 3.70044C17.1059 3.72276 17.0587 3.75548 17.0189 3.79674C16.9791 3.83799 16.9475 3.88698 16.9259 3.94089C16.9044 3.9948 16.8933 4.05259 16.8932 4.11096C16.8932 4.16932 16.9043 4.22712 16.9258 4.28105C16.9473 4.33498 16.9789 4.38399 17.0187 4.42527C17.099 4.50865 17.208 4.55552 17.3217 4.55556C17.4353 4.5556 17.5443 4.50882 17.6247 4.4255C17.7051 4.34218 17.7503 4.22915 17.7504 4.11127C17.7504 3.9934 17.7053 3.88034 17.625 3.79696Z", fill="currentcolor")
+                                            path(d="M17.871 2.91345C17.9105 2.87101 17.9578 2.83715 18.0101 2.81385C18.0624 2.79056 18.1186 2.7783 18.1755 2.77779C18.2324 2.77727 18.2888 2.78852 18.3415 2.81087C18.3942 2.83321 18.442 2.86622 18.4823 2.90795C18.5225 2.94968 18.5543 2.9993 18.5759 3.05392C18.5974 3.10854 18.6083 3.16706 18.6078 3.22608C18.6073 3.28509 18.5955 3.34341 18.573 3.39763C18.5505 3.45186 18.5179 3.5009 18.477 3.5419C18.3961 3.62286 18.2879 3.66766 18.1755 3.66664C18.0631 3.66563 17.9556 3.61889 17.8762 3.53648C17.7967 3.45408 17.7516 3.34261 17.7507 3.22608C17.7497 3.10955 17.7929 2.99728 17.871 2.91345Z", fill="currentcolor")
+                                            path(d="M19.343 3.80236C19.3034 3.75991 19.2561 3.72605 19.2039 3.70275C19.1516 3.67946 19.0953 3.6672 19.0384 3.66669C18.9815 3.66618 18.9251 3.67742 18.8724 3.69977C18.8197 3.72212 18.7719 3.75512 18.7317 3.79685C18.6914 3.83858 18.6596 3.8882 18.638 3.94282C18.6165 3.99744 18.6056 4.05597 18.6061 4.11498C18.6066 4.17399 18.6185 4.23231 18.6409 4.28654C18.6634 4.34076 18.696 4.3898 18.737 4.4308C18.8178 4.51176 18.9261 4.55656 19.0384 4.55554C19.1508 4.55453 19.2583 4.50779 19.3377 4.42539C19.4172 4.34298 19.4623 4.23151 19.4633 4.11498C19.4642 3.99845 19.421 3.88618 19.343 3.80236Z", fill="currentcolor")
+                                            path(d="M17.8763 4.68562C17.9161 4.64436 17.9634 4.61164 18.0154 4.58933C18.0674 4.56701 18.1231 4.55554 18.1794 4.55556C18.2357 4.55558 18.2914 4.56709 18.3434 4.58945C18.3954 4.6118 18.4426 4.64456 18.4824 4.68584C18.5222 4.72713 18.5537 4.77614 18.5752 4.83007C18.5968 4.884 18.6078 4.94179 18.6078 5.00016C18.6078 5.05852 18.5967 5.11631 18.5751 5.17023C18.5536 5.22414 18.522 5.27313 18.4822 5.31438C18.4018 5.3977 18.2927 5.44449 18.1791 5.44445C18.0654 5.4444 17.9564 5.39754 17.8761 5.31416C17.7957 5.23078 17.7506 5.11772 17.7507 4.99984C17.7507 4.88197 17.7959 4.76894 17.8763 4.68562Z", fill="currentcolor")
+                                            path(d="M12.6058 4.55555H11.7487V3.66666H12.6058V2.77777H13.463V3.66666H14.3201V4.55555H13.463V5.44444H12.6058V4.55555Z", fill="currentcolor")
+                                        p.mega-name Laptop Gamming
+                                        span.mega-icon-arrow
+                                            i(class="bi bi-chevron-right")
+                                    .sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop") Thương hiệu
+                                                a.filter(href="/collections/laptop-gaming-acer") ACER / PREDATOR
+                                                a.filter(href="/collections/laptop-gaming-asus") ASUS / ROG
+                                                a.filter(href="/collections/laptop-msi-gaming") MSI
+                                                a.filter(href="/collections/laptop-gaming-lenovo") LENOVO
+                                                a.filter(href="/collections/laptop-gaming-dell") DELL
+                                                a.filter(href="/collections/laptop-gaming-gigabyte") GIGABYTE / AORUS
+                                                a.filter(href="/collections/laptop-gaming-hp") HP
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop") Giá bán
+                                                a.filter(href="/collections/laptop-gaming-gia-duoi-20-trieu") Dưới 20 triệu
+                                                a.filter(href="/collections/laptop-gaming-gia-tu-20-den-25-trieu") Từ 20 đến 25 triệu
+                                                a.filter(href="/collections/laptop-gaming-gia-tu-25-den-35-trieu") Từ 25 đến 30 triệu
+                                                a.filter(href="/collections/laptop-gaming-tren-35-trieu") Trên 30 triệu
+                                                a.filter(href="/collections/laptop-gaming-cao-cap-gia-soc") Gaming cao cấp
+                                                a.filter(href="/pages/laptop-nvidia-rtx-40-series") Gaming RTX 40 Series
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop-gaming-acer") ACER | PREDATOR
+                                                a.filter(href="/collections/laptop-acer-nitro-series") Nitro Series
+                                                a.filter(href="/collections/laptop-acer-aspire-7") Aspire Series
+                                                a.filter(href="/collections/laptop-acer-predator-series") Predator Series
+                                                a.filter(href="/collections/acer-rtx-40-series") ACER RTX 40 Series
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop-gaming-asus") ASUS | ROG Gaming
+                                                a.filter(href="/collections/laptop-asus-rog-series") ROG Series
+                                                a.filter(href="/collections/laptop-asus-tuf-gaming-series") TUF Series
+                                                a.filter(href="/collections/laptop-asus-gaming-zephyrus-series") Zephyrus Series
+                                                a.filter(href="/collections/laptop-gaming-asus-rog-strix-g") ROG Strix G
+                                                a.filter(href="/products/laptop-gaming-asus-rog-flow-z13-gz301zc-ld110w") ROG Flow series
+                                                a.filter(href="/collections/tuf-rtx-40-series") TUF RTX 40 Series
+                                                a.filter(href="/collections/rog-rtx-4000-series") ROG RTX 40 Series
+                                                a.filter(href="/products/may-choi-game-asus-rog-ally") ROG Ally
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop-msi-gaming") MSI Gaming
+                                                a.filter(href="/collections/laptop-msi-gt-series") Titan GT Series
+                                                a.filter(href="/collections/laptop-msi-gs-series") Stealth GS Series
+                                                a.filter(href="/collections/laptop-msi-ge-series") Raider GE Series
+                                                a.filter(href="/collections/laptop-msi-gp-series") Vector GP Series
+                                                a.filter(href="/collections/laptop-msi-gl-series") Crosshair / Pulse GL Series
+                                                a.filter(href="/collections/laptop-msi-sword-katana-series") Sword / Katana GF66 Series
+                                                //- a.filter(href="/collections/laptop-msi-gf-series") Cyborg / Thin GF Series
+                                                //- a.filter(href="/collections/laptop-msi-amd-series") Delta / Alpha / Bravo Series
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop-gaming-lenovo") LENOVO Gaming
+                                                a.filter(href="/collections/laptop-lenovo-legion") Legion Gaming
+                                                a.filter(href="/collections/laptop-ideapad-gaming") Ideapad Gaming
+                                                a.filter(href="/collections/laptop-gaming-lenovo-rtx-40-series") Lenovo RTX 40 Series
+                                                a.filter(href="/collections/laptop-gaming-lenovo-loq") LOQ series
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop-gaming-dell") DELL Gaming
+                                                a.filter(href="/collections/dell-gaming-g-series") Dell Gaming G series
+                                                a.filter(href="/collections/laptop-alienware") Alienware series
+                                                a.filter(href="/collections/laptop-dell-rtx-40-series") Dell RTX 40 Series
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop-gaming-gigabyte") GIGABYTE Gaming
+                                                a.filter(href="/collections/laptop-gigabyte-g-series") GIGABYTE G5 | G7
+                                                a.filter(href="/collections/laptop-gigabyte-aorus-series") GIGABYTE AORUS
+                                                a.filter(href="/collections/gigabyte-aero") GIGABYTE AERO
+                                                a.filter(href="/collections/laptop-gigabyte-rtx-40-series") GIGABYTE RTX 40 Series
+                                            .submegamenu-item
+                                                a.name(href="/collections/laptop") Card đồ hoạ
+                                                a.filter(href="/collections/laptop-nvidia-gtx-1650") GTX 1650
+                                                a.filter(href="/collections/laptop-nvidia-rtx-3050-3050ti") RTX 3050 / 3050Ti
+                                                a.filter(href="/collections/laptop-nvidia-rtx-3060") RTX 3060
+                                                a.filter(href="/collections/laptop-nvidia-rtx-cao-cap") RTX 3070 / 3080
+                                                a.filter(href="/collections/laptop-amd-radeon-rx") AMD Radeon RX
+                                                //- a.filter(href="/collections/laptop-rtx-40-series") RTX 40 Series
+                                            .submegamenu-item
+                                                a.name(href="/collections/linh-kien-phu-kien-laptop/") Linh - Phụ kiện Laptop
+                                                a.filter(href="/collections/ram-laptop") Ram laptop
+                                                a.filter(href="/collections/ssd-laptop") SSD laptop
+                                                a.filter(href="/collections/o-cung-di-dong-hdd-box") Ổ cứng di động
+
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-pc-display" )
+                                        svg.bi.bi-pc-display(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0M9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5M1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2z")
+                                        p.mega-name PC GVN
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content3
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-cpu" style="margin-right:8px")
+                                        svg.bi.bi-cpu(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0m-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z")
+
+                                        p.mega-name Main, CPU, VGA
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content4
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        svg.bi.bi-pc-display(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0M9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5M1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2z")
+                                        p.mega-name Case, Nguồn, Tản
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content5
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-laptop" style="margin-right:8px")
+                                        svg.bi.bi-memory(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M1 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.586a1 1 0 0 0 .707-.293l.353-.353a.5.5 0 0 1 .708 0l.353.353a1 1 0 0 0 .707.293H15a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm.5 1h3a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5m5 0h3a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5m4.5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5zM2 10v2H1v-2zm2 0v2H3v-2zm2 0v2H5v-2zm3 0v2H8v-2zm2 0v2h-1v-2zm2 0v2h-1v-2zm2 0v2h-1v-2z")
+
+                                        p.mega-name Ổ cứng, RAM, Thẻ nhớ
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content6
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-speaker" style="margin-right:8px")
+                                        svg.bi.bi-speaker(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z")
+                                            path(d="M8 4.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5M8 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-3.5 1.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0")
+
+                                        p.mega-name Loa, Micro
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content7
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-display" style="margin-right:8px")
+                                        svg.bi.bi-display(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4q0 1 .25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75Q6 13 6 12H2s-2 0-2-2zm1.398-.855a.76.76 0 0 0-.254.302A1.5 1.5 0 0 0 1 4.01V10c0 .325.078.502.145.602q.105.156.302.254a1.5 1.5 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.76.76 0 0 0 .254-.302 1.5 1.5 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.76.76 0 0 0-.302-.254A1.5 1.5 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145")
+
+                                        p.mega-name Màn hình
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content8
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-keyboard" style="margin-right:8px")
+                                        svg.bi.bi-keyboard(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z")
+                                            path(d="M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25z")
+
+                                        p.mega-name Bàn phím
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content9
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-laptop" style="margin-right:8px")
+                                        svg.bi.bi-mouse(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3m4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5")
+
+                                        p.mega-name Chuột + Lót chuột
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content10
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-laptop" style="margin-right:8px")
+                                        svg.bi.bi-headphones(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M8 3a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a6 6 0 1 1 12 0v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1V8a5 5 0 0 0-5-5")
+
+                                        p.mega-name Tai nghe
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content11
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        svg(width="16", height="18", viewBox="0 0 16 21", fill="none", xmlns="http://www.w3.org/2000/svg" style="margin-right:8px")
+                                            path(d="M3.42375 13.6057H12.5762", stroke="currentcolor")
+                                            path(d="M3.4238 10.5999V14.6879C3.4238 15.2402 3.87151 15.6879 4.4238 15.6879H11.5763C12.1286 15.6879 12.5763 15.2402 12.5763 14.6879V10.6C12.5763 9.85202 12.3071 9.12907 11.8179 8.56331C11.706 8.43393 11.6913 8.24664 11.7753 8.09763C12.0408 7.62651 12.5763 6.57918 12.5763 5.79604C12.5763 5.02711 11.5738 3.90031 11.0494 3.36352C10.8544 3.16391 10.7346 2.89476 10.637 2.63335C10.545 2.38712 10.3694 2.04387 10.034 1.631C9.32994 0.76449 6.3573 0.815216 5.80972 1.63104C5.544 2.02692 5.40722 2.37444 5.33682 2.62732C5.26197 2.89614 5.14568 3.16391 4.95069 3.36352C4.42631 3.90031 3.4238 5.02711 3.4238 5.79604C3.4238 6.57918 3.95929 7.62651 4.22477 8.09764C4.30873 8.24664 4.29406 8.43393 4.18219 8.56331C3.693 9.12907 3.4238 9.85201 3.4238 10.5999Z", stroke="currentcolor")
+                                            path(d="M12.6666 14.6291H13.7406C14.2929 14.6291 14.7406 14.1814 14.7406 13.6291V11.4437", stroke="currentcolor")
+                                            path(d="M3.33347 14.6291H2.25942C1.70713 14.6291 1.25942 14.1814 1.25942 13.6291V11.4437", stroke="currentcolor")
+                                            path(d="M15.7777 11.4437H13.7036", stroke="currentcolor")
+                                            path(d="M2.29638 11.4437H0.222336", stroke="currentcolor")
+                                            path(d="M8.00002 15.6906V18.876", stroke="currentcolor")
+                                            rect(x="3.31494", y="18.3146", width="2.11107", height="2.18544", rx="1.05554", stroke="currentcolor")
+                                            rect(x="10.5741", y="18.3146", width="2.11107", height="2.18544", rx="1.05554", stroke="currentcolor")
+                                            path(d="M4.37036 18.3452H11.6295", stroke="currentcolor")
+
+                                        p.mega-name Ghế + Bàn
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content12
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        //- i(class="bi bi-laptop" style="margin-right:8px")
+                                        svg.bi.bi-controller(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1z")
+                                            path(d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729q.211.136.373.297c.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466s.34 1.78.364 2.606c.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527s-2.496.723-3.224 1.527c-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.3 2.3 0 0 1 .433-.335l-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a14 14 0 0 0-.748 2.295 12.4 12.4 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.4 12.4 0 0 0-.339-2.406 14 14 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27s-2.063.091-2.913.27")
+
+                                        p.mega-name Phụ kiện
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content13
+                                li.mega-item
+                                    a.mega-link(href="")
+                                        svg.bi.bi-gift(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="currentColor", viewBox="0 0 16 16" style="margin-right:8px")
+                                            path(d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zM1 4v2h6V4zm8 0v2h6V4zm5 3H9v8h4.5a.5.5 0 0 0 .5-.5zm-7 8V7H2v7.5a.5.5 0 0 0 .5.5z")
+                                        p.mega-name Giải đáp
+                                        span.mega-icon-arrow 
+                                            i(class="bi bi-chevron-right")
+                                    //- div.sub-megamenu
+                                    div.sub-megamenu
+                                        .sub-megamenu-content
+                                            .submegamenu-item
+                                                a.name Thương hiệu
+                                                a.filter ASUS
+                                                a.filter ACER
+                                                a.filter MSI
+                                                a.filter LENOVO
+                                                a.filter DELL
+                                                a.filter HP - Pavilion
+                                                a.filter LG - Gram
+                                            .submegamenu-item
+                                                a.name Giá bán
+                                                a.filter Dưới 15 triệu
+                                                a.filter Từ 15 đên 20 triệu
+                                                a.filter Trên 20 triệu
+                                            .submegamenu-item
+                                                a.name CPU Intel AMD
+                                                a.filter Intel Core i3
+                                                a.filter Intel Core i5
+                                                a.filter Intel Core i7
+                                                a.filter AMD Ryzen
+                                            .submegamenu-item
+                                                a.name Laptop ACER
+                                                a.filter Aspire Series
+                                                a.filter Swift Series
+                                            .submegamenu-item
+                                                a.name Laptop MSI
+                                                a.filter Modern Series
+                                                a.filter Prestige Series
+                                                a.filter Summit Series
+                                            .submegamenu-item
+                                                a.name Laptop LENOVO
+                                                a.filter ThinkBook Series
+                                                a.filter IdeaPad Series
+                                                a.filter IdeaPad Pro Series
+                                                a.filter ThinkPad Series
+                                                a.filter Yoga Series
+                                            .submegamenu-item
+                                                a.name Laptop ASUS
+                                                a.filter ASUS OLED Series
+                                                a.filter ASUS Vivobook Series
+                                                a.filter ASUS Zenbook Series
+                                                a.filter ProArt StudioBook Series
+                                    //-     .sub-megamenu-content sub-megamenu-content13
+                .home-slider--banner
+                    .home-slider-row(style="display:flex")
+                        .home-slider-coll.coll-left
+                            .home-banner-top
+                                #carouselExampleIndicators.carousel.slide(data-ride="carousel" style="width:600px")
+                                    ol.carousel-indicators(style="margin-bottom:0")
+                                        li.active(data-target="#carouselExampleIndicators", data-slide-to="0")
+                                        li(data-target="#carouselExampleIndicators", data-slide-to="1")
+                                        li(data-target="#carouselExampleIndicators", data-slide-to="2")
+                                        li(data-target="#carouselExampleIndicators", data-slide-to="3")
+                                        li(data-target="#carouselExampleIndicators", data-slide-to="4")
+                                    .carousel-inner
+                                        .carousel-item.active
+                                            img.d-block.w-100(src="/images/carousel/img4.png", alt="" style="height:290px;object-fit:cover")
+                                        .carousel-item
+                                            img.d-block.w-100(src="/images/carousel/img2.png", alt="" style="height:290px;object-fit:cover")
+                                        .carousel-item
+                                            img.d-block.w-100(src="/images/carousel/img5.png", alt="" style="height:290px;object-fit:cover")
+                                        .carousel-item
+                                            img.d-block.w-100(src="/images/carousel/img3.png", alt="" style="height:290px;object-fit:cover")
+                                        .carousel-item
+                                            img.d-block.w-100(src="/images/carousel/img1.png", alt="" style="height:290px;object-fit:cover")
+                                    button.carousel-control-prev(type="button", data-target="#carouselExampleIndicators", data-slide="prev" style="width:7%")
+                                        span.carousel-control-prev-icon(aria-hidden="true")
+                                        span.sr-only Previous
+                                    button.carousel-control-next(type="button", data-target="#carouselExampleIndicators", data-slide="next" style="width:7%")
+                                        span.carousel-control-next-icon(aria-hidden="true")
+                                        span.sr-only Next
+                            .home-banner-bottom(style="display:flex;")
+                                a.ads-link(href="#!")
+                                    img.ads-img(src="/images/ads/ads5.png", alt="" style="width:100%") 
+                                a.ads-link(href="#!")
+                                    img.ads-img(src="/images/ads/ads4.png", alt="" style="width:100%")
+                        .home-slider-coll.coll-right(style="display:flex;flex-direction:column;height:inherit;justify-content:space-between")
+                            a.ads-link(href="#!")
+                                img.ads-img(src="/images/ads/ads1.png", alt="" style="width:100%") 
+                            a.ads-link(href="#!")
+                                img.ads-img(src="/images/ads/ads2.png", alt="" style="width:100%")
+                            a.ads-link(href="#!" style="display:inline-block;height:100%")
+                                img.ads-img(src="/images/ads/ads3.png", alt="" style="width:100%;height:100%")
+    .home.section-subbanners(style="padding-top:17px")
+        .container
+            .row(style="display:flex")
+                .row-item.col-8
+                    a.ads-link(href="#!")
+                        img.ads-img(src="/images/ads/ads-head.png", alt="" style="width:100%;border-radius:4px")
+                .row-item.col-4.d-flex.flex-column(style="justify-content:space-between")
+                    a.ads-link(href="#!" style="display:inline-block")
+                        img.ads-img(src="/images/ads/ads-head2.png", alt="" style="width:100%;border-radius:4px")
+                    a.ads-link(href="#!" style="display:inline-block")
+                        img.ads-img(src="/images/ads/ads-head3.png", alt="" style="width:100%;border-radius:4px")
+    .home.products-category
+        .container.my-3
+            .section-category
+                .row-top
+                    a(href="/products").title-heading.inner-title Danh mục sản phẩm
+                .row-bottom 
+                    .list-icon
+                        each item in productCategory
+                            .item-icon
+                                .item-box
+                                    a.aspect-ratio(href=`/products/${item.slug}`, aria-label="Nguồn")
+                                        img(src=item.thumbnail, alt=item.slug class="item-img")
+                                .item-title
+                                    h3
+                                        a(href=`/products/${item.slug}`) #{item.title}
+    .home.products   
+        each category in getProductFromCategory
+            .container.my-3 
+                .section-product 
+                    .section-heading.d-flex.align-items-center.justify-content-between
+                        .box-left
+                            .box-header
+                                a(href=`/products/${category.slug}`).title-heading.inner-title #{category.title} bán chạy
+                            .box-subHeader
+                                h3.sub-title
+                                    svg(viewBox="0 0 22 16", fill="none", xmlns="http://www.w3.org/2000/svg" width="22px" height="14px" style="margin-right:9px")
+                                        path(d="M18.5 4H16V2C16 0.9 15.1 0 14 0H2C0.9 0 0 0.9 0 2V11C0 12.1 0.9 13 2 13C2 14.66 3.34 16 5 16C6.66 16 8 14.66 8 13H14C14 14.66 15.34 16 17 16C18.66 16 20 14.66 20 13H21C21.55 13 22 12.55 22 12V8.67C22 8.24 21.86 7.82 21.6 7.47L19.3 4.4C19.11 4.15 18.81 4 18.5 4ZM5 14C4.45 14 4 13.55 4 13C4 12.45 4.45 12 5 12C5.55 12 6 12.45 6 13C6 13.55 5.55 14 5 14ZM18.5 5.5L20.46 8H16V5.5H18.5ZM17 14C16.45 14 16 13.55 16 13C16 12.45 16.45 12 17 12C17.55 12 18 12.45 18 13C18 13.55 17.55 14 17 14Z", fill="#FF3C53")
+                                    span Miễn phí giao hàng
+                        .box-right 
+                            .box-cate 
+                                ul.cate-list.d-flex(style="margin-bottom:0;padding-left:0")
+                                    each i in category.brandOptions
+                                        li
+                                            a(href=`/products/${category.slug}/brand/${i.slug}`) #{i.name}
+                    .section-content   
+                        .list-item.d-flex(style="flex-wrap:wrap;padding:8px 4px 0 4px")
+                            if(category.products.length>0)
+                                each product in category.products
+                                    .item
+                                        .item-box
+                                            .item-image
+                                                .proloop-label--top
+                                                a.aspect-ratio(href=`/products/detail/${product.slug}`, aria-label="Nguồn" )
+                                                    picture.d-flex.justify-content-between.align-items-center
+                                                        img(src=product.thumbnail, alt=product.slug class="item-img" style="width:100%;")
+                                            .item-detail
+                                                h3(style="font-size:14px")
+                                                    a(href=`/products/detail/${product.slug}` ) #{product.title}
+                                                .proloop-technical
+                                                    each tech in product.features_spec
+                                                        if(tech.nameFeaturesSpec.length<=5)
+                                                            span(style="background: #f2f4f7;border: none;color: #667085;border: 1px solid #e0e0e0;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;line-height: 12px;margin-right: 5px;padding: 4px 5px;white-space: nowrap;") #{tech.nameFeaturesSpec} #{tech.valueDefault}
+                                                        else 
+                                                            span(style="background: #f2f4f7;border: none;color: #667085;border: 1px solid #e0e0e0;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;line-height: 12px;margin-right: 5px;padding: 4px 5px;white-space: nowrap;") #{tech.valueDefault}
+                                                .proloop-price
+                                                    .proloop-price-old 
+                                                        span #{product.price}$
+                                                    .proloop-price-new
+                                                        span #{product.priceNew}$
+                                                        span(class="proloop-label--on-sale") -#{product.discountPercentage}%
+                    .section-view-all
+                        a(href=`/products/${category.slug}`) Xem tất cả 
+                       
+    .home-blogs
+        .container.my-3 
+            .section-blog 
+                .section-heading
+                    a(href="/blogs/${slug-blog-category}" class="sub-title") Tin công nghệ
+                    a(href="/blogs" class="view-all-blogs") Xem tất cả
+                .section-content.d-flex.justify-content-between
+                    each item in blogs 
+                        a.aspect-ratio(href=`/blogs/detail/${item.slug}`, aria-label="Nguồn")
+                            img(src=item.thumbnail, alt=item.slug class="item-img")
+                            .item-detail(style="padding:10px")
+                                div.info-blog #{item.title}
+                                .action-view.d-flex
+                                    p.desc Xem chi tiết
+                                    svg.bi.bi-chevron-double-right(xmlns="http://www.w3.org/2000/svg", width="14", height="10", viewBox="0 0 16 16" style="margin-top:1px")
+                                        path(fill-rule="evenodd", d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708")
+                                        path(fill-rule="evenodd", d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708")
+
+    //- .row
+    //-     .col-12 
+    //-         +box-head(title)
+    //- div(class="row" style="justify-content:space-between;margin-top:10px")
+    //-     .col-2
+    //-         div Danh mục
+    //-             each item in productCategory 
+    //-                 div
+    //-                     a(href=`/products/${item.slug}`) #{item.title}
+    //-     .col-10
+    //-         div Sản phẩm nổi bật
+    //-         +grid-product(products)
+    script(src="/JS/home.js") 

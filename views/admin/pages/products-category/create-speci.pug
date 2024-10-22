@@ -1,0 +1,132 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+    if(roleUser.permissions.includes("products-category_create"))
+        +alert-success("10000")
+        +alert-error("10000")
+        h3(class="mb-4") Bảng thông số nổi bật
+        form(
+            action=`${prefixAdmin}/products-category/specifications/features/create/${data.id}`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="nameFeaturesSpec") Tên thông số
+                input(
+                    type="text"
+                    class="form-control"
+                    id="nameFeaturesSpec"
+                    name="nameFeaturesSpec"
+                    required
+                )
+            div(class="form-group")
+                label(for="valueDefault") Mô tả
+                input(
+                    type="text"
+                    class="form-control"
+                    id="valueDefault"
+                    name="valueDefault"
+                )
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Tạo mới
+        table(
+            class="table table-bordered table-specifications"
+        )
+            thead
+                tr
+                    th STT
+                    th Tên thông số
+                    th Mô tả ngắn
+                    th Action
+            tbody
+                each item,index in data.features_spec
+                    tr 
+                        td(style="background-color: #f7f7f7 !important;border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 20px;") #{index+1}
+                        td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 350px;") #{item.nameFeaturesSpec}
+                        td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;") #{item.valueDefault}
+                        td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;") 
+                            a(href=`${prefixAdmin}/products-category/specifications/features/edit/${data.id}/${item.id}`) Edit
+                            a(
+                                class="ml-3"
+                                id="delete-feature-spec" 
+                                button-delete-specification 
+                                data-id=data.id 
+                                value=item.id 
+                                style="cursor:pointer"
+                            ) Delete
+        h1(class="mb-4") Thêm mới thông số kỹ thuật
+        form(
+            action=`${prefixAdmin}/products-category/create/specification/${data.id}`
+            id="form-create-product-category"
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="specifications") Tên thông số
+                input(
+                    type="text"
+                    class="form-control"
+                    id="specifications"
+                    name="nameSpec"
+                    required
+                )
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Tạo mới
+        table(
+                class="table table-hover table-sm"
+                checkbox-multi
+            )
+                thead 
+                    tr
+                        th STT
+                        th Tiêu đề
+                        th Hành động
+                tbody 
+                    each item, index in data.specifications 
+                        tr
+                            td #{index+1}
+                            td #{item.nameSpec}
+                            td  
+                                if(roleUser.permissions.includes("products-category_edit"))
+                                    a(
+                                        href=`${prefixAdmin}/products-category/specifications/edit/${data.id}/${item.id}`
+                                        class="btn btn-warning btn-sm ml-1"
+                                    ) Sửa 
+                                else 
+                                    a(
+                                        href=`${prefixAdmin}/products/`
+                                        class="btn btn-warning btn-sm ml-1"
+                                        no-edit
+                                    ) Sửa
+                                if(roleUser.permissions.includes("products-category_delete"))
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        data-id=data.id 
+                                        value=item.id
+                                        button-delete-specification
+                                        id="delete-spec" 
+                                    ) Xóa 
+                                else 
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        no-delete
+                                    ) Xóa
+        form(action=""
+            method="POST"
+            id="form-delete-spec"
+            form-delete
+            path=`${prefixAdmin}/products-category/delete-specification`   
+        ) 
+        form(action=""
+            method="POST"
+            id="form-delete-feature-spec"
+            form-delete
+            path=`${prefixAdmin}/products-category/specifications/features/delete`
+        ) 
+        script(src="/admin/JS/product-category.js") 

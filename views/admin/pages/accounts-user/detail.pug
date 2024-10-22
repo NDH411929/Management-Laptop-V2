@@ -1,0 +1,86 @@
+extends ../../layouts/default.pug
+
+block main
+    if (accountUser.avatar)
+        div(class="mb-4")
+        img(
+            src=accountUser.avatar
+            style="width: 100px"
+            class="mb-4"
+        )
+    if (accountUser.fullName)
+        div(class="mb-4") Họ tên: <b>#{accountUser.fullName}</b>
+
+    if (accountUser.email)
+        div(class="mb-4") Email: <b>#{accountUser.email}</b>
+    
+    if (accountUser.countOrders==0)
+        div(class="mb-4") Số đơn hàng đã đặt: <b>0</b>
+    else if (accountUser.countOrders)
+        div(class="mb-4") Số đơn hàng đã đặt: <b>#{accountUser.countOrders}</b>
+
+    div(class="mb-4") Ngày tạo tài khoản: <b>dd/mm/yyyy</b>
+
+    div(class="mb-4") Ngày cập nhật thông tin: <b>dd/mm/yyyy</b>
+
+    if (accountUser.status)
+        div(class="mb-4")
+        span Trạng thái: 
+        if (accountUser.status === "active")
+            span(class="badge badge-success" class="mb-4") Hoạt động
+        else
+            span(class="badge badge-danger" class="mb-4") Dừng hoạt động
+    
+    div(class="mb-4") Đơn đặt hàng gần nhất 
+
+    .row
+        .col-12
+            h4(class="mb-2") Giỏ hàng của người dùng
+            if(cartUser.products.length > 0)
+                table(class="table table-bordered")
+                    thead
+                        tr
+                            th STT
+                            th Ảnh
+                            th Tên
+                            th Nổi bật
+                            th Giá gốc
+                            th Giá mới
+                            th Số lượng
+                            th Số lượng còn lại
+                            //- th Tổng tiền
+                    tbody
+                        each item, index in cartUser.products
+                            tr
+                                td #{index + 1}
+                                td
+                                    img(
+                                        src=item.thumbnail
+                                        alt=item.title
+                                        width="80px"
+                                    )
+                                td #{item.title}
+                                td
+                                    if(item.features=="true")
+                                        a.badge.badge-success Có
+                                    if(item.features=="false")
+                                        a.badge.badge-danger Không
+                                td #{item.price}$
+                                td #{item.priceNew}$
+                                td #{item.quantity}
+                                td #{item.stock}
+                                //- td #{item.totalPrice}$
+            else 
+                div Hiện tại không có sản phẩm nào trong giỏ hàng
+    
+
+    //- if (accountUser.role_id)
+    //-     div(class="mb-4") Mô tả: !{accountUser.roleDesc}
+    //- if(record.createdBy.createdAt && record.fullNameCreated)
+    //-     div(class="mb-4") Người tạo: #{record.fullNameCreated}
+    //-     div(class="mb-4") Thời gian: #{moment(record.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+    //- -var length=record.updatedBy.length
+    //- if(length>0)
+    //-     div(class="mb-4") <b>Cập nhật lần cuối</b>
+    //-     div(class="mb-4") Người cập nhật: #{record.fullNameUpdated}
+    //-     div(class="mb-4") Thời gian: #{moment(record.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}

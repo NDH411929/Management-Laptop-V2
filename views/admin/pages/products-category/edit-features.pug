@@ -1,0 +1,38 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main 
+    +alert-success("10000")
+    +alert-error("10000")
+    if(roleUser.permissions.includes("products-category_edit"))
+        h1(class="title mb-3") Chỉnh sửa thông số danh mục
+        form(
+            action=`${prefixAdmin}/products-category/specifications/features/edit/${category.id}/${featureSpec.id}?_method=PATCH`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="nameFeaturesSpec") Tên thông số
+                input(
+                    type="text"
+                    class="form-control"
+                    id="nameFeaturesSpec"
+                    name="nameFeaturesSpec"
+                    value=featureSpec.nameFeaturesSpec
+                    required
+                )
+            div(class="form-group")
+                label(for="valueDefault") Mô tả
+                input(
+                    type="text"
+                    class="form-control"
+                    id="valueDefault"
+                    name="valueDefault"
+                    value=featureSpec.valueDefault
+                )
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cập nhật
+        script(src="/admin/JS/product-category.js") 

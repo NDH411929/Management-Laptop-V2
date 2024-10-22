@@ -1,0 +1,84 @@
+[{
+  "_id": {
+    "$oid": "6711d1889ea6ef63c45f6f7a"
+  },
+  "title": "Tin tức công nghệ",
+  "parent_id": "",
+  "description": "<p>Tin tức c&ocirc;ng nghệ</p>",
+  "status": "active",
+  "position": 1,
+  "deleted": false,
+  "updatedBy": [],
+  "slug": "tin-tuc-cong-nghe",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6711d1f49ea6ef63c45f6f95"
+  },
+  "title": "Di động",
+  "parent_id": "6711d1889ea6ef63c45f6f7a",
+  "description": "<p>Di động</p>",
+  "status": "active",
+  "position": 2,
+  "deleted": false,
+  "updatedBy": [],
+  "slug": "di-dong",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6711d2079ea6ef63c45f6fb0"
+  },
+  "title": "Máy tính bảng",
+  "parent_id": "6711d1889ea6ef63c45f6f7a",
+  "description": "<p>M&aacute;y t&iacute;nh bảng</p>",
+  "status": "active",
+  "position": 3,
+  "deleted": false,
+  "updatedBy": [],
+  "slug": "may-tinh-bang",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6711d20d9ea6ef63c45f6fcb"
+  },
+  "title": "Máy tính",
+  "parent_id": "6711d1889ea6ef63c45f6f7a",
+  "description": "<p>M&aacute;y t&iacute;nh</p>",
+  "status": "active",
+  "position": 4,
+  "deleted": false,
+  "updatedBy": [],
+  "slug": "may-tinh-g-ZSk0SBz",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6711d2209ea6ef63c45f6fe6"
+  },
+  "title": "Âm thanh",
+  "parent_id": "6711d1889ea6ef63c45f6f7a",
+  "description": "<p>&Acirc;m thanh</p>",
+  "status": "active",
+  "position": 5,
+  "deleted": false,
+  "updatedBy": [],
+  "slug": "am-thanh",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6711db460efe67493e77c517"
+  },
+  "title": "Khám phá",
+  "parent_id": "",
+  "description": "<p>Kh&aacute;m ph&aacute;</p>",
+  "status": "active",
+  "position": 6,
+  "deleted": false,
+  "updatedBy": [],
+  "slug": "kham-pha",
+  "__v": 0
+}]

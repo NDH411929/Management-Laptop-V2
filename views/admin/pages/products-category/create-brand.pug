@@ -1,0 +1,72 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+    if(roleUser.permissions.includes("products-category_create"))
+        +alert-success(5000)
+        +alert-error(5000)
+        h1(class="mb-4") Thêm thương hiệu
+
+        form(
+            action=`${prefixAdmin}/products-category/create/brands/${data.id}`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="title") Tên danh mục
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    required
+                    value=data.title
+                    readonly
+                )
+            div(class="form-group")
+                label(for="parent_id") Danh mục cha
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    required
+                    value=parentCategory
+                    readonly
+                )
+            div(class="form-group")
+                label(for="brand") Thương hiệu
+                select(
+                    name="brand"
+                    id="brand"
+                    class="form-control"
+                )
+                    option(value="") -- Chọn thương hiệu --
+                    each item in brands
+                        option(value=item.id) #{item.name}
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Thêm
+                a(
+                    type="submit"
+                    class="btn btn-primary ml-3"
+                ) Sử dụng từ danh mục cha
+        table(
+            class="table table-hover table-sm"
+        )
+            thead
+                tr
+                    th STT
+                    th Tên thương hiệu
+                    th Mô tả
+            tbody
+                
+                each item,index in data.brandOfCategory
+                    tr 
+                        td(style="min-width:100px") #{index+1}
+                        td(style="min-width:200px") #{item.name}
+                        td 
+                            p #{item.description}
+        script(src="/admin/JS/product-category.js") 

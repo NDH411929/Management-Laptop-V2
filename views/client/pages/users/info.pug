@@ -1,0 +1,390 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/layout-product.pug
+include ../../mixins/not-found.pug
+
+block main 
+    .info-user(style="background-color:#ececec") 
+        .container
+            .row
+                .col-3
+                    .card.mb-4.mt-4
+                        .card-header.d-flex.justify-content-start.align-items-center
+                            .icon.d-flex.justify-content-center.align-items-center(style="width:48px;height:48px;margin-right:15px")
+                                svg(viewBox="0 0 48 48", fill="none", xmlns="http://www.w3.org/2000/svg")
+                                    path(d="M24 0C10.752 0 0 10.752 0 24C0 37.248 10.752 48 24 48C37.248 48 48 37.248 48 24C48 10.752 37.248 0 24 0ZM24 9.6C28.632 9.6 32.4 13.368 32.4 18C32.4 22.632 28.632 26.4 24 26.4C19.368 26.4 15.6 22.632 15.6 18C15.6 13.368 19.368 9.6 24 9.6ZM24 43.2C19.128 43.2 13.368 41.232 9.264 36.288C13.4679 32.9897 18.6567 31.1971 24 31.1971C29.3433 31.1971 34.5321 32.9897 38.736 36.288C34.632 41.232 28.872 43.2 24 43.2Z", fill="#6D6E72")
+                            p <b>#{user.fullName}</b>
+                        .card-body.d-flex.flex-column
+                            #v-pills-tab.nav.flex-column.nav-pills(role="tablist", aria-orientation="vertical")
+                                button#v-pills-home-tab.nav-link.active(data-toggle="pill", data-target="#profile", type="button", role="tab", aria-controls="profile", aria-selected="true") 
+                                    svg.bi.bi-person-fill(xmlns="http://www.w3.org/2000/svg", width="20", height="24",fill="currentColor", viewBox="0 0 16 16")
+                                        path(d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6")
+                                    p.desc Thông tin tài khoản
+                                button#v-pills-profile-tab.nav-link(data-toggle="pill", data-target="#address", type="button", role="tab", aria-controls="address", aria-selected="false") 
+                                    svg.bi.bi-geo-alt-fill(xmlns="http://www.w3.org/2000/svg", width="20", height="22",fill="currentColor", viewBox="0 0 16 16")
+                                        path(d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6")
+                                    p.desc Địa chỉ
+                                button#v-pills-messages-tab.nav-link(data-toggle="pill", data-target="#order-history", type="button", role="tab", aria-controls="order-history", aria-selected="false") 
+                                    svg.bi.bi-bag-check-fill(xmlns="http://www.w3.org/2000/svg", width="20", height="22", fill="currentColor", viewBox="0 0 16 16")
+                                        path(fill-rule="evenodd", d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z")
+                                    p.desc Quản lý đơn hàng
+                                .logout(style="display: flex;align-items: center;justify-content: start;padding:8px 17px;")
+                                    svg.bi.bi-box-arrow-right(xmlns="http://www.w3.org/2000/svg", width="20", height="22", fill="currentColor", viewBox="0 0 16 16")
+                                        path(fill-rule="evenodd", d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z")
+                                        path(fill-rule="evenodd", d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z")
+                                    a(href="/user/logout").desc Đăng xuất
+                .col-9
+                    .card.mb-4.mt-4
+                        #v-pills-tabContent.tab-content
+                            #profile.tab-pane.fade.show.active(role="tabpanel", aria-labelledby="v-pills-home-tab")
+                                .card-header 
+                                    h2 Thông tin tài khoản    
+                                .card-body
+                                    form(
+                                        action=`/user/account/edit-user/${infoUser.id}?_method=PATCH`
+                                        method="POST"
+                                    )
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="fullName" style="margin-bottom:0px;width:150px") Họ tên
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="fullName"
+                                                name="fullName"
+                                                style="width:300px"
+                                                value=user.fullName
+                                            )
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="male" style="margin-bottom:0px;width:150px") Giới tính
+                                            div(class="form-group form-check form-check-inline" style="margin-bottom:0px")
+                                                input(
+                                                    type="radio"
+                                                    class="form-check-input"
+                                                    id="male"
+                                                    name="sex"
+                                                    value="male"
+                                                    checked=(user.sex=="male"?true:false)
+                                                    style="margin-top:2px"
+                                                )
+                                                label(for="male" class="form-check-label" style="margin-bottom:0px") Nam
+                                            div(class="form-group form-check form-check-inline" style="margin-bottom:0px")
+                                                input(
+                                                    type="radio"
+                                                    class="form-check-input"
+                                                    id="female"
+                                                    name="sex"
+                                                    value="female"
+                                                    checked=(user.sex=="female"?true:false)
+                                                    style="margin-top:2px"
+                                                )
+                                                label(for="female" class="form-check-label" style="margin-bottom:0px") Nữ
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="phoneNumber" style="margin-bottom:0px;width:150px") Số điện thoại
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="phoneNumber"
+                                                name="phoneNumber"
+                                                style="width:300px"
+                                                value=user.phoneNumber
+                                            )
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="email" style="margin-bottom:0px;width:150px") Email
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="email"
+                                                name="email"
+                                                style="width:300px"
+                                                value=user.email
+                                            )
+                                        div(class="form-group")
+                                            button(
+                                                type="submit"
+                                                class="btn btn-primary"
+                                            ) Lưu thay đổi
+                            #address.tab-pane.fade(role="tabpanel", aria-labelledby="v-pills-profile-tab") 
+                                .card-header 
+                                    h2 Thông tin tài khoản
+                                .card-body
+                                    form(
+                                        action=`/user/account/edit-address/${infoUser.id}?_method=PATCH`
+                                        method="POST"
+                                    )
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="city" style="margin-bottom:0px;width:150px") Thành phố
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="city"
+                                                name="city"
+                                                style="width:300px"
+                                                value=user.address.city
+                                            )
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="distric" style="margin-bottom:0px;width:150px") Quận/Huyện
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="distric"
+                                                name="distric"
+                                                style="width:300px"
+                                                value=user.address.distric
+                                            )
+                                        div(class="form-group").d-flex.justify-content-start.align-items-center
+                                            label(for="homeNumber" style="margin-bottom:0px;width:150px") Số nhà/Địa chỉ
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="homeNumber"
+                                                name="homeNumber"
+                                                style="width:300px"
+                                                value=user.address.homeNumber
+                                            )
+                                        div(class="form-group")
+                                            button(
+                                                type="submit"
+                                                class="btn btn-primary"
+                                            ) Lưu thay đổi
+                            #order-history.tab-pane.fade(role="tabpanel", aria-labelledby="v-pills-messages-tab" style="background-color:#ececec") 
+                                .card-header(style="background-color:#fff;border-bottom:0") 
+                                    h2 Quản lý đơn hàng
+                                .card-body-action(style="background-color:#fff")
+                                    ul#pills-tab.nav.nav-pills(role="tablist")
+                                        li.nav-item(role="presentation" style="flex:auto")
+                                            button#list-all-tab.nav-link.active(data-toggle="pill", data-target="#list-all", type="button", role="tab", aria-controls="list-all", aria-selected="true" style="width:100%") TẤT CẢ
+                                        li.nav-item(role="presentation" style="flex:auto")
+                                            button#list-new-tab.nav-link(data-toggle="pill", data-target="#list-new", type="button", role="tab", aria-controls="list-new", aria-selected="false" style="width:100%") MỚI
+                                        li.nav-item(role="presentation" style="flex:auto")
+                                            button#list-processing-tab.nav-link(data-toggle="pill", data-target="#list-processing", type="button", role="tab", aria-controls="list-processing", aria-selected="false" style="width:100%") ĐANG XỬ LÝ
+                                        li.nav-item(role="presentation" style="flex:auto")
+                                            button#list-shipping-tab.nav-link(data-toggle="pill", data-target="#list-shipping", type="button", role="tab", aria-controls="list-shipping", aria-selected="false" style="width:100%") ĐANG VẬN CHUYỂN
+                                        li.nav-item(role="presentation" style="flex:auto")
+                                            button#list-success-tab.nav-link(data-toggle="pill", data-target="#list-success", type="button", role="tab", aria-controls="list-success", aria-selected="false" style="width:100%") HOÀN THÀNH
+                                        li.nav-item(role="presentation" style="flex:auto")
+                                            button#list-delete-tab.nav-link(data-toggle="pill", data-target="#list-delete", type="button", role="tab", aria-controls="list-delete", aria-selected="false" style="width:100%") HỦY
+                                    //- .card-body
+                                #pills-tabContent.tab-content
+                                    #list-all.tab-pane.fade.show.active(role="tabpanel", aria-labelledby="list-all-tab") 
+                                        .container.my-3
+                                            if(orders.length>0)
+                                                .row
+                                                    .col-12
+                                                        each order,index in orders
+                                                            h4(class="mb-4") Đơn hàng #{index+1}
+                                                            h5(class="mb-4") Thời gian đặt hàng #{index+1}
+                                                            table(class="table table-bordered")
+                                                                thead
+                                                                    tr
+                                                                        th STT
+                                                                        th Ảnh
+                                                                        th Tên
+                                                                        th Màu sắc
+                                                                        th Giá
+                                                                        th Số lượng
+                                                                        th Tổng tiền
+                                                                tbody
+                                                                    if(order.products.length > 0)
+                                                                        each item, index in order.products
+                                                                            tr
+                                                                                td #{index + 1}
+                                                                                td
+                                                                                    img(
+                                                                                        src=item.thumbnail
+                                                                                        alt=item.title
+                                                                                        width="80px"
+                                                                                    )
+                                                                                td #{item.title}
+                                                                                td #{item.color}
+                                                                                td #{item.priceNew}$
+                                                                                td #{item.quantity}
+                                                                                td #{item.totalPrice}$
+
+
+                                                            if(order.products.length > 0)
+                                                                h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                            else 
+                                                +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
+                                    #list-new.tab-pane.fade(role="tabpanel", aria-labelledby="list-new-tab")
+                                        .container.my-3
+                                            if(orders.length>0)
+                                                .row
+                                                    .col-12
+                                                        each order,index in orders
+                                                            h4(class="mb-2") Đơn hàng #{index+1}
+                                                            table(class="table table-bordered")
+                                                                thead
+                                                                    tr
+                                                                        th STT
+                                                                        th Ảnh
+                                                                        th Tên
+                                                                        th Giá
+                                                                        th Số lượng
+                                                                        th Tổng tiền
+                                                                tbody
+                                                                    if(order.products.length > 0)
+                                                                        each item, index in order.products
+                                                                            tr
+                                                                                td #{index + 1}
+                                                                                td
+                                                                                    img(
+                                                                                        src=item.thumbnail
+                                                                                        alt=item.title
+                                                                                        width="80px"
+                                                                                    )
+                                                                                td #{item.title}
+                                                                                td #{item.priceNew}$
+                                                                                td #{item.quantity}
+                                                                                td #{item.totalPrice}$
+
+
+                                                            if(order.products.length > 0)
+                                                                h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                            else 
+                                                +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
+                                    #list-processing.tab-pane.fade(role="tabpanel", aria-labelledby="list-processing-tab") 
+                                        .container.my-3
+                                            if(orders.length>0)
+                                                .row
+                                                    .col-12
+                                                        each order,index in orders
+                                                            if(order.statusDelivery=="processing")
+                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                table(class="table table-bordered")
+                                                                    thead
+                                                                        tr
+                                                                            th STT
+                                                                            th Ảnh
+                                                                            th Tên
+                                                                            th Giá
+                                                                            th Số lượng
+                                                                            th Tổng tiền
+                                                                    tbody
+                                                                        if(order.products.length > 0)
+                                                                            each item, index in order.products
+                                                                                tr
+                                                                                    td #{index + 1}
+                                                                                    td
+                                                                                        img(
+                                                                                            src=item.thumbnail
+                                                                                            alt=item.title
+                                                                                            width="80px"
+                                                                                        )
+                                                                                    td #{item.title}
+                                                                                    td #{item.priceNew}$
+                                                                                    td #{item.quantity}
+                                                                                    td #{item.totalPrice}$
+                                                                if(order.products.length > 0)
+                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                            else 
+                                                +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
+                                    #list-shipping.tab-pane.fade(role="tabpanel", aria-labelledby="list-shipping-tab")
+                                        .container.my-3
+                                            if(orders.length>0)
+                                                .row
+                                                    .col-12
+                                                        each order,index in orders
+                                                            if(order.statusDelivery=="shipping")
+                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                table(class="table table-bordered")
+                                                                    thead
+                                                                        tr
+                                                                            th STT
+                                                                            th Ảnh
+                                                                            th Tên
+                                                                            th Giá
+                                                                            th Số lượng
+                                                                            th Tổng tiền
+                                                                    tbody
+                                                                        if(order.products.length > 0)
+                                                                            each item, index in order.products
+                                                                                tr
+                                                                                    td #{index + 1}
+                                                                                    td
+                                                                                        img(
+                                                                                            src=item.thumbnail
+                                                                                            alt=item.title
+                                                                                            width="80px"
+                                                                                        )
+                                                                                    td #{item.title}
+                                                                                    td #{item.priceNew}$
+                                                                                    td #{item.quantity}
+                                                                                    td #{item.totalPrice}$
+                                                                if(order.products.length > 0)
+                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                            else 
+                                                +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
+                                    #list-success.tab-pane.fade(role="tabpanel", aria-labelledby="list-success-tab")
+                                        .container.my-3
+                                            if(orders.length>0)
+                                                .row
+                                                    .col-12
+                                                        each order,index in orders
+                                                            if(order.statusDelivery=="delivered")
+                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                table(class="table table-bordered")
+                                                                    thead
+                                                                        tr
+                                                                            th STT
+                                                                            th Ảnh
+                                                                            th Tên
+                                                                            th Giá
+                                                                            th Số lượng
+                                                                            th Tổng tiền
+                                                                    tbody
+                                                                        if(order.products.length > 0)
+                                                                            each item, index in order.products
+                                                                                tr
+                                                                                    td #{index + 1}
+                                                                                    td
+                                                                                        img(
+                                                                                            src=item.thumbnail
+                                                                                            alt=item.title
+                                                                                            width="80px"
+                                                                                        )
+                                                                                    td #{item.title}
+                                                                                    td #{item.priceNew}$
+                                                                                    td #{item.quantity}
+                                                                                    td #{item.totalPrice}$
+                                                                if(order.products.length > 0)
+                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                            else 
+                                                +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
+                                    #list-delete.tab-pane.fade(role="tabpanel", aria-labelledby="list-delete-tab") 
+                                        .container.my-3
+                                            if(orders.length>0)
+                                                .row
+                                                    .col-12
+                                                        each order,index in orders
+                                                            if(order.statusDelivery=="stop-shipping")
+                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                table(class="table table-bordered")
+                                                                    thead
+                                                                        tr
+                                                                            th STT
+                                                                            th Ảnh
+                                                                            th Tên
+                                                                            th Giá
+                                                                            th Số lượng
+                                                                            th Tổng tiền
+                                                                    tbody
+                                                                        if(order.products.length > 0)
+                                                                            each item, index in order.products
+                                                                                tr
+                                                                                    td #{index + 1}
+                                                                                    td
+                                                                                        img(
+                                                                                            src=item.thumbnail
+                                                                                            alt=item.title
+                                                                                            width="80px"
+                                                                                        )
+                                                                                    td #{item.title}
+                                                                                    td #{item.priceNew}$
+                                                                                    td #{item.quantity}
+                                                                                    td #{item.totalPrice}$
+                                                                if(order.products.length > 0)
+                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                            else 
+                                                +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
+                            #logout.tab-pane.fade(role="tabpanel", aria-labelledby="v-pills-settings-tab")
+                //- script(src="/JS/user.js") 

@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+
+block main
+    if (record.avatar)
+        div(class="mb-4")
+        img(
+            src=record.avatar
+            style="width: 100px"
+            class="mb-4"
+        )
+    if (record.fullName)
+        div(class="mb-4") Họ tên: #{record.fullName}
+
+    if (record.email)
+        div(class="mb-4") Email: #{record.email}
+
+    if (record.role)
+        div(class="mb-4") Quyền: <b>#{record.role}</b>
+
+    if (record.status)
+        div(class="mb-4")
+        span Trạng thái:
+        if (record.status === "active")
+            span(class="badge badge-success" class="mb-4") Hoạt động
+        else
+            span(class="badge badge-danger" class="mb-4") Dừng hoạt động
+
+    if (record.role_id)
+        div(class="mb-4") Mô tả: !{record.roleDesc}
+    if(record.createdBy.createdAt && record.fullNameCreated)
+        div(class="mb-4") Người tạo: #{record.fullNameCreated}
+        div(class="mb-4") Thời gian: #{moment(record.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+    -var length=record.updatedBy.length
+    if(length>0)
+        div(class="mb-4") <b>Cập nhật lần cuối</b>
+        div(class="mb-4") Người cập nhật: #{record.fullNameUpdated}
+        div(class="mb-4") Thời gian: #{moment(record.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}

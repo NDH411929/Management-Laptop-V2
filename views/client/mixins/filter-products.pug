@@ -1,0 +1,66 @@
+mixin filter-products(filterSpec,arrFilter)
+    .section-filter-sort 
+        .filter-module-container(style="padding:24px") 
+            .filterModule
+                if(filterSpec.length>0)
+                    h3.filter-header(style="font-size: 18px;font-weight: 600;margin-bottom: 5px;") Chọn theo tiêu chí
+                    .filter-sort-list(style="margin-top:10px")
+                        .filter-wrapper.outside(style="display:flex;" id="accordion")
+                            each item in filterSpec
+                                -var newName=item.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '')
+                                -var check="false"
+                                .filter-item
+                                    if(arrFilter.length>0)
+                                        each i in arrFilter 
+                                            if(i.name==item.name)
+                                                -check= "true"
+                                    if(check=="false") 
+                                        button(class="btn-filter button__filter-parent" data-toggle="collapse" data-target=`#${newName}` data-parent="#accordion") 
+                                            span(style="font-size: 12px;font-weight: 500;") #{item.name}
+                                            .icon
+                                                svg(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 448 512", width="10", height="10")
+                                                    path(d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z")
+                                    else 
+                                        button(class="btn-filter button__filter-parent" data-toggle="collapse" data-target=`#${newName}` data-parent="#accordion" style="background:#fef2f2;border-color:#d70018;color:#d70018") 
+                                            span(style="font-size: 12px;font-weight: 500;") #{item.name}
+                                            .icon
+                                                svg(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 448 512", width="10", height="10" fill="#d70018")
+                                                    path(d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z")
+                                    .list-filter-child.collapse(id=`${newName}` data-parent="#accordion" )
+                                        ul
+                                            each i,index in item.value
+                                                li
+                                                    input(type="checkbox", name=`${item.name}` id=`${item.name}-${index}` data-name=item.name data-value=i style="display:none")
+                                                    label(for=`${item.name}-${index}` class=`label-ip ${item.name}-${index}`)  #{i}
+                                        .btn-filter-group
+                                            .filter-button(style="text-align: center;")
+                                                button(class="button button__filter-children-close" data-toggle="collapse" data-target=`#${newName}` aria-controls=`#${newName}` ) Đóng
+                                                button(class="button button__filter-children-submit" submit-filter ) Xem kết quả
+            if(arrFilter.length>0)
+                .filterChoosed
+                    h3.filter-header(style="font-size: 18px;font-weight: 600;margin-bottom: 5px;") Đang lọc theo
+                    .filter-sort-list-test(style="display:flex;margin-top:10px") 
+                        each item in arrFilter 
+                            .filter-item-content.delete-filter(style="background: #fef2f2;border: 1px solid #d70018;color: #d70018;align-items: center;border-radius: 4px;cursor: pointer;display: flex;font-size: 12px;height: 34px;margin: 0 10px 10px 0;padding: 5px 10px;white-space: nowrap;" data=item.name) 
+                                span(style="font-weight:500") #{item.name}: #{item.value}
+                                .icon(style="align-items: center;display: flex;margin-left: 6px;width: 15px;")
+                                    svg(width="40", height="40", xmlns="http://www.w3.org/2000/svg", viewBox="0 0 512 512" fill="#d70018")
+                                        path(d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z")
+                        .filter-item-content.delete-filter-all(style="background: #fef2f2;border: 1px solid #d70018;color: #d70018;align-items: center;border-radius: 4px;cursor: pointer;display: flex;font-size: 12px;height: 34px;margin: 0 10px 10px 0;padding: 5px 10px;white-space: nowrap;") 
+                                span(style="font-weight:500") Xóa tất cả
+                                .icon(style="align-items: center;display: flex;margin-left: 6px;width: 15px;")
+                                    svg(width="40", height="40", xmlns="http://www.w3.org/2000/svg", viewBox="0 0 512 512" fill="#d70018")
+                                        path(d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z")
+            div(sort style="width:200px;")
+                h3.filter-header(style="font-size: 18px;font-weight: 600;margin-bottom: 0;") Sắp xếp theo
+                select(
+                    class="form-control-sm sort-control"
+                    name="sort"
+                    sort-select
+                    style="margin-top:10px"
+                )
+                    option(value="") Nổi bật
+                    option(value="price-desc") Giá giảm dần
+                    option(value="price-asc") Giá tăng dần
+                    option(value="title-asc") Tên A - Z
+                    option(value="title-desc") Tên Z - A

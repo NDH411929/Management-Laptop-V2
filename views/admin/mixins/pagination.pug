@@ -1,0 +1,20 @@
+mixin pagination()
+    nav.nav 
+        ul.pagination 
+            li.page-item 
+                if(pagination.currentPage > 1)
+                    button(class="page-link" button-pagination=pagination.currentPage-1) Trang trước
+                else
+                    button(class="page-link" button-pagination=pagination.totalPages) Trang cuối
+            - for(var i=1;i<=pagination.totalPages;i++) 
+                if(pagination.currentPage==i)
+                    li(class="page-item active")
+                        button(class="page-link" button-pagination=i) #{i}
+                else 
+                    li(class="page-item")
+                        button(class="page-link" button-pagination=i) #{i}
+            li.page-item 
+                if(pagination.currentPage < pagination.totalPages)
+                    button(class="page-link" button-pagination=pagination.currentPage+1) Kế tiếp
+                else 
+                    button(class="page-link" button-pagination=1) Trang đầu

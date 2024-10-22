@@ -1,0 +1,58 @@
+extends ../../layouts/default.pug
+
+block main
+    if (record.title)
+        h1(class="mb-4") #{record.title}
+    
+    each item in data 
+        if(record.parent_id==item.id)
+            div(class="mb-4") Danh mục cha: #{item.title}
+
+    if (record.thumbnail)
+        div(class="mb-4")
+            img(
+                src=record.thumbnail
+                style="width: 100px"
+            )
+
+    if (record.status)
+        div(class="mb-4")
+            span Trạng thái:
+            if (record.status === "active")
+                span(class="badge badge-success") Hoạt động
+            else
+                span(class="badge badge-danger") Dừng hoạt động
+    
+    if (record.position)
+        div(class="mb-4") Vị trí: <b>#{record.position}</b>
+
+    if (record.description)
+        div(class="mb-4") Mô tả: !{record.description}
+
+    if(record.createdBy.createdAt && record.fullNameCreated)
+        div(class="mb-4") Người tạo: #{record.fullNameCreated}
+        div(class="mb-4") Thời gian: #{moment(record.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+    -var length=record.updatedBy.length
+
+    if(length>0)
+        div(class="mb-4") <b>Cập nhật lần cuối</b>
+        div(class="mb-4") Người cập nhật: #{record.fullNameUpdated}
+        div(class="mb-4") Thời gian: #{moment(record.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}
+        
+    if (record.brands.length>0)
+        div(class="mb-4") <b>Danh sách thương hiệu:</b>
+        table(
+            class="table table-hover table-sm"
+        )
+            thead
+                tr
+                    th STT
+                    th Tên thương hiệu
+                    th Mô tả
+            tbody
+                each item,index in record.brands
+                    tr 
+                        td(style="min-width:100px") #{index+1}
+                        td(style="min-width:200px") #{item.name}
+                        td 
+                            p #{item.description}

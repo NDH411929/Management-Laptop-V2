@@ -1,0 +1,296 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+//- include ../../mixins/alert.pug
+
+block main 
+    .product-detail
+        .container.my-3
+            .product-inner(style="background:#fff")
+                .row(style="margin:0")
+                    .col-5.product-gallery(style="border-right:1px solid #ECECEC;padding:0")
+                        if(product.listImage.length>0)
+                            .swiper.mySwiper2.swiper-initialized.swiper-horizontal.swiper-backface-hidden(style=`
+                                            --swiper-navigation-color: #fff;
+                                            --swiper-pagination-color: #fff;
+                                            width: 75%;
+                                            height: 280px;
+                                            margin-top:10px
+                                        `)
+                                #swiper-wrapper-cef15b3713bd2719.swiper-wrapper(aria-live="polite", style="transition-duration: 0ms; transition-delay: 0ms")
+                                    .swiper-slide(role="group", aria-label="1 / 4", style="width: 100%; margin-right: 10px;display:flex;align-items:center;justify-content:center;user-select:none")
+                                        img(src=product.thumbnail, style="width: 75%;height:100%;object-fit:contain")
+                                    .swiper-slide(role="group", aria-label="2 / 4", style="width: 100%; margin-right: 10px;display:flex;align-items:center;justify-content:center;user-select:none")
+                                        img(src=product.listImage[0], style="width: 75%;height:100%;object-fit:contain")
+                                    .swiper-slide.swiper-slide-prev(role="group", aria-label="3 / 4", style="width: 100%; margin-right: 10px;display:flex;align-items:center;justify-content:center;user-select:none")
+                                        img(src=product.listImage[1], style="width: 75%;height:100%;object-fit:contain")
+                                    .swiper-slide.swiper-slide-active(role="group", aria-label="4 / 4", style="width: 100%; margin-right: 10px;display:flex;align-items:center;justify-content:center;user-select:none")
+                                        img(src=product.listImage[2], style="width: 75%;height:100%;object-fit:contain")
+                                .swiper-button-next.swiper-button-disabled(tabindex="-1", role="button", aria-label="Next slide", aria-controls="swiper-wrapper-cef15b3713bd2719", aria-disabled="true")
+                                .swiper-button-prev(tabindex="0", role="button", aria-label="Previous slide", aria-controls="swiper-wrapper-cef15b3713bd2719", aria-disabled="false")
+                                span.swiper-notification(aria-live="assertive", aria-atomic="true")
+                            .swiper.mySwiper.swiper-initialized.swiper-horizontal.swiper-free-mode.swiper-watch-progress.swiper-backface-hidden.swiper-thumbs(thumbsslider="", style="width: 75%; margin-top: 10px")
+                                #swiper-wrapper-ee7a26fb1d59f256.swiper-wrapper(aria-live="polite", style=`
+                                                transform: translate3d(0px, 0px, 0px);
+                                                width: 100%;
+                                                transition-duration: 0ms;
+                                                transition-delay: 0ms;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                            `)
+                                    .swiper-slide.swiper-slide-visible.swiper-slide-fully-visible.swiper-slide-active(role="group", aria-label="1 / 4")
+                                        img(src=product.thumbnail, style="width: 100%; height: 100%")
+                                    .swiper-slide.swiper-slide-visible.swiper-slide-fully-visible.swiper-slide-next(role="group", aria-label="2 / 4")
+                                        img(src=product.listImage[0], style="width: 100%; height: 100%")
+                                    .swiper-slide.swiper-slide-visible.swiper-slide-fully-visible(role="group", aria-label="3 / 4")
+                                        img(src=product.listImage[1], style="width: 100%; height: 100%")
+                                    .swiper-slide.swiper-slide-visible.swiper-slide-thumb-active(role="group", aria-label="4 / 4")
+                                        img(src=product.listImage[2], style="width: 100%; height: 100%")
+                                span.swiper-notification(aria-live="assertive", aria-atomic="true")
+                        else 
+                            .inner-thumb(style="display:flex;align-items:center;justify-content:center;")
+                                img(src=product.thumbnail, alt=product.title style="width:75%")
+                    .col-7.product-info(style="padding:24px")
+                        h1(class="inner-title" style="font-size: 24px;font-weight: 600;margin: 0;width:75%;margin-bottom:16px") #{product.title}
+
+                        if (product.category)
+                            div(class="inner-category" style="margin-bottom:8px")
+                                span Danh mục: 
+                                a(href=`/products/${product.category.slug}`) #{product.category.title}
+                        
+                        if(product.reviews)
+                            div(class="inner-category" style="margin-bottom:8px")
+                                span Đánh giá: <b>#{product.average}</b>
+                        else
+                            div(class="inner-category" style="margin-bottom:8px")
+                                span Đánh giá: <b>0</b>
+                        if(product.color.length>0)
+                            //- div Màu sắc:
+                            div.d-flex.list-color-product.mb-3.mt-3(style="gap:10px")
+                                each color in product.color 
+                                    a.d-flex.color-product(value=color.name_color color-choosed) 
+                                        div.code-color(style=`width:16px;height:16px; border:1px solid #ececec;background:${color.code_color};border-radius:50%;`) 
+                                        span.name-color #{color.name_color}
+                        //- if (product.stock)
+                        //-     div(class="inner-stock" style="margin-bottom:16px") Còn lại: <b>#{product.stock}</b> sản phẩm
+
+                        if (product.price)
+                            div(class="product-price" style="display:flex;align-items:center;margin-bottom:16px")
+                                div(class="inner-price-new" style="font-size: 32px;line-height: 40px;font-weight: 600;color: #E30019;font-family: Manrope;") #{product.priceNew}$
+                                div(class="inner-price-old" style="font-size: 18px;line-height: 22px;color: #6D6E72;margin: 0 0 0 12px;font-weight: 400;text-decoration:line-through;font-family: Manrope;") #{product.price}$
+                                span(class="product-percent" style="font-size: 12px;font-weight:500;display: inline-block;padding: 3px 8px;margin-left: 12px;color: #E30019;border: 1px solid #E30019;border-radius: 4px;vertical-align: text-bottom;white-space: nowrap;font-family: Manrope;") -#{product.discountPercentage}%
+
+                        if(product.stock>0)
+                            .product-action 
+                                form(
+                                    action=`/cart/add/${product.id}`
+                                    method="POST"
+                                    form-add-cart
+                                )
+                                    input(
+                                        class="form-control mb-2 d-none"
+                                        type="number"
+                                        name="quantity"
+                                        value="1"
+                                        min="1"
+                                        max=product.stock
+                                        input-stock
+                                    )
+                                    if(product.color.length>0)
+                                        input(
+                                            class="form-control mb-2"
+                                            type="text"
+                                            name="color"
+                                            color-cart
+                                        )
+                                    button(
+                                        type="submit"
+                                        class="btn btn-success btn-block"
+                                        btn-submit
+                                        style="width:50%;display:flex;align-items:center;flex-direction:column;padding: 10px 28px;line-height: normal;font-size: 14px;font-weight: 500;text-align: center;color: #fff;background-color: #E30019;border: 1px solid #E30019;border-radius: 4px;-moz-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out;-webkit-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;z-index: 1;overflow: hidden;outline: none !important;cursor: pointer;"
+                                    ) 
+                                        span(style="font-weight: 600;font-size: 18px;") MUA NGAY
+                                        span(style="font-weight: 400;font-size: 14px;margin-top: 3px;") Giao tận nơi hoặc nhận tại cửa hàng
+                        else
+                            button(
+                                type="submit"
+                                class="btn btn-success btn-block"
+                                style="width:50%;display:flex;align-items:center;flex-direction:column;padding: 10px 28px;line-height: normal;font-size: 14px;font-weight: 500;text-align: center;color: #fff;background-color: #E30019;border: 1px solid #E30019;border-radius: 4px;-moz-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out;-webkit-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;z-index: 1;overflow: hidden;outline: none !important;cursor: pointer;"
+                            ) Sản phẩm hiện đang hết hàng
+                        .product-desc-short(style="margin-top:16px")
+                            p.mb-2(style="display:flex;align-items:center")
+                                span ✔
+                                span &nbsp; Bảo hành chính hãng 24 tháng. 
+                            p.mb-2(style="display:flex;align-items:center")
+                                span ✔
+                                span &nbsp; Hỗ trợ đổi mới trong 7 ngày.  
+                            p.mb-2(style="display:flex;align-items:center") 
+                                span ✔
+                                span &nbsp; Miễn phí giao hàng toàn quốc.
+        .container.my-3
+            .row
+                .col-8
+                    .product-desc-left.box(style="background:#fff;height:100%")
+                        .product-heading(style="padding:16px 24px;") 
+                            h2 Thông tin sản phẩm
+                        .description_box
+                            if(product.specifications.length>0)
+                                .specification(style="margin-bottom:32px;height:100%") 
+                                    table(
+                                        class="table table-bordered table-specifications"
+                                    )
+                                        tbody
+                                            each item,index in product.specifications
+                                                tr 
+                                                    td(style="background-color: #f7f7f7 !important;border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 170px;") <b>#{item.nameSpec}</b>
+                                                    td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;") #{item.valueDefault}
+                            .inner-desc !{product.description}
+                            button(type="button" style="position: absolute;right: 0px;left: 0px;bottom: 0px;border: none;font-size: 16px;font-weight: 500;color: #1982F9;background-color: transparent;padding: 20px 0px;z-index: 1;cursor: pointer;").btn-readmore Đọc tiếp bài viết
+                .col-4(style="padding-left:0")
+                    .product-inner-prtab1(style="background:#fff")
+                        .product-heading(style="padding:16px 24px") 
+                            h2(style="font-size:22px") Sản phẩm tương tự
+                        .product-wrap(style="padding:0 24px 24px 24px")
+                            .list-proloop
+                                each item in listProduct 
+                                    .proloop(style="margin-bottom:16px") 
+                                        .proloop-block.d-flex(style="gap:18px")
+                                            .proloop-img(style="text-align: center;position: relative;overflow: hidden;max-width:100%;flex: 0 0 calc(37% - 32px);") 
+                                                a(href=`/products/detail/${item.slug}` class="aspect-ratio" style="position: relative;padding-bottom: 100%;display: block;border-radius: 4px;overflow:hidden")
+                                                    picture(style="display: flex;align-items: center;justify-content: center;transform: translateX(0%);position: absolute;left: 0;top: 0;-webkit-transform: translate(0%, 0%);transform: translate(0%, 0%);width: 100%;height: 100%;-o-object-fit: contain;object-fit: contain;-webkit-transition: all 0.5s ease 0s;transition: all 0.5s ease 0s;")
+                                                        img.img-default(src=item.thumbnail, alt="alt" style="width: 100%;max-width:100%")
+                                            .proloop-detail
+                                                .proloop-name(style="font-size:14px;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;display: -webkit-box;margin-bottom:4px") 
+                                                    a(href=`/products/detail/${item.slug}` style="color:#000;font-weight:500;") #{item.title}
+                                                .proloop-price(style="font-size:14px") 
+                                                    .proloop-price--old(style="color: #6D6E72;font-weight: 600;text-decoration:line-through;") #{item.price}$
+                                                    .proloop-price--new(style="color: #E30019;font-weight: 600;font-size:16px") 
+                                                        span #{item.priceNew}$
+                                                        span(style="padding: 1px 4px;background: #FFEDED;border-radius: 2px;color: #E30019;border: 1px solid #E30019;line-height: 16px;font-size: 13px;margin-left: 10px;") -#{item.discountPercentage}%
+                    .product-inner-relative(style="background:#fff;margin-top:16px")
+                        .product-heading(style="padding:16px 24px") 
+                            h2(style="font-size:22px") Tin tức về công nghệ
+                        .product-wrap(style="padding:0 24px 24px 24px")
+                            .list-proloop
+                                each item in blog 
+                                    .proloop(style="margin-bottom:16px") 
+                                        .proloop-block.d-flex(style="gap:18px")
+                                            .proloop-img(style="text-align: center;position: relative;overflow: hidden;max-width:100%;flex: 0 0 calc(37% - 32px);") 
+                                                a(href=`/blogs/detail/${item.slug}` class="aspect-ratio" style="position: relative;padding-bottom: 100%;display: block;border-radius: 4px;overflow:hidden")
+                                                    picture(style="display: flex;align-items: center;justify-content: center;transform: translateX(0%);position: absolute;left: 0;top: 0;-webkit-transform: translate(0%, 0%);transform: translate(0%, 0%);width: 100%;height: 100%;-o-object-fit: contain;object-fit: contain;-webkit-transition: all 0.5s ease 0s;transition: all 0.5s ease 0s;")
+                                                        img.img-default(src=item.thumbnail, alt="alt" style="width: 100%;max-width:100%")
+                                            .proloop-detail
+                                                .proloop-name(style="font-size:14px;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;display: -webkit-box;margin-bottom:4px") 
+                                                    a(href=`/blogs/detail/${item.slug}` style="color:#000;font-weight:500;") #{item.title}
+                                                .proloop-price(style="font-size:14px")
+                    //- .product-inner(style="background:#fff")
+                    //-     .product-heading(style="padding:16px 24px") 
+                    //-         h2 Thông tin sản phẩm
+        .container.my-3
+            .rate-inner(style="background:#fff;border-radius:4px") 
+                .box-head(style="padding:12px 24px")
+                    h2(style="font-size:18px") Đánh giá & Nhận xét #{product.title}
+                .content(style="display:flex;padding:24px;justify-content: space-around;align-items:center")
+                    div(style="display:flex;flex-direction:column")
+                        div(style="margin-bottom: 10px;color: #E30019;font-size: 36px;font-weight: 600;text-align:center") #{product.average?product.average:0}/5
+                        div(style="display:flex")
+                            -for(var i=0;i<5;i++)
+                                div(data=i+1 style="margin-right:5px;cursor:pointer;background:#e30019;display:flex;align-items:center;justify-content:center;height:21px;width:20.5px" class="item-reviews")
+                                    svg.bi.bi-star-fill(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fff", viewBox="0 0 16 16")
+                                        path(d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z")
+                    ul.list-rate
+                        if(product.reviews)
+                            li.item-rate(style="display:flex;align-items:center")
+                                span(style="margin-right:5px") 5 
+                                span(style="display:flex;align-items:center;gap:5px;margin-right:5px")
+                                    -for(var i=0;i<5;i++)
+                                        svg.bi.bi-star-fill(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16")
+                                            path(d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z")
+                                span (số lượt đánh giá: #{product.reviews.star_5?product.reviews.star_5:0})
+                            li.item-rate(style="display:flex;align-items:center")
+                                span(style="margin-right:5px") 4
+                                span(style="display:flex;align-items:center")
+                                    -for(var i=0;i<4;i++)
+                                        svg.bi.bi-star-fill(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px")
+                                            path(d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                span (số lượt đánh giá: #{product.reviews.star_4?product.reviews.star_4:0})
+                            li.item-rate(style="display:flex;align-items:center") 
+                                span(style="margin-right:5px") 3
+                                span(style="display:flex;align-items:center")
+                                    -for(var i=0;i<3;i++)
+                                        svg.bi.bi-star-fill(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px")
+                                            path(d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                span (số lượt đánh giá: #{product.reviews.star_3?product.reviews.star_3:0})
+                            li.item-rate(style="display:flex;align-items:center") 
+                                span(style="margin-right:5px") 2
+                                span(style="display:flex;align-items:center")
+                                    -for(var i=0;i<2;i++)
+                                        svg.bi.bi-star-fill(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px")
+                                            path(d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                span (số lượt đánh giá: #{product.reviews.star_2?product.reviews.star_2:0})
+                            li.item-rate(style="display:flex;align-items:center") 
+                                span(style="margin-right:5px") 1
+                                span(style="display:flex;align-items:center")
+                                    -for(var i=0;i<1;i++)
+                                        svg.bi.bi-star-fill(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px")
+                                            path(d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+                                    svg.bi.bi-star(xmlns="http://www.w3.org/2000/svg", width="16", height="16", fill="#fdd835", viewBox="0 0 16 16" style="margin-right:5px;cursor:pointer")
+                                        path(d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z")
+
+                                span (số lượt đánh giá: #{product.reviews.star_1?product.reviews.star_1:0})
+                        else 
+                            li.item-rate 5 sao (số lượt đánh giá: 0)
+                            li.item-rate 4 sao (số lượt đánh giá: 0)
+                            li.item-rate 3 sao (số lượt đánh giá: 0)
+                            li.item-rate 2 sao (số lượt đánh giá: 0)
+                            li.item-rate 1 sao (số lượt đánh giá: 0)
+                form(
+                    action=`/products/evaluate/${product.slug}`
+                    method="POST"
+                    style="padding:24px"
+                )
+                    div(class="form-group d-none")
+                        label(for="value") Mức độ đánh giá
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="value"
+                            name="value"
+                            required
+                            data-reviews
+                        )
+                        //- dung js lay gia tri 5 sao roi truyen vao o input xong de o input display none
+                    div(class="form-group" style="text-align:center")
+                        label(for="description") Đánh giá
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="description"
+                            name="description"
+                            required
+                        )
+                    div(class="form-group" style="text-align:center")
+                        button(
+                            type="submit"
+                            class="btn btn-danger"
+                            style="background:#e30019;border-color:#e30019"
+                        ) Gửi đánh giá
+    script(src="/JS/product.js") 
