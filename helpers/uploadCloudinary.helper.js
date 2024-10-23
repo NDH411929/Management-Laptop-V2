@@ -26,5 +26,5 @@ let streamUpload = (buffer) => {
 
 module.exports = async (buffer) => {
     let result = await streamUpload(buffer);
-    return result.url;
+    return result.secure_url;
 };

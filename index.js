@@ -5,8 +5,6 @@ const bodyParser = require("body-parser");
 const flash = require("express-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const cloudinary = require("cloudinary").v2;
-const streamifier = require("streamifier");
 const moment = require("moment");
 const database = require("./config/database");
 const route = require("./routers/client/index.route");
@@ -17,7 +15,7 @@ require("dotenv").config();
 const port = process.env.PORT;
 
 //Declare PUG
-app.set("views", `${__dirname}/views`);
+app.set("views", __dirname + "/views");
 app.set("view engine", "pug");
 
 //Connect database
@@ -39,7 +37,7 @@ app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 
 //Allow the "public" folder to be public
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(__dirname + "/public"));
 
 /* New Route to the TinyMCE Node module */
 app.use(
