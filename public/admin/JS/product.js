@@ -1,3 +1,11 @@
+//Form create product
+const formCreateProduct = document.querySelector("#form-create-product");
+if (formCreateProduct) {
+    formCreateProduct.addEventListener("submit", (e) => {
+        e.preventDefault();
+    });
+}
+
 //Change Status
 const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
 if (buttonChangeStatus.length > 0) {
@@ -213,13 +221,13 @@ if (formEditProduct) {
     });
 }
 
-//Add color
+// Add color
 const addColorAnother = document.querySelector("[add-color-another]");
 if (addColorAnother) {
     addColorAnother.addEventListener("click", () => {
         let groupColor = document.querySelector("[form-group-color]");
 
-        //Create div
+        // Create div
         const newDiv = document.createElement("div");
         newDiv.classList.add("d-flex");
         newDiv.setAttribute("style", "gap:5px;margin-top:5px");
@@ -251,29 +259,25 @@ if (addColorAnother) {
         newDiv.appendChild(removeBtn);
         groupColor.appendChild(newDiv);
 
-        //Remove div
-        const removeChild = groupColor.querySelectorAll("div[data-new]");
-        if (removeChild.length > 0) {
-            removeChild.forEach((item) => {
-                const buttonRemove = item.querySelector("a[data-new]");
-                buttonRemove.addEventListener("click", () => {
-                    groupColor.removeChild(item);
-                });
-            });
-        }
+        // Remove div khi nhấn nút "Remove"
+        removeBtn.addEventListener("click", () => {
+            if (groupColor.contains(newDiv)) {
+                newDiv.remove();
+            }
+        });
     });
 }
-//End add color
+// End add color
 
 //Remove color
-
 const groupColor = document.querySelector("[form-group-color]");
-const editColor = groupColor.querySelectorAll("[edit-color]");
-editColor.forEach((item) => {
-    const buttonRemove = item.querySelector("a[remove-color]");
-    buttonRemove.addEventListener("click", () => {
-        groupColor.removeChild(item);
+if (groupColor) {
+    const editColor = groupColor.querySelectorAll("[edit-color]");
+    editColor.forEach((item) => {
+        const buttonRemove = item.querySelector("a[remove-color]");
+        buttonRemove.addEventListener("click", () => {
+            groupColor.removeChild(item);
+        });
     });
-});
-
+}
 //End remove color
