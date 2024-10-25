@@ -62,23 +62,25 @@ block main
           checked=(product.features=="false"?true:false)
         )
         label(for="featuresFalse" class="form-check-label") Thường
-      div(class="form-group")
-        label Màu sắc
-        each item in product.color
-          div.d-flex(style="gap:5px;margin-top:5px" edit-color)
-            input(
-              type="text"
-              class="form-control edit-name_color"
-              style="width:300px;marin-right:5px"
-              value=item.name_color
-            )
-            input(
-              type="color"
-              class="form-control edit-code_color"
-              style="width:100px"
-              value=item.code_color
-            )
-        //- a(class="submit-edit-colors btn" style="border:1px solid #ececec;background:#fff;margin-top:5px") Sửa
+      div(class="form-group" form-group-color)
+        if(product.color.length>0)
+          label Màu sắc
+          each item in product.color
+            div.d-flex(style="gap:5px;margin-top:5px" edit-color)
+              input(
+                type="text"
+                class="form-control edit-name_color"
+                style="width:300px;marin-right:5px"
+                value=item.name_color
+              )
+              input(
+                type="color"
+                class="form-control edit-code_color"
+                style="width:100px"
+                value=item.code_color
+              )
+              a.btn(style="border:1px solid #ced4da" remove-color) Remove
+      a.btn.mb-3(style="border:1px solid #495057" add-color-another) Add color
         input(
             type="text"
             class="form-control"

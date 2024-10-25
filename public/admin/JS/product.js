@@ -212,3 +212,68 @@ if (formEditProduct) {
         formEditProduct.submit();
     });
 }
+
+//Add color
+const addColorAnother = document.querySelector("[add-color-another]");
+if (addColorAnother) {
+    addColorAnother.addEventListener("click", () => {
+        let groupColor = document.querySelector("[form-group-color]");
+
+        //Create div
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("d-flex");
+        newDiv.setAttribute("style", "gap:5px;margin-top:5px");
+        newDiv.setAttribute("data-new", "");
+        newDiv.setAttribute("edit-color", "");
+
+        // Tạo phần tử input đầu tiên (type="text")
+        const inputText = document.createElement("input");
+        inputText.classList.add("form-control", "edit-name_color");
+        inputText.setAttribute("type", "text");
+        inputText.setAttribute("style", "width:300px");
+
+        // Tạo phần tử input thứ hai (type="color")
+        const inputColor = document.createElement("input");
+        inputColor.classList.add("form-control", "edit-code_color");
+        inputColor.setAttribute("type", "color");
+        inputColor.setAttribute("style", "width:100px");
+
+        // Tạo phần tử a (nút "Remove")
+        const removeBtn = document.createElement("a");
+        removeBtn.classList.add("btn");
+        removeBtn.setAttribute("style", "border:1px solid #ced4da");
+        removeBtn.setAttribute("data-new", "");
+        removeBtn.textContent = "Remove";
+
+        // Thêm các phần tử con vào trong div
+        newDiv.appendChild(inputText);
+        newDiv.appendChild(inputColor);
+        newDiv.appendChild(removeBtn);
+        groupColor.appendChild(newDiv);
+
+        //Remove div
+        const removeChild = groupColor.querySelectorAll("div[data-new]");
+        if (removeChild.length > 0) {
+            removeChild.forEach((item) => {
+                const buttonRemove = item.querySelector("a[data-new]");
+                buttonRemove.addEventListener("click", () => {
+                    groupColor.removeChild(item);
+                });
+            });
+        }
+    });
+}
+//End add color
+
+//Remove color
+
+const groupColor = document.querySelector("[form-group-color]");
+const editColor = groupColor.querySelectorAll("[edit-color]");
+editColor.forEach((item) => {
+    const buttonRemove = item.querySelector("a[remove-color]");
+    buttonRemove.addEventListener("click", () => {
+        groupColor.removeChild(item);
+    });
+});
+
+//End remove color
