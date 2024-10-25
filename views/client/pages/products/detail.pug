@@ -166,7 +166,7 @@ block main
                                                     .proloop-price--old(style="color: #6D6E72;font-weight: 600;text-decoration:line-through;") #{item.price}$
                                                     .proloop-price--new(style="color: #E30019;font-weight: 600;font-size:16px") 
                                                         span #{item.priceNew}$
-                                                        span(style="padding: 1px 4px;background: #FFEDED;border-radius: 2px;color: #E30019;border: 1px solid #E30019;line-height: 16px;font-size: 13px;margin-left: 10px;") -#{item.discountPercentage}%
+                                                        span(style="padding: 1px 4px 2px 4px;background: #FFEDED;border-radius: 2px;color: #E30019;border: 1px solid #E30019;line-height: 16px;font-size: 13px;margin-left: 10px;") -#{item.discountPercentage}%
                     .product-inner-relative(style="background:#fff;margin-top:16px")
                         .product-heading(style="padding:16px 24px") 
                             h2(style="font-size:22px") Tin tức về công nghệ
@@ -175,17 +175,12 @@ block main
                                 each item in blog 
                                     .proloop(style="margin-bottom:16px") 
                                         .proloop-block.d-flex(style="gap:18px")
-                                            .proloop-img(style="text-align: center;position: relative;overflow: hidden;max-width:100%;flex: 0 0 calc(37% - 32px);") 
-                                                a(href=`/blogs/detail/${item.slug}` class="aspect-ratio" style="position: relative;padding-bottom: 100%;display: block;border-radius: 4px;overflow:hidden")
-                                                    picture(style="display: flex;align-items: center;justify-content: center;transform: translateX(0%);position: absolute;left: 0;top: 0;-webkit-transform: translate(0%, 0%);transform: translate(0%, 0%);width: 100%;height: 100%;-o-object-fit: contain;object-fit: contain;-webkit-transition: all 0.5s ease 0s;transition: all 0.5s ease 0s;")
-                                                        img.img-default(src=item.thumbnail, alt="alt" style="width: 100%;max-width:100%")
+                                            .proloop-img(style="text-align: center;position: relative;overflow: hidden;flex: 0 0 25%;max-width: 25%;") 
+                                                a(href=`/blogs/detail/${item.slug}` class="aspect-ratio" style="padding-bottom: 56%;position: relative;transition: all 0.2s ease-in-out;display:block;height:100%")
+                                                    img.img-default(src=item.thumbnail, alt="alt" style="position: absolute;left: 0%;right: 0;top: 0;bottom: 0;margin: auto;width: 100%;height: 100%;border-radius: 4px;object-fit:cover")
                                             .proloop-detail
-                                                .proloop-name(style="font-size:14px;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;display: -webkit-box;margin-bottom:4px") 
+                                                .proloop-name(style="font-size:14px;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;display: -webkit-box;margin-bottom:4px;font-family: Manrope;") 
                                                     a(href=`/blogs/detail/${item.slug}` style="color:#000;font-weight:500;") #{item.title}
-                                                .proloop-price(style="font-size:14px")
-                    //- .product-inner(style="background:#fff")
-                    //-     .product-heading(style="padding:16px 24px") 
-                    //-         h2 Thông tin sản phẩm
         .container.my-3
             .rate-inner(style="background:#fff;border-radius:4px") 
                 .box-head(style="padding:12px 24px")
