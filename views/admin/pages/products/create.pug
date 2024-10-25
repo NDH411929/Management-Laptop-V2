@@ -62,30 +62,29 @@ block main
           checked
         )
         label(for="featuresFalse" class="form-check-label") Thường
-      div(class="form-group")
-        label(for="name_color") Màu sắc
-        div.d-flex(style="gap:5px")
+      div(class="form-group" form-group-color)
+        label Màu sắc
+        div.d-flex(style="gap:5px;margin-top:5px" edit-color)
           input(
             type="text"
-            class="form-control"
-            id="name_color"
+            class="form-control edit-name_color"
             style="width:300px;marin-right:5px"
-            placeholder="Nhập tên màu"
           )
           input(
             type="color"
-            class="form-control"
-            id="code_color"
+            class="form-control edit-code_color"
             style="width:100px"
           )
-          a(class="submit-colors btn" style="border:1px solid #ececec;background:#fff") Chọn
-        input(
-            type="text"
-            class="form-control"
-            id="color"
-            name="color"
-            style="width:100px;display:none"
-          )
+          a.btn(style="border:1px solid #ced4da" remove-color) Remove
+      a.btn.mb-3(style="border:1px solid #495057" add-color-another) Add color
+      input(
+        type="text"
+        class="form-control"
+        id="color"
+        name="color"
+        style="width:100px;display:none"
+      )
+      
       div(class="form-group")
         label(for="desc") Mô tả
         textarea(

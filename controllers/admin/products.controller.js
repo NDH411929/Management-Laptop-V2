@@ -264,6 +264,7 @@ module.exports.createProduct = async (req, res) => {
             };
             req.body.createdBy = createdBy;
             //End history created
+
             const product = new Product(req.body);
             product.save();
             req.flash("success", "Thêm sản phẩm thành công!");

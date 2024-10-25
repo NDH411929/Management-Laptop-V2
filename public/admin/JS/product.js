@@ -3,6 +3,47 @@ const formCreateProduct = document.querySelector("#form-create-product");
 if (formCreateProduct) {
     formCreateProduct.addEventListener("submit", (e) => {
         e.preventDefault();
+        const editColor = document.querySelectorAll("[edit-color]");
+        let arrColor = [];
+
+        let check = "false";
+        editColor.forEach((item) => {
+            const codeColor = item.querySelector("input.edit-code_color").value;
+            const nameColor = item.querySelector("input.edit-name_color").value;
+            let objectColor = {
+                name_color: nameColor,
+                code_color: codeColor,
+            };
+            const existsNameColor = arrColor.some(
+                (item) => item.name_color == nameColor
+            );
+            const existsCodeColor = arrColor.some(
+                (item) => item.code_color == codeColor
+            );
+
+            // Ngắt vòng lặp nếu tìm thấy tên hoặc mã màu đã tồn tại
+            if (existsNameColor) {
+                alert("Tên màu không được trùng");
+                check = "true";
+                return; // Thoát khỏi hàm submit, không tiếp tục thực hiện
+            }
+
+            if (existsCodeColor) {
+                alert("Mã màu không được trùng");
+                check = "true";
+                return; // Thoát khỏi hàm submit, không tiếp tục thực hiện
+            }
+
+            // Nếu không có trùng lặp, thêm đối tượng màu vào mảng
+            arrColor.push(objectColor);
+        });
+        if (check == "true") {
+            arrColor = [];
+        } else {
+            const color = document.querySelector("#color");
+            color.value = JSON.stringify(arrColor);
+            formCreateProduct.submit();
+        }
     });
 }
 
