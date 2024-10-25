@@ -4,6 +4,32 @@ block main
   if (product.title)
     h1(class="mb-4") #{product.title}
 
+  if(product.color.length>0)
+    div Màu sắc: 
+    .d-flex.list-color-product.mb-3.mt-3(style="gap:10px")
+      each item in product.color
+        a.d-flex.color-product(value=item.name_color, color-choosed=item.code_color style="align-items: center;gap: 5px;border-radius: 32px;padding: 6px 12px 6px 8px;font-size: 14px;border: 1px solid #eaecf0;cursor: pointer;color: #333;font-family: Arial;")
+          .code-color(style=`width:16px;height:16px; border:1px solid #ececec;background:${item.code_color};border-radius:50%;`)
+          span.name-color #{item.name_color}
+
+  if (product.thumbnail)
+    div Ảnh chính: 
+    div(class="mb-4")
+      img(
+        src=product.thumbnail
+        style="width: 100px"
+      )
+  
+  if(product.listImage.length>0)
+    div Ảnh chi tiết: 
+    div.d-flex
+      each item in product.listImage
+        div(class="mb-4")
+          img(
+            src=item
+            style="width: 100px;margin-right:5px"
+          )
+
   if (product.brand)
     div(class="mb-4") Thương hiệu: <b>#{product.brand}</b>
 
@@ -19,13 +45,6 @@ block main
   if (product.stock)
     div(class="mb-4") Còn lại: <b>#{product.stock}</b>
 
-  if (product.thumbnail)
-    div(class="mb-4")
-      img(
-        src=product.thumbnail
-        style="width: 100px"
-      )
-
   if (product.status)
     div(class="mb-4")
       span Trạng thái:
@@ -36,6 +55,16 @@ block main
 
   if (product.position)
     div(class="mb-4") Vị trí: <b>#{product.position}</b>
+
+  if(product.createdBy.createdAt && product.createdByFullName)
+    div(class="mb-4") Người tạo: #{product.createdByFullName}
+    div(class="mb-4") Thời gian: #{moment(product.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+  -var length=product.updatedBy.length
+  if(length>0)
+    div(class="mb-4") <b>Cập nhật lần cuối</b>
+    div(class="mb-4") Người cập nhật: #{product.fullNameUpdated}
+    div(class="mb-4") Thời gian: #{moment(product.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}
+
   if(product.specifications)
     h3.mb-4 Bảng thông số kỹ thuật
     table(
@@ -46,18 +75,9 @@ block main
           th Tên thông số
           th Mô tả
       tbody
-        each value,key in product.specifications 
+        each item in product.specifications 
           tr 
-            td(style="background-color: #f7f7f7 !important;border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 208px;") #{key}
-            td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 625px;") #{value}
+            td(style="background-color: #f7f7f7 !important;border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 208px;") #{item.nameSpec}
+            td(style="border-color: #eeeeee;border-style: solid;border-width: 1px;box-sizing: border-box;padding: 8px;vertical-align: top;width: 625px;") #{item.valueDefault}
   if (product.description)
     div(class="mb-4") Mô tả: !{product.description}
-  
-  if(product.createdBy.createdAt && product.createdByFullName)
-    div(class="mb-4") Người tạo: #{product.createdByFullName}
-    div(class="mb-4") Thời gian: #{moment(product.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
-  -var length=product.updatedBy.length
-  if(length>0)
-    div(class="mb-4") <b>Cập nhật lần cuối</b>
-    div(class="mb-4") Người cập nhật: #{product.fullNameUpdated}
-    div(class="mb-4") Thời gian: #{moment(product.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}
