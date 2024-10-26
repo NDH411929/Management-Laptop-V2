@@ -8,9 +8,15 @@ mixin create-menu-tree(items,level=0)
                             if(level>0)
                                 div(style="display: inline-block; width: 14px;height:1px;background:#e1e1e1")
                         if(level>0)
-                            span.subtitle-cate(style="margin-left:10px") #{item.title}
+                            if(keywordCategory==item.slug)
+                                span.subtitle-cate(style="margin-left:10px;color:red") #{item.title}
+                            else 
+                                span.subtitle-cate(style="margin-left:10px") #{item.title}
                         else 
-                            span.subtitle-cate(style="font-weight:700") #{item.title}
+                            if(keywordCategory==item.slug)
+                                span.subtitle-cate(style="font-weight:700;color:red") #{item.title}
+                            else 
+                                span.subtitle-cate(style="font-weight:700") #{item.title}
                 if item.children && item.children.length > 0
                     +create-menu-tree(item.children, level+1)
     else
@@ -22,9 +28,15 @@ mixin create-menu-tree(items,level=0)
                             if(level>0)
                                 div(style="display: inline-block; width: 14px;height:1px;background:#e1e1e1")
                         if(level>0)
-                            span.subtitle-cate(style="margin-left:10px") #{item.title}
+                            if(keywordCategory==item.slug)
+                                span.subtitle-cate(style="margin-left:10px;color:red") #{item.title}
+                            else 
+                                span.subtitle-cate(style="margin-left:10px") #{item.title}
                         else 
-                            span.subtitle-cate #{item.title}
+                            if(keywordCategory==item.slug)
+                                span.subtitle-cate(style="color:red") #{item.title}
+                            else 
+                                span.subtitle-cate #{item.title}
                 if item.children && item.children.length > 0
                     +create-menu-tree(item.children, level+1)
 
