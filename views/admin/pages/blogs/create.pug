@@ -32,6 +32,25 @@ block main
                     option(value="") -- Chọn danh mục cha --
                     if(records)
                         +select-tree(records)
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featuresTrue"
+                    name="features"
+                    value="true"
+                )
+                label(for="featuresTrue" class="form-check-label") Nổi bật
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featuresFalse"
+                    name="features"
+                    value="false"
+                    checked
+                )
+                label(for="featuresFalse" class="form-check-label") Thường
             div(
                 class="form-group"
                 form-preview-image

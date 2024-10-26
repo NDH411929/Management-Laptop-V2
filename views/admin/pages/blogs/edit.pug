@@ -31,6 +31,26 @@ block main
                     option(value="") -- Chọn danh mục cha --
                     if(records)
                         +select-tree(records,1,blog.parent_id)
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featuresTrue"
+                    name="features"
+                    value="true"
+                    checked=(blog.features=="true"?true:false)
+                )
+                label(for="featuresTrue" class="form-check-label") Nổi bật
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featuresFalse"
+                    name="features"
+                    value="false"
+                    checked=(blog.features=="false"?true:false)
+                )
+                label(for="featuresFalse" class="form-check-label") Thường
             div(
                 class="form-group"
                 form-preview-image
