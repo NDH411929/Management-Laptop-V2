@@ -1,0 +1,62 @@
+mixin create-menu-tree(items,level=0) 
+    if(level==0 || level>1)
+        ul(style="padding-left:0;margin-bottom:0")
+            each item in items
+                li
+                    a(href=`/blogs/category/${item.slug}` style="display:flex;align-items:center;padding:10px 0")
+                        each _ in Array(level)
+                            if(level>0)
+                                div(style="display: inline-block; width: 14px;height:1px;background:#e1e1e1")
+                        if(level>0)
+                            span.subtitle-cate(style="margin-left:10px") #{item.title}
+                        else 
+                            span.subtitle-cate(style="font-weight:700") #{item.title}
+                if item.children && item.children.length > 0
+                    +create-menu-tree(item.children, level+1)
+    else
+        ul(style="padding-left:0;border-left:1px solid #e1e1e1;margin-left:16px")
+            each item in items
+                li
+                    a(href=`/blogs/category/${item.slug}` style="display:flex;align-items:center;padding:10px 0")
+                        each _ in Array(level)
+                            if(level>0)
+                                div(style="display: inline-block; width: 14px;height:1px;background:#e1e1e1")
+                        if(level>0)
+                            span.subtitle-cate(style="margin-left:10px") #{item.title}
+                        else 
+                            span.subtitle-cate #{item.title}
+                if item.children && item.children.length > 0
+                    +create-menu-tree(item.children, level+1)
+
+//- Code collapse blog category
+//- mixin create-menu-tree(items, level=0)
+//-     ul(style=`padding-left: ${level * 20}px`)
+//-         each item, index in items
+//-             li(style="list-style:none")
+//-                 if level == 0
+//-                     - var headingId = `heading-${index}-${level}`
+//-                     - var collapseId = `collapse-${index}-${level}`
+//-                     div(id=`${"accordion-item-" + index}`)
+//-                         h5.mb-0
+//-                             button.btn.btn-link(
+//-                                 data-toggle="collapse", 
+//-                                 data-target=`#${collapseId}`, 
+//-                                 aria-expanded="false", 
+//-                                 aria-controls=collapseId,
+//-                                 style="padding:0"
+//-                             )
+//-                                 span #{item.title}
+//-                 else
+//-                     a(href=`/blogs/category/${item.slug}`, style="padding:6px 24px;display:inline-block") 
+//-                         each _ in Array(level)
+//-                             div(style="display: inline-block; width: 12px;height:1px;background:#333;margin-right: 4px")
+//-                         span #{item.title}
+
+//-                 if item.children && item.children.length > 0
+//-                     div(class='collapse' id=`collapse-${index}-${level}` aria-labelledby=headingId, data-parent=`#${"accordion-item-" + index}`)
+//-                         +create-menu-tree(item.children, level + 1)
+
+
+
+        
+    

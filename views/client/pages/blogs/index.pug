@@ -3,6 +3,7 @@ include ../../mixins/box-head.pug
 include ../../mixins/layout-product.pug
 include ../../mixins/not-found.pug
 include ../../mixins/filter-products.pug
+include ../../mixins/create-menu-tree.pug
 block main
     .blogs
         .container.my-3 
@@ -13,25 +14,69 @@ block main
             .section-new-blog 
                 .inner-new-blog(style="background:#fff;border-radius:4px;margin-bottom:16px") 
                     .heading(style="padding:24px") 
-                        h2.sub-title Bài viết mới nhất
-            .section-blog(style="")
-                .inner-blog(style="width:70%")
-                    each item in blogs  
-                        .col-post.i-6
-                            div(class="post_item" style="")
-                                div(class="post_featured coll-l" style="")
-                                    div(class="post_thumb fade-box" style="")
-                                        a.aspect-ratio(href=`/blogs/detail/${item.slug}` style="")
-                                            picture(style="")
-                                                img.ls-is-cached.lazyloaded(src=item.thumbnail style="width:100%;max-width:100%")
-                                div(class="post_content coll-r" style="margin-left:16px")
-                                    h3(class="post_title")
-                                        a(href=`/blogs/detail/${item.slug}` style="") #{item.title}
-                                    div(class="post_info" style="display:flex;align-items:center")
-                                        svg(width="17", height="16", viewBox="0 0 17 16", fill="none", xmlns="http://www.w3.org/2000/svg")
-                                            path(d="M8.49968 3.99967C8.32287 3.99967 8.1533 4.06991 8.02827 4.19494C7.90325 4.31996 7.83301 4.48953 7.83301 4.66634V7.33301H6.49968C6.32287 7.33301 6.1533 7.40325 6.02827 7.52827C5.90325 7.65329 5.83301 7.82286 5.83301 7.99967C5.83301 8.17649 5.90325 8.34605 6.02827 8.47108C6.1533 8.5961 6.32287 8.66634 6.49968 8.66634H8.49968C8.67649 8.66634 8.84606 8.5961 8.97108 8.47108C9.09611 8.34605 9.16634 8.17649 9.16634 7.99967V4.66634C9.16634 4.48953 9.09611 4.31996 8.97108 4.19494C8.84606 4.06991 8.67649 3.99967 8.49968 3.99967ZM8.49968 1.33301C7.18114 1.33301 5.8922 1.724 4.79588 2.45654C3.69955 3.18909 2.84506 4.23028 2.34048 5.44845C1.8359 6.66663 1.70387 8.00707 1.96111 9.30028C2.21834 10.5935 2.85328 11.7814 3.78563 12.7137C4.71798 13.6461 5.90587 14.281 7.19908 14.5382C8.49228 14.7955 9.83273 14.6635 11.0509 14.1589C12.2691 13.6543 13.3103 12.7998 14.0428 11.7035C14.7754 10.6071 15.1663 9.31822 15.1663 7.99967C15.1644 6.23216 14.4614 4.5376 13.2116 3.28777C11.9618 2.03795 10.2672 1.33495 8.49968 1.33301ZM8.49968 13.333C7.44484 13.333 6.4137 13.0202 5.53664 12.4342C4.65957 11.8481 3.97599 11.0152 3.57232 10.0407C3.16865 9.06611 3.06304 7.99376 3.26882 6.95919C3.47461 5.92463 3.98256 4.97432 4.72844 4.22844C5.47432 3.48256 6.42463 2.97461 7.4592 2.76882C8.49376 2.56303 9.56612 2.66865 10.5407 3.07232C11.5152 3.47598 12.3481 4.15957 12.9342 5.03663C13.5202 5.91369 13.833 6.94484 13.833 7.99967C13.8312 9.41362 13.2688 10.7691 12.269 11.769C11.2692 12.7688 9.91362 13.3312 8.49968 13.333Z", fill="#535353")
-                                        span(class="createdAt" data-time=item.createdAt style="font-size:14px;margin-left:5px") #{item.createdAt}
-                                        span.createdBy(style="color:#005EC9;cursor:pointer;font-weight:600;margin-left:10px") #{item.createdByFullName}
-
-            
+                        h2.sub-title Bài viết nổi bật nhất
+                    .section-content.d-flex(style="padding:0 24px 24px 24px;gap:20px")
+                        .col-left.position-relative(style="display:block;width:50%;overflow:hidden;height:300px;border-radius:4px")
+                            .position-relative(style="width:100%;height:100%")
+                                img.background-image(src=featureBlogs[0].thumbnail, alt="Background Image", style="position: absolute;height: 100%;width: 100%;inset: 0px;color: transparent;object-fit:cover")
+                            .overlay-post.position-absolute(style="display:flex;flex-direction: column;width: 100%;height:100%;left:0;bottom:0;background: linear-gradient(180deg, transparent 45%, #101426);justify-content:flex-end;padding:15px")
+                                .post-content.d-flex.flex-column
+                                    a(style="color:#fff" href=`/blogs/detail/${featureBlogs[0].slug}`) 
+                                        h3(style="font-size:16px") #{featureBlogs[0].title}
+                                    .box-desc   
+                                        p.desc(style="overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;color:#fff;font-size:13px;margin-bottom:8px") Vừa qua, Arm đã gây bất ngờ khi quyết định chấm dứt giấy phép sản xuất chip Snapdragon của Qualcomm. Theo thông tin cập nhật, Arm có thể sẽ hủy quyền thiết kế chip của Qualcomm, điều mà hãng này phụ thuộc gần như hoàn toàn để tạo ra sản
+                                        div(class="post_info" style="display:flex;align-items:center")
+                                            span.createdBy(style="color:#005EC9;cursor:pointer;color:#fff;font-size:14px") #{featureBlogs[0].createdByFullName}
+                                            svg(width="17", height="16", viewBox="0 0 17 16", fill="#fff", xmlns="http://www.w3.org/2000/svg" style="margin-left:10px;")
+                                                path(d="M8.49968 3.99967C8.32287 3.99967 8.1533 4.06991 8.02827 4.19494C7.90325 4.31996 7.83301 4.48953 7.83301 4.66634V7.33301H6.49968C6.32287 7.33301 6.1533 7.40325 6.02827 7.52827C5.90325 7.65329 5.83301 7.82286 5.83301 7.99967C5.83301 8.17649 5.90325 8.34605 6.02827 8.47108C6.1533 8.5961 6.32287 8.66634 6.49968 8.66634H8.49968C8.67649 8.66634 8.84606 8.5961 8.97108 8.47108C9.09611 8.34605 9.16634 8.17649 9.16634 7.99967V4.66634C9.16634 4.48953 9.09611 4.31996 8.97108 4.19494C8.84606 4.06991 8.67649 3.99967 8.49968 3.99967ZM8.49968 1.33301C7.18114 1.33301 5.8922 1.724 4.79588 2.45654C3.69955 3.18909 2.84506 4.23028 2.34048 5.44845C1.8359 6.66663 1.70387 8.00707 1.96111 9.30028C2.21834 10.5935 2.85328 11.7814 3.78563 12.7137C4.71798 13.6461 5.90587 14.281 7.19908 14.5382C8.49228 14.7955 9.83273 14.6635 11.0509 14.1589C12.2691 13.6543 13.3103 12.7998 14.0428 11.7035C14.7754 10.6071 15.1663 9.31822 15.1663 7.99967C15.1644 6.23216 14.4614 4.5376 13.2116 3.28777C11.9618 2.03795 10.2672 1.33495 8.49968 1.33301ZM8.49968 13.333C7.44484 13.333 6.4137 13.0202 5.53664 12.4342C4.65957 11.8481 3.97599 11.0152 3.57232 10.0407C3.16865 9.06611 3.06304 7.99376 3.26882 6.95919C3.47461 5.92463 3.98256 4.97432 4.72844 4.22844C5.47432 3.48256 6.42463 2.97461 7.4592 2.76882C8.49376 2.56303 9.56612 2.66865 10.5407 3.07232C11.5152 3.47598 12.3481 4.15957 12.9342 5.03663C13.5202 5.91369 13.833 6.94484 13.833 7.99967C13.8312 9.41362 13.2688 10.7691 12.269 11.769C11.2692 12.7688 9.91362 13.3312 8.49968 13.333Z", fill="#fff")
+                                            span(class="createdAt" data-time=featureBlogs[0].createdAt style="font-size:14px;margin-left:5px;color:#fff") #{featureBlogs[0].createdAt}
+                        .col-right(style="width:45%;")
+                            .inner-blog
+                                each item,index in featureBlogs 
+                                    if(index>0)  
+                                        .col-post.i-6
+                                            div(class="post_item" style="display: flex;flex-direction: row;flex: 0;margin-bottom: 0;padding: 0 0 20px 0 !important;color: #111111;")
+                                                div(class="post_featured coll-l" style="flex: 0 0 33%;max-width: 33%;margin-bottom: 0;overflow: hidden;position: relative;")
+                                                    div(class="post_thumb fade-box" style="overflow: hidden;border-radius: 4px;position: relative;")
+                                                        a.aspect-ratio(href=`/blogs/detail/${item.slug}` )
+                                                            picture
+                                                                img.ls-is-cached.lazyloaded(src=item.thumbnail style="width:100%;max-width:100%")
+                                                div(class="post_content coll-r" style="margin-left:10px")
+                                                    h3(class="post_title")
+                                                        a(href=`/blogs/detail/${item.slug}` style="font-size:15px") #{item.title}
+                                                    div(class="post_info" style="display:flex;align-items:center")
+                                                        svg(width="17", height="16", viewBox="0 0 17 16", fill="none", xmlns="http://www.w3.org/2000/svg")
+                                                            path(d="M8.49968 3.99967C8.32287 3.99967 8.1533 4.06991 8.02827 4.19494C7.90325 4.31996 7.83301 4.48953 7.83301 4.66634V7.33301H6.49968C6.32287 7.33301 6.1533 7.40325 6.02827 7.52827C5.90325 7.65329 5.83301 7.82286 5.83301 7.99967C5.83301 8.17649 5.90325 8.34605 6.02827 8.47108C6.1533 8.5961 6.32287 8.66634 6.49968 8.66634H8.49968C8.67649 8.66634 8.84606 8.5961 8.97108 8.47108C9.09611 8.34605 9.16634 8.17649 9.16634 7.99967V4.66634C9.16634 4.48953 9.09611 4.31996 8.97108 4.19494C8.84606 4.06991 8.67649 3.99967 8.49968 3.99967ZM8.49968 1.33301C7.18114 1.33301 5.8922 1.724 4.79588 2.45654C3.69955 3.18909 2.84506 4.23028 2.34048 5.44845C1.8359 6.66663 1.70387 8.00707 1.96111 9.30028C2.21834 10.5935 2.85328 11.7814 3.78563 12.7137C4.71798 13.6461 5.90587 14.281 7.19908 14.5382C8.49228 14.7955 9.83273 14.6635 11.0509 14.1589C12.2691 13.6543 13.3103 12.7998 14.0428 11.7035C14.7754 10.6071 15.1663 9.31822 15.1663 7.99967C15.1644 6.23216 14.4614 4.5376 13.2116 3.28777C11.9618 2.03795 10.2672 1.33495 8.49968 1.33301ZM8.49968 13.333C7.44484 13.333 6.4137 13.0202 5.53664 12.4342C4.65957 11.8481 3.97599 11.0152 3.57232 10.0407C3.16865 9.06611 3.06304 7.99376 3.26882 6.95919C3.47461 5.92463 3.98256 4.97432 4.72844 4.22844C5.47432 3.48256 6.42463 2.97461 7.4592 2.76882C8.49376 2.56303 9.56612 2.66865 10.5407 3.07232C11.5152 3.47598 12.3481 4.15957 12.9342 5.03663C13.5202 5.91369 13.833 6.94484 13.833 7.99967C13.8312 9.41362 13.2688 10.7691 12.269 11.769C11.2692 12.7688 9.91362 13.3312 8.49968 13.333Z", fill="#535353")
+                                                        span(class="createdAt" data-time=item.createdAt style="font-size:14px;margin-left:5px") #{item.createdAt}
+                                                        span.createdBy(style="color:#005EC9;cursor:pointer;margin-left:10px;font-size:14px") #{item.createdByFullName}
+            //- .section-blogs-category 
+            //-     .inner-new-blog(style="background:#fff;border-radius:4px;margin-bottom:16px") 
+            //-         .heading(style="padding:24px") 
+            //-             h2.sub-title Danh mục bài viết
+            .section-blog(style="display:flex;justify-content:space-between")
+                .blog-left(style="width:70%")
+                    .heading(style="font-family:Arial;font-weight:500")
+                        h2.sub-title(style="font-size:24px;font-weight:600") Bài viết mới nhất
+                    .inner-blog
+                        each item in blogs  
+                            .col-post.i-6
+                                div(class="post_item" )
+                                    div(class="post_featured coll-l" )
+                                        div(class="post_thumb fade-box" )
+                                            a.aspect-ratio(href=`/blogs/detail/${item.slug}` )
+                                                picture
+                                                    img.ls-is-cached.lazyloaded(src=item.thumbnail style="width:100%;max-width:100%")
+                                    div(class="post_content coll-r" style="margin-left:16px")
+                                        h3(class="post_title")
+                                            a(href=`/blogs/detail/${item.slug}` ) #{item.title}
+                                        div(class="post_info" style="display:flex;align-items:center")
+                                            svg(width="17", height="16", viewBox="0 0 17 16", fill="none", xmlns="http://www.w3.org/2000/svg")
+                                                path(d="M8.49968 3.99967C8.32287 3.99967 8.1533 4.06991 8.02827 4.19494C7.90325 4.31996 7.83301 4.48953 7.83301 4.66634V7.33301H6.49968C6.32287 7.33301 6.1533 7.40325 6.02827 7.52827C5.90325 7.65329 5.83301 7.82286 5.83301 7.99967C5.83301 8.17649 5.90325 8.34605 6.02827 8.47108C6.1533 8.5961 6.32287 8.66634 6.49968 8.66634H8.49968C8.67649 8.66634 8.84606 8.5961 8.97108 8.47108C9.09611 8.34605 9.16634 8.17649 9.16634 7.99967V4.66634C9.16634 4.48953 9.09611 4.31996 8.97108 4.19494C8.84606 4.06991 8.67649 3.99967 8.49968 3.99967ZM8.49968 1.33301C7.18114 1.33301 5.8922 1.724 4.79588 2.45654C3.69955 3.18909 2.84506 4.23028 2.34048 5.44845C1.8359 6.66663 1.70387 8.00707 1.96111 9.30028C2.21834 10.5935 2.85328 11.7814 3.78563 12.7137C4.71798 13.6461 5.90587 14.281 7.19908 14.5382C8.49228 14.7955 9.83273 14.6635 11.0509 14.1589C12.2691 13.6543 13.3103 12.7998 14.0428 11.7035C14.7754 10.6071 15.1663 9.31822 15.1663 7.99967C15.1644 6.23216 14.4614 4.5376 13.2116 3.28777C11.9618 2.03795 10.2672 1.33495 8.49968 1.33301ZM8.49968 13.333C7.44484 13.333 6.4137 13.0202 5.53664 12.4342C4.65957 11.8481 3.97599 11.0152 3.57232 10.0407C3.16865 9.06611 3.06304 7.99376 3.26882 6.95919C3.47461 5.92463 3.98256 4.97432 4.72844 4.22844C5.47432 3.48256 6.42463 2.97461 7.4592 2.76882C8.49376 2.56303 9.56612 2.66865 10.5407 3.07232C11.5152 3.47598 12.3481 4.15957 12.9342 5.03663C13.5202 5.91369 13.833 6.94484 13.833 7.99967C13.8312 9.41362 13.2688 10.7691 12.269 11.769C11.2692 12.7688 9.91362 13.3312 8.49968 13.333Z", fill="#535353")
+                                            span(class="createdAt" data-time=item.createdAt style="font-size:14px;margin-left:5px") #{item.createdAt}
+                                            span.createdBy(style="color:#005EC9;cursor:pointer;font-weight:600;margin-left:10px") #{item.createdByFullName}
+                .blog-right(style="width:25%")
+                    .heading(style="font-family:Arial;font-weight:500")
+                        h2.sub-title(style="font-size:24px;font-weight:600") Danh mục bài viết
+                    .inner-blog-category(style="background:#f2f4f7;padding: 14px 24px;border-radius:4px;color:#333")
+                        +create-menu-tree(newBlogCategory)
     script(src="/JS/product.js")
