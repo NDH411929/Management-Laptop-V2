@@ -326,11 +326,9 @@ a:hover {
     color: #ffd44d !important;
 }
 
-
 /* .header .inner-row-top a#cart .desc {
     color: #fff;
 } */
-
 
 /* .header .inner-row-top a#cart:hover .desc {
     color: #ffd44d;
@@ -340,9 +338,7 @@ a:hover {
     stroke: #ffd44d;
 } */
 
-
 /* End Header */
-
 
 /*Home blog*/
 
@@ -419,9 +415,7 @@ a:hover {
     margin-right: 2px;
 }
 
-
 /*End home blog*/
-
 
 /*Modal*/
 
@@ -559,9 +553,7 @@ a:hover {
     color: #000;
 }
 
-
 /*End Modal*/
-
 
 /* Slider */
 
@@ -577,7 +569,6 @@ a:hover {
     font-weight: 500;
     min-width: 216px;
 }
-
 
 /* .carousel-indicators{
 
@@ -614,7 +605,6 @@ a:hover {
     color: #fff;
     background-color: #e30019;
 }
-
 
 /* .section-slider .mega-link:hover::before {
     display: block;
@@ -686,9 +676,7 @@ a:hover {
     display: none;
 }
 
-
 /* End Slider */
-
 
 /*Page Forgot password*/
 
@@ -803,7 +791,6 @@ a:hover {
     text-decoration: underline;
 }
 
-
 /*Products Category*/
 
 .products-category .section-category {
@@ -874,9 +861,7 @@ a:hover {
     font-size: 14px;
 }
 
-
 /*End product category*/
-
 
 /*Home product*/
 
@@ -1044,7 +1029,6 @@ a:hover {
     display: -webkit-box;
 }
 
-
 /* .products .section-content .item-box .item-detail .proloop-technical {
     background-color: #ececec;
     padding: 4px 8px;
@@ -1061,7 +1045,12 @@ a:hover {
     margin-bottom: 2px;
 }
 
-.products .section-content .item-box .item-detail .proloop-technical--line span {
+.products
+    .section-content
+    .item-box
+    .item-detail
+    .proloop-technical--line
+    span {
     color: #6d6e72;
     font-size: 11.5px;
     font-weight: 500;
@@ -1228,7 +1217,6 @@ a:hover {
     width: 100%;
 }
 
-
 /*Page product detail*/
 
 .product-detail .description_box {
@@ -1292,9 +1280,7 @@ a:hover {
     fill: yellow !important;
 }
 
-
 /*End page product detail*/
-
 
 /*Page blogs*/
 
@@ -1314,6 +1300,10 @@ a:hover {
     margin-bottom: 0;
     padding: 16px 0 !important;
     color: #111111;
+}
+
+.blogs .section-blog .inner-blog .col-post:first-child .post_item {
+    border-top: 0;
 }
 
 .blogs .section-blog .inner-blog .post_featured {
@@ -1371,9 +1361,68 @@ a:hover {
     color: #e30019;
 }
 
+.blogs .blog-right .subtitle-cate {
+    color: #333;
+    transition: all 0.2s ease-in-out;
+}
+
+.blogs .blog-right .subtitle-cate:hover {
+    color: #e30019;
+}
+
+/* .blogs .section-new-blog .section-content .aspect-ratio {
+    border: 2px solid #dedede;
+    border-radius: 15px;
+    color: #000;
+    gap: 10px;
+    overflow: hidden;
+    transition: scale 0.5s ease;
+    width: calc(25% - 11.25px);
+    display: block;
+}
+
+.blogs
+    .section-new-blog
+    .section-content
+    .aspect-ratio:hover
+    .action-view
+    .desc {
+    color: #e30019;
+    text-decoration: underline;
+}
+
+.blogs .section-new-blog .section-content .aspect-ratio:hover svg {
+    fill: #e30019;
+}
+
+.blogs .section-new-blog .section-content .aspect-ratio .item-img {
+    min-height: 160px;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+    padding: 0.25rem;
+    border-radius: 15px 15px 0 0;
+}
+
+.blogs .section-new-blog .section-content .info-blog {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    font-weight: 500;
+}
+
+.blogs .section-new-blog .section-content .action-view {
+    align-items: center;
+    margin-top: 10px;
+}
+
+.blogs .section-new-blog .section-content .action-view .desc {
+    font-size: 14px;
+    margin-right: 2px;
+} */
 
 /*End page blogs*/
-
 
 /*Page blog detail*/
 
@@ -1398,7 +1447,6 @@ a:hover {
     font-size: 14px;
 }
 
-
 /*End page blog detail*/
 
 select.sort-control {
@@ -1412,7 +1460,6 @@ select.sort-control {
     cursor: pointer;
 }
 
-
 /* Mũi tên tùy chỉnh */
 
 select.sort-control {
@@ -1422,7 +1469,6 @@ select.sort-control {
     background-position: right 10px center;
     background-size: 12px;
 }
-
 
 /* Tạo kiểu cho từng option */
 
@@ -1434,7 +1480,6 @@ select.sort-control option {
     border-radius: 0;
 }
 
-
 /* Khi focus (người dùng nhấp vào select) */
 
 select.sort-control:focus {
@@ -1444,14 +1489,12 @@ select.sort-control:focus {
     /* Ánh sáng xanh xung quanh */
 }
 
-
 /* Hover effect khi người dùng di chuột qua các option */
 
 select.sort-control:hover {
     background-color: #eee;
     /* Thay đổi màu nền khi di chuột */
 }
-
 
 /* Custom cho các trình duyệt cụ thể */
 
@@ -1460,9 +1503,7 @@ select.sort-control::-ms-expand {
     /* Loại bỏ mũi tên mặc định của IE */
 }
 
-
 /* Page List Product*/
-
 
 /* .product-list {
     padding-top: 84px;
@@ -1624,7 +1665,6 @@ select.sort-control::-ms-expand {
     color: #131717;
 } */
 
-
 /*End Page List Product */
 
 .product-detail .product-desc-left .inner-desc h2 {
@@ -1635,7 +1675,11 @@ select.sort-control::-ms-expand {
     font-size: 24px;
 }
 
-.product-detail .product-inner-prtab1 .product-wrap .proloop-detail .proloop-name:hover {
+.product-detail
+    .product-inner-prtab1
+    .product-wrap
+    .proloop-detail
+    .proloop-name:hover {
     text-decoration: underline;
 }
 
@@ -1657,9 +1701,7 @@ select.sort-control::-ms-expand {
     background-color: #f1f8fe;
 }
 
-
 /*End product detail*/
-
 
 /*Page blog detail*/
 
@@ -1676,9 +1718,7 @@ select.sort-control::-ms-expand {
     text-align: center;
 }
 
-
 /*End page blog detail*/
-
 
 /*Page Cart*/
 
@@ -1802,9 +1842,7 @@ select.sort-control::-ms-expand {
     border-radius: 0;
 }
 
-
 /*End Page Cart*/
-
 
 /*Page Checkout*/
 
@@ -1899,9 +1937,7 @@ select.sort-control::-ms-expand {
     /* color: #566363; */
 }
 
-
 /*End Page Checkout*/
-
 
 /*Page Order Success*/
 
@@ -1924,9 +1960,7 @@ select.sort-control::-ms-expand {
     border: 1px solid #005d63;
 }
 
-
 /*End Page Order Success*/
-
 
 /* Footer */
 
@@ -1990,6 +2024,5 @@ select.sort-control::-ms-expand {
     font-size: 16px;
     margin-left: 115px;
 }
-
 
 /* End Footer */
