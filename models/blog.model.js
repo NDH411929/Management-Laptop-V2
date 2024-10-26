@@ -10,6 +10,7 @@ const blogSchema = new mongoose.Schema({
     thumbnail: String,
     status: String,
     position: Number,
+    features: String,
     slug: { type: String, slug: "title", unique: true },
     createdBy: {
         account_id: String,
