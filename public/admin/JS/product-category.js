@@ -58,27 +58,3 @@ if (deleteSpecifications.length > 0) {
     });
 }
 // //End Delete Item
-
-//Change-status
-const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
-if (buttonChangeStatus.length > 0) {
-    const formChangeStatus = document.querySelector("#form-change-status");
-    const path = formChangeStatus.getAttribute("path");
-    buttonChangeStatus.forEach((button) => {
-        button.addEventListener("click", () => {
-            const currentStatus = button.getAttribute("data-status");
-            const idButton = button.getAttribute("data-id");
-
-            let changeStatus = "";
-            if (currentStatus == "active") {
-                changeStatus = "inactive";
-            } else {
-                changeStatus = "active";
-            }
-            const action = path + `/${changeStatus}/${idButton}/?_method=PATCH`;
-            formChangeStatus.action = action;
-            formChangeStatus.submit();
-        });
-    });
-}
-//End Change-status
