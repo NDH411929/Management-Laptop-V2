@@ -51,6 +51,7 @@ module.exports.registerPost = async (req, res) => {
             }
         );
     }
+    req.flash("success", "Đăng nhập thành công!");
     res.redirect("/");
 };
 
@@ -94,13 +95,14 @@ module.exports.loginPost = async (req, res) => {
             { cartId: cart.id }
         );
     }
-
+    req.flash("success", "Đăng nhập thành công!");
     res.redirect("/");
 };
 
 module.exports.logout = async (req, res) => {
     res.clearCookie("tokenUser", req.cookies.tokenUser);
     res.clearCookie("cartId", req.cookies.cartId);
+    req.flash("success", "Đăng xuất thành công!");
     res.redirect("/");
 };
 
@@ -117,8 +119,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
         deleted: false,
     });
     if (!emailExist) {
-        console.log("khong tim thay email");
-        req.flash("error", "Khong tim thay email");
+        req.flash("error", "Không tìm thấy email!");
         res.redirect("back");
         return;
     }
@@ -137,7 +138,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
     const html = `Mã OTP của bạn là <b>${codeOtp}</b>. Vui lòng không chia sẻ mã OTP cho bất kỳ ai. Thời hạn sử dụng mã là 3 phút.`;
 
     sendMailHelper.sendMail(email, subject, html);
-
+    req.flash("success", "Hãy kiểm tra hòm thư của bạn!");
     res.redirect(`/user/password/otp/?email=${email}`);
 };
 
@@ -157,8 +158,7 @@ module.exports.otpPost = async (req, res) => {
         otp: codeOtp,
     });
     if (!otpExist) {
-        console.log("ma otp sai");
-        req.flash("error", "Ma OTP sai");
+        req.flash("error", "Mã OTP không khớp!");
         res.redirect("back");
         return;
     }
@@ -167,6 +167,7 @@ module.exports.otpPost = async (req, res) => {
     });
 
     res.cookie("tokenUser", user.tokenUser);
+    req.flash("success", "Khôi phục tài khoản thành công!");
     res.redirect("/user/password/reset");
 };
 
@@ -182,7 +183,6 @@ module.exports.resetPasswordPost = async (req, res) => {
     const confirmPassword = req.body.confirmPassword;
 
     if (password != confirmPassword) {
-        console.log("MK k khop");
         req.flash("error", "Xác nhận mật khẩu không khớp!");
         res.redirect("back");
         return;
@@ -197,7 +197,6 @@ module.exports.resetPasswordPost = async (req, res) => {
         }
     );
 
-    console.log("doi thanh cong");
     req.flash("success", "Đổi mật khẩu thành công!");
     res.redirect("/");
 };
@@ -272,6 +271,7 @@ module.exports.editInfoUser = async (req, res) => {
         },
         req.body
     );
+    req.flash("success", "Cập nhật thành công!");
     res.redirect("back");
 };
 
@@ -289,6 +289,7 @@ module.exports.editInfoAddress = async (req, res) => {
             address: req.body,
         }
     );
+    req.flash("success", "Cập nhật thành công!");
     res.redirect("back");
 };
 
@@ -304,7 +305,7 @@ module.exports.voucher = async (req, res) => {
         deleted: false,
     });
     if (user.couponsId.includes(id)) {
-        console.log("da ton tai");
+        req.flash("error", "Bạn đã lưu mã giảm giá này rồi!");
     } else {
         let usageLimit = coupon.usageLimit - 1;
         if (usageLimit >= 0) {
@@ -331,7 +332,7 @@ module.exports.voucher = async (req, res) => {
                 }
             );
         } else {
-            console.log("Da het luot su dung");
+            req.flash("success", "Mã giảm giá đã hết lượt sử dụng!");
         }
     }
     res.redirect("back");

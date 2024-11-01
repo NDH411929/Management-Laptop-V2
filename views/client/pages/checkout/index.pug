@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
 
 block main
+    +alert-success(100000)
+    +alert-error(100000)
     .checkout
         .container.my-3
             .checkout-content(style="background:#fff;padding:24px")

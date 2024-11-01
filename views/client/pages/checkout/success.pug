@@ -1,8 +1,11 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/not-found.pug
+include ../../mixins/alert.pug
 
 block main
+    +alert-success(100000)
+    +alert-error(100000)
     .order-success
         .container.my-3
             .row

@@ -293,6 +293,8 @@ li {
     color: #fff;
 }
 
+/*Show Alert*/
+
 [show-alert] {
     position: fixed;
     top: 70px;
@@ -315,6 +317,108 @@ li {
         display: none;
     }
 }
+
+/*End Show Alert*/
+
+/* Alert success */
+
+.wrapper-success .card {
+    min-width: 350px;
+    height: 65px;
+    background-color: #fff;
+    padding: 10px 15px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-left: 7px solid #28a745;
+    border-radius: 3px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.wrapper-success .card .subject {
+    margin-right: 60px;
+}
+
+.wrapper-success .card .subject h3 {
+    font-size: medium;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.wrapper-success .card .subject p {
+    color: #909092;
+    margin: 0;
+}
+
+.wrapper-success .card .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #49d761;
+}
+
+.wrapper-success .card .icon-times {
+    font-size: 28px;
+    color: #c3c2c7;
+    cursor: pointer;
+}
+
+.wrapper-success .card .icon-times:hover {
+    color: #28a745;
+}
+
+/* End Alert Success */
+
+/* Alert Warning */
+
+.wrapper-warning .card {
+    min-width: 350px;
+    height: 65px;
+    background-color: #fff;
+    padding: 10px 15px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-left: 7px solid #dc3545;
+    border-radius: 3px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.wrapper-warning .card .subject {
+    margin-right: 60px;
+}
+
+.wrapper-warning .card .subject h3 {
+    font-size: medium;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.wrapper-warning .card .subject p {
+    color: #909092;
+    margin: 0;
+}
+
+.wrapper-warning .card .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #ff3333;
+}
+
+.wrapper-warning .card .icon-times {
+    font-size: 28px;
+    color: #c3c2c7;
+    cursor: pointer;
+}
+
+.wrapper-warning .card .icon-times:hover {
+    color: #dc3545;
+}
+
+/* End Alert Warning */
 
 .input-user:focus {
     outline: 0;

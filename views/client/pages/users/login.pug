@@ -21,6 +21,9 @@ html
                 background-image: radial-gradient( circle farthest-corner at -8.9% 51.2%,  rgba(255,124,0,1) 0%, rgba(255,124,0,1) 15.9%, rgba(255,163,77,1) 15.9%, rgba(255,163,77,1) 24.4%, rgba(19,30,37,1) 24.5%, rgba(19,30,37,1) 66% );
             }
     body
+        include ../../mixins/alert.pug
+        +alert-success(1000000)
+        +alert-error(1000000)
         section.vh-100.gradient-custom
             .container.py-5.h-100
                 .row.d-flex.justify-content-center.align-items-center.h-100
@@ -48,6 +51,7 @@ html
         //Script bootstrap 
         script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js") 
         script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js") 
+        script(src="/JS/script.js") 
     
 
 

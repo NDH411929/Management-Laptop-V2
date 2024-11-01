@@ -525,6 +525,7 @@ module.exports.sendEvaluate = async (req, res) => {
     });
     const value = parseInt(req.body.value);
     if (value > 5 || value < 1) {
+        req.flash("error", "Lỗi!");
         return;
     }
     if (!existsEvaluate) {
@@ -578,5 +579,6 @@ module.exports.sendEvaluate = async (req, res) => {
             );
         }
     }
+    req.flash("success", "Đánh giá thành công!");
     res.redirect("back");
 };

@@ -3,7 +3,11 @@ include ../../mixins/box-head.pug
 include ../../mixins/layout-product.pug
 include ../../mixins/not-found.pug
 include ../../mixins/filter-products.pug
+include ../../mixins/alert.pug
+
 block main
+    +alert-success(1000000)
+    +alert-error(1000000)
     .products
         .container.my-3 
             if(products.length>0)

@@ -91,7 +91,7 @@ module.exports.orderPost = async (req, res) => {
         });
         const stock = product.stock - item.quantity;
         if (stock < 0) {
-            console.log("het san pham");
+            req.flash("error", "Sản phẩm đã hết hàng!");
         } else {
             await Product.updateOne(
                 { _id: item.product_id },
@@ -153,6 +153,7 @@ module.exports.orderPost = async (req, res) => {
         }
     );
     res.cookie("orderId", order.id);
+    req.flash("success", "Đặt hàng thành công!");
     res.redirect(`/checkout/success`);
 };
 

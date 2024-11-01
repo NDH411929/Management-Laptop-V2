@@ -132,6 +132,7 @@ module.exports.addPost = async (req, res) => {
                         $set: { "products.$.quantity": quantityUpdate },
                     }
                 );
+                req.flash("success", "Thêm vào giỏ hàng thành công!");
             } else {
                 let objectCart = {
                     product_id: productId,
@@ -146,6 +147,7 @@ module.exports.addPost = async (req, res) => {
                         $push: { products: objectCart },
                     }
                 );
+                req.flash("success", "Thêm vào giỏ hàng thành công!");
             }
         }
     }
@@ -202,7 +204,7 @@ module.exports.delete = async (req, res) => {
             { $pull: { products: { product_id: productId, color: color } } }
         );
     }
-
+    req.flash("success", "Xóa thành công!");
     res.redirect("back");
 };
 
@@ -251,8 +253,9 @@ module.exports.applyVoucher = async (req, res) => {
                 },
                 { coupon_id: id }
             );
+            req.flash("success", "Thêm mã giảm giá thành công!");
         } else {
-            console.log("error");
+            req.flash("error", "Đơn hàng của bạn chưa thỏa mãn điều kiện!");
         }
         // End check coupon conditions
     }
