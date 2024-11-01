@@ -58,6 +58,10 @@ block main
             .card.mb-4
                 .card-header Đơn đặt hàng
                     .card-body
-                        p Số lượng: <b>#{statistic.user.total}</b>
-                        p Trạng thái: <b>#{statistic.user.active}</b>
-                        p Vận chuyển: <b>#{statistic.user.inactive}</b>
+                        p Số lượng: <b>#{statistic.order.total}</b>
+                        p Khởi tạo: <b>#{statistic.order.initial}</b>
+                        p Đã duyệt: <b>#{statistic.order.approved}</b>
+                        p Đang xử lý: <b>#{statistic.order.processing}</b>
+                        p Đang vận chuyển: <b>#{statistic.order.shipping}</b>
+                        p Đã giao: <b>#{statistic.order.delivered}</b>
+                        p Dừng vận chuyển: <b>#{statistic.order.stopShip}</b>
