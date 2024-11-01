@@ -8,6 +8,8 @@ const cartSchema = new mongoose.Schema({
             quantity: Number,
         },
     ],
+    coupon_id: String,
+    // couponStatus: String,
 });
 
 const Cart = mongoose.model("Cart", cartSchema, "carts");

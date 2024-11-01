@@ -6,6 +6,8 @@ const flash = require("express-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const moment = require("moment");
+const cron = require("node-cron");
+const Coupon = require("./models/coupon.model");
 const database = require("./config/database");
 const route = require("./routers/client/index.route");
 const routeAdmin = require("./routers/admin/index.route");
@@ -39,11 +41,24 @@ app.use(flash());
 //Allow the "public" folder to be public
 app.use(express.static(__dirname + "/public"));
 
-/* New Route to the TinyMCE Node module */
+// New Route to the TinyMCE Node module
 app.use(
     "/tinymce",
     express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
+
+// Update expire date
+cron.schedule("* * * * *", async () => {
+    const today = new Date();
+    try {
+        await Coupon.updateMany(
+            { expirationDate: { $lte: today }, status: "active" },
+            { $set: { status: "expired" } }
+        );
+    } catch (error) {
+        console.error("Lỗi khi chạy cron job:", error);
+    }
+});
 
 //Route client
 route(app);
@@ -51,14 +66,12 @@ route(app);
 routeAdmin(app);
 
 //exception
-// app.get("*", (req, res) => {
-//     res.render("client/pages/errors/404", {
-//         title: "404 Not Found",
-//     });
-// });
+app.get("*", (req, res) => {
+    res.render("client/pages/errors/404", {
+        title: "404 Not Found",
+    });
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
-
-//Hoàn thiện nốt phần lịch sử log cho các trang danh mục, tài khoản, nhóm quyền, phân quyền

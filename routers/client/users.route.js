@@ -42,4 +42,6 @@ router.patch(
     controller.editInfoAddress
 );
 
+router.get("/vouchers/:id", authMiddleWare.login, controller.voucher);
+
 module.exports = router;

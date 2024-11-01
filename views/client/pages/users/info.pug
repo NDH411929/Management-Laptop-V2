@@ -200,7 +200,8 @@ block main
                                                                                 td #{item.quantity}
                                                                                 td #{item.totalPrice}$
 
-
+                                                            if(order.discount)
+                                                                div(class="text-right") Giảm giá từ mã: <b>-#{order.discount}$</b>
                                                             if(order.products.length > 0)
                                                                 h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
@@ -387,4 +388,3 @@ block main
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                             #logout.tab-pane.fade(role="tabpanel", aria-labelledby="v-pills-settings-tab")
-                //- script(src="/JS/user.js") 

@@ -2,6 +2,7 @@ const User = require("../../models/user.model");
 const Cart = require("../../models/cart.model");
 const Order = require("../../models/order.model");
 const Product = require("../../models/product.model");
+const Coupon = require("../../models/coupon.model");
 const ForgotPassword = require("../../models/forgot-password.model");
 const sendMailHelper = require("../../helpers/sendMail.helper");
 const generateHelper = require("../../helpers/generate.helper");
@@ -216,6 +217,7 @@ module.exports.infoUser = async (req, res) => {
 
     for (const order of orders) {
         order.totalPrice = 0;
+        order.discount = 0;
         for (const item of order.products) {
             const infoProduct = await Product.findOne({
                 _id: item.product_id,
@@ -233,6 +235,22 @@ module.exports.infoUser = async (req, res) => {
             item.totalPrice = infoProduct.totalPrice;
             order.totalPrice += parseFloat(item.totalPrice);
         }
+        if (order.coupon != "") {
+            const coupon = await Coupon.findOne({
+                _id: order.coupon,
+            }).select("discountType discountValue");
+            if (coupon.discountType == "fixed") {
+                order.totalPrice = order.totalPrice - coupon.discountValue;
+                order.discount = coupon.discountValue;
+            } else {
+                order.discount =
+                    order.totalPrice -
+                    order.totalPrice * (1 - coupon.discountValue / 100);
+                order.totalPrice =
+                    order.totalPrice * (1 - coupon.discountValue / 100);
+            }
+        }
+        order.discount = order.discount.toFixed(0);
         order.totalPrice = order.totalPrice.toFixed(2);
     }
     res.render("client/pages/users/info", {
@@ -271,5 +289,50 @@ module.exports.editInfoAddress = async (req, res) => {
             address: req.body,
         }
     );
+    res.redirect("back");
+};
+
+module.exports.voucher = async (req, res) => {
+    const id = req.params.id;
+    const user = await User.findOne({
+        tokenUser: req.cookies.tokenUser,
+        status: "active",
+        deleted: false,
+    });
+    const coupon = await Coupon.findOne({
+        _id: id,
+        deleted: false,
+    });
+    if (user.couponsId.includes(id)) {
+        console.log("da ton tai");
+    } else {
+        let usageLimit = coupon.usageLimit - 1;
+        if (usageLimit >= 0) {
+            await User.updateOne(
+                {
+                    tokenUser: req.cookies.tokenUser,
+                    status: "active",
+                    deleted: false,
+                },
+                {
+                    $push: {
+                        couponsId: {
+                            couponId: id,
+                        },
+                    },
+                }
+            );
+            await Coupon.updateOne(
+                {
+                    _id: id,
+                },
+                {
+                    usageLimit: usageLimit,
+                }
+            );
+        } else {
+            console.log("Da het luot su dung");
+        }
+    }
     res.redirect("back");
 };

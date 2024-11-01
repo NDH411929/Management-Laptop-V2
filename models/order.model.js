@@ -31,6 +31,7 @@ const orderSchema = new mongoose.Schema({
             color: String,
         },
     ],
+    coupon: String,
     createdAt: Date,
     deleted: {
         type: String,

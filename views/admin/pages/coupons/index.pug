@@ -1,0 +1,105 @@
+//- extends ../../layouts/default.pug
+//- include ../../mixins/alert.pug
+//- include ../../mixins/select-tree.pug
+
+//- block main
+//-     a(href="coupons/create").btn.btn-primary Them moi
+
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success("10000")
+    h1 Trang mã giảm giá     
+    .card.mb-3
+        .card-header Danh sách mã giảm giá
+        .card-body 
+            .row 
+                .col-12.text-right
+                    if(roleUser.permissions.includes("products_create"))
+                        a(
+                            href="coupons/create"
+                            class="btn btn-outline-success"
+                        ) + Thêm mới
+                    else    
+                        a(
+                            no-create
+                            class="btn btn-outline-success"
+                        ) + Thêm mới         
+            table(
+                class="table table-hover table-sm"
+                checkbox-multi
+            )
+                thead 
+                    tr
+                        th STT
+                        th Mã giảm giá
+                        th Loại
+                        th Giá trị
+                        th Thời gian hết hạn
+                        th Đơn hàng tối thiểu
+                        th Trạng thái
+                        th Hành động
+                tbody 
+                    each coupon, index in coupons 
+                        tr 
+                            td(style="width:100px") #{index+1}
+                            td(style="width:205px") #{coupon.codeCoupon}
+                            td 
+                                if(coupon.discountType=="fixed")
+                                    div Giảm theo %
+                                else 
+                                    div Giảm theo $
+                            td 
+                                if(coupon.discountType=="fixed")
+                                    div #{coupon.discountValue}$
+                                else 
+                                    div #{coupon.discountValue}%
+                            td(style="width:180px")
+                                div #{moment(coupon.expirationDate).format("DD-MM-YYYY")}
+                            td #{coupon.minOrderValue}$
+                            td 
+                                if(coupon.status==="active")
+                                    a(
+                                        href="javascript:;"
+                                        class="badge badge-success"
+                                    ) Hoạt động
+                                else 
+                                    a(
+                                        href="javascript:;"
+                                        class="badge badge-danger"
+                                    ) Đã hết hạn
+                            td(style="width:250px")
+                                a(
+                                    href=`${prefixAdmin}/coupons/detail/${coupon.id}`
+                                    class="btn btn-secondary btn-sm ml-1"
+                                ) Chi tiết
+                                a(
+                                    href=`${prefixAdmin}/coupons/edit/${coupon.id}`
+                                    class="btn btn-warning btn-sm ml-1"
+                                ) Sửa 
+                                button(
+                                    class="btn btn-danger btn-sm ml-1" 
+                                    data-id=coupon.id
+                                    button-delete
+                                ) Xóa 
+    //- +pagination(pagination)
+    //- form(action=""
+    //-     method="POST"
+    //-     id="form-change-status"
+    //-     path=`${prefixAdmin}/coupons/change-status`
+    //- ) 
+    form(action=""
+        method="POST"
+        id="form-delete"
+        path=`${prefixAdmin}/coupons/delete`
+    ) 
+    script(src="/admin/JS/coupon.js") 
+    
+            
+
+

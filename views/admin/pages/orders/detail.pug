@@ -68,6 +68,12 @@ block main
                                         td 
                                             p #{order.addressDelivery.cityAddress}
                                             p Số nhà: <b>#{order.addressDelivery.homeNumber}</b>
-
+                    if(order.coupon!="")
+                        div(class="text-right") Mã giảm giá đã sử dụng: <a href="">#{order.couponUsed.codeCoupon}</a>
+                        if(order.couponUsed.discountType=="percent")
+                            div(class="text-right") Giảm: #{order.couponUsed.discountValue}%
+                        else 
+                            div(class="text-right") Giảm: #{order.couponUsed.discountValue}$
+                        div(class="text-right") Giảm giá từ mã: -#{order.discount}$
                     if(order.products.length > 0)
                         h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$

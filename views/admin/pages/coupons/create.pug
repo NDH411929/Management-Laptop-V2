@@ -1,0 +1,113 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+    if(roleUser.permissions.includes("products-category_create"))
+        +alert-success(5000)
+        +alert-error(5000)
+        h1(class="mb-4") Thêm mã giảm giá
+
+        form(
+            action=`${prefixAdmin}/coupons/create/`
+            method="POST"
+            enctype="multipart/form-data"
+        )
+            div(class="form-group")
+                label(for="codeCoupon") Nhập mã giảm giá
+                input(
+                    type="text"
+                    class="form-control"
+                    id="codeCoupon"
+                    name="codeCoupon"
+                    required
+                )
+                a(
+                    type="submit"
+                    class="btn btn-primary mt-3 random-coupon"
+                ) Random
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="percent"
+                    name="discountType"
+                    value="percent"
+                    checked
+                )
+                label(for="percent" class="form-check-label") Giảm giá theo %
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="fixed"
+                    name="discountType"
+                    value="fixed"
+                )
+                label(for="fixed" class="form-check-label") Giảm giá cố định
+            div(class="form-group")
+                label(for="discountValue") Nhập giá trị
+                input(
+                    type="text"
+                    class="form-control"
+                    id="discountValue"
+                    name="discountValue"
+                    required
+                )
+            div(class="form-group")
+                label(for="minOrderValue") Nhập đơn giá tối thiểu để áp dụng mã (mặc định = 0)
+                input(
+                    type="text"
+                    class="form-control"
+                    id="minOrderValue"
+                    name="minOrderValue"
+                )
+            div(class="form-group")
+                label(for="usageLimit") Nhập số lượng
+                input(
+                    type="text"
+                    class="form-control"
+                    id="usageLimit"
+                    name="usageLimit"
+                )
+            div(class="form-group")
+                label(for="startDate") Chọn thời gian bắt đầu
+                input(
+                    type="date"
+                    class="form-control"
+                    id="startDate"
+                    name="startDate"
+                )
+            div(class="form-group")
+                label(for="expirationDate") Chọn thời gian hết hạn
+                input(
+                    type="date"
+                    class="form-control"
+                    id="expirationDate"
+                    name="expirationDate"
+                )
+            div(class="form-group")
+                label(for="desc") Mô tả
+                textarea(
+                    class="form-control textarea-tinymce"
+                    id="desc"
+                    name="description"
+                    rows="5"
+                ) 
+            div(class="form-group" form-preview-image)
+                label(for="thumbnail") Ảnh
+                input(
+                    type="file"
+                    class="form-control-file"
+                    id="thumbnail"
+                    name="thumbnail"
+                    accept="image/*"
+                    input-preview-image
+                )
+                img(src="" class="preview-image" preview-image)
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Tạo mới
+        script(src="/admin/JS/coupon.js") 

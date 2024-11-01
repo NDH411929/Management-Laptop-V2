@@ -2,6 +2,7 @@ const Product = require("../../models/product.model");
 const Account = require("../../models/account.model");
 const Cart = require("../../models/cart.model");
 const Order = require("../../models/order.model");
+const Coupon = require("../../models/coupon.model");
 const User = require("../../models/user.model");
 const filterStatusHelper = require("../../helpers/filterStatus.helper");
 const searchHelper = require("../../helpers/search.helper");
@@ -217,6 +218,7 @@ module.exports.detailOrder = async (req, res) => {
             deleted: false,
         });
         order.totalPrice = 0;
+        order.discount = 0;
         for (const item of order.products) {
             const infoProduct = await Product.findOne({
                 _id: item.product_id,
@@ -234,7 +236,24 @@ module.exports.detailOrder = async (req, res) => {
             item.totalPrice = infoProduct.totalPrice;
             order.totalPrice += parseFloat(item.totalPrice);
         }
-        // console.log(order);
+        if (order.coupon != "") {
+            const coupon = await Coupon.findOne({
+                _id: order.coupon,
+            });
+            order.couponUsed = coupon;
+            if (coupon.discountType == "fixed") {
+                order.totalPrice = order.totalPrice - coupon.discountValue;
+                order.discount = coupon.discountValue;
+            } else {
+                order.discount =
+                    order.totalPrice -
+                    order.totalPrice * (1 - coupon.discountValue / 100);
+                order.totalPrice =
+                    order.totalPrice * (1 - coupon.discountValue / 100);
+            }
+        }
+        order.discount = order.discount.toFixed(0);
+        order.totalPrice = order.totalPrice.toFixed(2);
         res.render("admin/pages/orders/detail", {
             title: "Detail Order",
             order: order,

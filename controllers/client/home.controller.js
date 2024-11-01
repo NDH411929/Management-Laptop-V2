@@ -3,6 +3,7 @@ const Brand = require("../../models/brand.model");
 const ProductCategory = require("../../models/product-category.model");
 const productHelper = require("../../helpers/product.helper");
 const Blog = require("../../models/blog.model");
+const Coupon = require("../../models/coupon.model");
 const BlogCategory = require("../../models/blog-category.model");
 
 module.exports.home = async (req, res) => {
@@ -110,10 +111,16 @@ module.exports.home = async (req, res) => {
         .limit(4);
     //End Blogs
 
+    const coupons = await Coupon.find({
+        deleted: false,
+        status: "active",
+    }).limit(8);
+
     res.render("client/pages/home/index", {
         title: "Trang chủ",
         getProductFromCategory: getProductFromCategory,
         productCategory: productCategory,
         blogs: blogs,
+        coupons: coupons,
     });
 };

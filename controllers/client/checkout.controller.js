@@ -1,5 +1,7 @@
 const Cart = require("../../models/cart.model");
 const Order = require("../../models/order.model");
+const User = require("../../models/user.model");
+const Coupon = require("../../models/coupon.model");
 const Product = require("../../models/product.model");
 
 module.exports.checkout = async (req, res) => {
@@ -22,6 +24,35 @@ module.exports.checkout = async (req, res) => {
     }
 
     cartDetail.totalPrice = cartDetail.totalPrice.toFixed(2);
+    if (cartDetail.coupon_id) {
+        const coupon = await Coupon.findOne({
+            _id: cartDetail.coupon_id,
+            deleted: false,
+            status: "active",
+        });
+        const findCoupon = res.locals.infoUser.couponsId.find(
+            (item) => item.couponId == coupon.id
+        );
+        if (coupon && findCoupon.couponStatus == "active") {
+            if (coupon.discountType == "percent") {
+                cartDetail.totalPriceCoupon = (
+                    cartDetail.totalPrice *
+                    (1 - coupon.discountValue / 100)
+                ).toFixed(2);
+            } else {
+                cartDetail.totalPriceCoupon = (
+                    cartDetail.totalPrice - coupon.discountValue
+                ).toFixed(2);
+            }
+            cartDetail.saleCoupon = (
+                cartDetail.totalPrice - cartDetail.totalPriceCoupon
+            ).toFixed(2);
+            cartDetail.totalPrice = cartDetail.totalPriceCoupon;
+        }
+    }
+
+    cartDetail.totalPrice =
+        cartDetail.totalPrice < 0 ? 0 : cartDetail.totalPrice;
 
     res.render("client/pages/checkout/index", {
         title: "Checkout",
@@ -32,6 +63,7 @@ module.exports.checkout = async (req, res) => {
 module.exports.orderPost = async (req, res) => {
     // const cartId = req.cookies.cartId;
     const cartId = res.locals.miniCart.id;
+    let couponId = "";
     const userInfo = {
         fullName: req.body.fullName,
         phoneNumber: req.body.phoneNumber,
@@ -77,23 +109,47 @@ module.exports.orderPost = async (req, res) => {
         };
         products.push(objectProduct);
     }
+    if (cart.coupon_id) {
+        const coupon = await Coupon.findOne({
+            _id: cart.coupon_id,
+            deleted: false,
+            status: "active",
+        });
+        const findCoupon = res.locals.infoUser.couponsId.find(
+            (item) => item.couponId == coupon.id
+        );
+        if (coupon && findCoupon.couponStatus == "active") {
+            couponId = coupon.id;
+        }
+    }
     let objectOrder = {
         cart_id: cartId,
         userInfo: userInfo,
         addressDelivery: addressDelivery,
         products: products,
         userNote: userNote,
-        createdAt: Date.now(),
+        coupon: couponId,
+        createdAt: new Date(),
     };
-
     const order = new Order(objectOrder);
     await order.save();
+
+    await User.updateOne(
+        {
+            _id: res.locals.infoUser.id,
+            "couponsId.couponId": cart.coupon_id,
+        },
+        {
+            $set: { "couponsId.$.couponStatus": "used" },
+        }
+    );
     await Cart.updateOne(
         {
             _id: order.cart_id,
         },
         {
             products: [],
+            $unset: { coupon_id: cart.coupon_id },
         }
     );
     res.cookie("orderId", order.id);
@@ -117,6 +173,7 @@ module.exports.orderReview = async (req, res) => {
 
     for (const order of orders) {
         order.totalPrice = 0;
+        order.discount = 0;
         for (const item of order.products) {
             const infoProduct = await Product.findOne({
                 _id: item.product_id,
@@ -134,6 +191,22 @@ module.exports.orderReview = async (req, res) => {
             item.totalPrice = infoProduct.totalPrice;
             order.totalPrice += parseFloat(item.totalPrice);
         }
+        if (order.coupon != "") {
+            const coupon = await Coupon.findOne({
+                _id: order.coupon,
+            }).select("discountType discountValue");
+            if (coupon.discountType == "fixed") {
+                order.totalPrice = order.totalPrice - coupon.discountValue;
+                order.discount = coupon.discountValue;
+            } else {
+                order.discount =
+                    order.totalPrice -
+                    order.totalPrice * (1 - coupon.discountValue / 100);
+                order.totalPrice =
+                    order.totalPrice * (1 - coupon.discountValue / 100);
+            }
+        }
+        order.discount = order.discount.toFixed(0);
         order.totalPrice = order.totalPrice.toFixed(2);
     }
 

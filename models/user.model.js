@@ -5,6 +5,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    couponsId: [
+        {
+            couponId: String,
+            couponStatus: {
+                type: String,
+                default: "active",
+            },
+        },
+    ],
     sex: String,
     fullName: String,
     phoneNumber: String,

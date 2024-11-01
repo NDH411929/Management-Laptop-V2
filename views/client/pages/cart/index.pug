@@ -64,10 +64,112 @@ block main
                                                     href=`/cart/delete/${item.detailProduct.id}`
                                                 ) 
                                                     img(src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg", alt="icon-delete")
-                                    tr 
-                                        td(style="display:flex;align-items:center;gap:10px") 
-                                            input(type="text" placeholder="Nhập mã giảm giá" class="form-control")
-                                            button(type="submit" class="btn btn-danger" style="background:#e30019") Nhập
+                        
+                        -var couponChoosed=infoUser.coupons.find(item=>item.id==userCart.coupon_id)
+                        if(couponChoosed)
+                            .coupon-item.choosed
+                                .inner-coupon-item
+                                    svg.coupon-bg.choosed(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 0 431.20001220703125 132")
+                                        g(fill="none", fill-rule="evenodd")
+                                            g
+                                                g
+                                                    g
+                                                        g
+                                                            g
+                                                                g(transform="translate(-3160 -2828) translate(3118 80) translate(42 2487) translate(0 140) translate(0 85) translate(0 36)")
+                                                                    path(fill="#E5F2FF" stroke="#017FFF", d="M 423.20001220703125 0.5 c 2.071 0 3.946 0.84 5.303 2.197 c 1.358 1.357 2.197 3.232 2.197 5.303 h 0 v 116 c 0 2.071 -0.84 3.946 -2.197 5.303 c -1.357 1.358 -3.232 2.197 -5.303 2.197 h 0 H 140.986 c -0.125 -2.148 -1.047 -4.082 -2.475 -5.51 c -1.539 -1.54 -3.664 -2.49 -6.011 -2.49 s -4.472 0.95 -6.01 2.489 c -1.429 1.428 -2.35 3.362 -2.476 5.51 h 0 l -116.014 0.001 c -2.071 0 -3.946 -0.84 -5.303 -2.197 c -1.358 -1.357 -2.197 -3.232 -2.197 -5.303 h 0 V 8 c 0 -2.071 0.84 -3.946 2.197 -5.303 c 1.357 -1.358 3.232 -2.197 5.303 -2.197 h 116.014 c 0.125 2.148 1.047 4.082 2.476 5.51 c 1.538 1.539 3.663 2.49 6.01 2.49 s 4.472 -0.951 6.01 -2.49 c 1.429 -1.428 2.35 -3.362 2.476 -5.51 H 140.986 z")
+                                                                    g(stroke="#017FFF", stroke-dasharray="2 4", stroke-linecap="square", mask="url(#14s2l20tnb)")
+                                                                        path(d="M0.5 0L0.5 114", transform="translate(132 11)")
+                                    .coupon-content
+                                        .coupon-icon
+                                            div(style="position: relative;width: 100px;height: 100px;")
+                                                a.link-coupon
+                                                    .wrap-img
+                                                        img.image-coupon(src=couponChoosed.thumbnail, opacity="1")
+                                        .coupon-detail
+                                            .wrap-row-top
+                                                if(couponChoosed.discountType=="percent")
+                                                    h4.main-desc Giảm #{couponChoosed.discountValue}% 
+                                                    p.sub-desc Cho đơn hàng từ #{couponChoosed.minOrderValue}$
+                                                else 
+                                                    h4.main-desc Giảm #{couponChoosed.discountValue}$
+                                                    p.sub-desc Cho đơn hàng từ #{couponChoosed.minOrderValue}$
+                                            .wrap-row-bottom
+                                                p.desc-date(data-date=couponChoosed.expirationDate) 
+                                                div.btn-status(style="color: rgb(255, 255, 255);background-color: #d4d5d5;") Đang áp dụng
+                        //- Button trigger modal
+                        button.btn.btn-primary(type="button", data-toggle="modal", data-target="#modal-coupons" style="background-color:#e30019;outline:none;border:0;margin-top:16px") Nhập hoặc chọn mã giảm giá
+                        //- Modal
+                        #modal-coupons.modal.fade(data-backdrop="static", data-keyboard="false", tabindex="-1", aria-labelledby="modal-title", aria-hidden="true")
+                            .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
+                                .modal-content
+                                    .modal-header(style="flex-direction:column")
+                                        .row-top.d-flex(style="align-items:center;justify-content:space-between;width:100%")
+                                            h5#modal-title.modal-title Gearvn khuyến mãi
+                                            button.close(type="button", data-dismiss="modal", aria-label="Close" style="margin:0;padding:0")
+                                                span(aria-hidden="true") x
+                                        .input-coupon.d-flex(style="width:100%;gap:10px;margin-top:10px")
+                                            input(type="text" placeholder="Nhập mã giảm giá" class="form-control" style="max-width:78%")
+                                            button(type="submit" class="btn btn-danger" style="background:#e30019") Áp dụng
+                                    .modal-body(style="padding:8px 5px")
+                                        form(
+                                            action="cart/vouchers/apply",
+                                            method="post",
+                                            id="form-apply-vouchers"
+                                        )
+                                            .row-top(style="display: flex;justify-content: center;align-items: center;")  
+                                                .inner-row-top 
+                                                    .desc-left Mã Giảm giá
+                                                    .desc-right Áp dụng tối đa: 1
+                                            .list-coupons(style="display: flex;flex-direction: column;justify-content: center;align-items: center;")
+                                                each item in infoUser.coupons
+                                                    .coupon-item(type="full" style="width: 430px;margin-top:16px")
+                                                        .inner-coupon-item(type="full" )
+                                                            svg.coupon-bg(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 0 431.20001220703125 132" data=item.codeCoupon)
+                                                                g(fill="none", fill-rule="evenodd")
+                                                                    g
+                                                                        g
+                                                                            g
+                                                                                g
+                                                                                    g
+                                                                                        g.transform1(transform="translate(-3160 -2828) translate(3118 80) translate(42 2487) translate(0 140) translate(0 85) translate(0 36)")
+                                                                                            path.path1(d="M423.20001220703125 0c4.418 0 8 3.582 8 8v116c0 4.418-3.582 8-8 8H140.5c0-4.419-3.582-8-8-8s-8 3.581-8 8H8c-4.418 0-8-3.582-8-8V8c0-4.418 3.582-8 8-8h116.5c0 4.418 3.582 8 8 8s8-3.582 8-8H392z")
+                                                                                            g.transform2(stroke-dasharray="2 4", stroke-linecap="square", mask="url(#14s2l20tnb)")
+                                                                                                path(d="M0.5 0L0.5 114", transform="translate(132 11)")
+                                                            .coupon-content
+                                                                .coupon-icon(style="width: 132px; min-width: 132px;")
+                                                                    div(style="position: relative;width: 116px;height: 116px;")
+                                                                        div.link-coupon
+                                                                            div.wrap-img
+                                                                                if(item.couponStatus=="used") 
+                                                                                    img.image-coupon.used(src=item.thumbnail, alt="", opacity="1" )
+                                                                                else
+                                                                                    if(item.status=="expired")
+                                                                                        img.image-coupon.expired(src=item.thumbnail, alt="", opacity="1" )
+                                                                                    else
+                                                                                        img.image-coupon(src=item.thumbnail, alt="", opacity="1" )
+                                                                .coupon-detail
+                                                                    .wrap-row-top
+                                                                        if(item.discountType=="percent")
+                                                                            h4.main-desc Giảm #{item.discountValue}% 
+                                                                            p.sub-desc Cho đơn hàng từ #{item.minOrderValue}$
+                                                                        else 
+                                                                            h4.main-desc Giảm #{item.discountValue}$
+                                                                            p.sub-desc Cho đơn hàng từ #{item.minOrderValue}$
+                                                                    .wrap-row-bottom
+                                                                        p.desc-date( data-date=item.expirationDate) 
+                                                                        if(item.couponStatus=="used") 
+                                                                            div.btn-status.used Đã được sử dụng
+                                                                        else
+                                                                            if(item.status=="expired")
+                                                                                div.btn-status.expired Hết hạn
+                                                                            else
+                                                                                input(type="radio", name="coupon" id=item.codeCoupon data=item.id min-order=item.minOrderValue class="d-none" )
+                                                                                div.btn-status(data=item.codeCoupon type="primary") Áp dụng
+                                            .row-bottom(style="margin-top:16px;display:flex;position: sticky;bottom: -20px;z-index: 99;background: #fff;")
+                                                .modal-footer(style="width:100%") 
+                                                    button.btn.btn-primary(type="submit") Xác nhận
+                                        
                 .col-4
                     .detail-order(style="background:#fff;padding:24px")
                         h2(class="title-order") HÓA ĐƠN
@@ -77,21 +179,29 @@ block main
                             p.desc-row-info #{userCart.totalPrice} $
                         .row-info.d-flex.justify-content-between.align-items-center
                             p.desc-row-info Giảm giá từ deal
-                            p.desc-row-info.saving #{userCart.saleDeal} $
+                            p.desc-row-info.saving -#{userCart.saleDeal} $
                         .row-info.d-flex.justify-content-between.align-items-center
                             p.desc-row-info Giảm giá từ mã
-                            p.desc-row-info 0 $
+                            if(userCart.saleCoupon)
+                                p.desc-row-info.saving -#{userCart.saleCoupon}$
+                            else 
+                                p.desc-row-info.saving 0$
                         .row-info.d-flex.justify-content-between.align-items-center 
                             p.desc-row-info Phí vận chuyển
                             p.desc-row-info miễn phí
                         .row-info.d-flex.justify-content-between.align-items-center 
                             p.desc-row-info.saving Tiết kiệm
-                            p.desc-row-info.saving #{userCart.saleDeal} $
+                            if(userCart.saving)
+                                p.desc-row-info.saving #{userCart.saving} $
+                            else 
+                                p.desc-row-info.saving #{userCart.saleDeal} $
                         .decorate
                         .row-info.d-flex.justify-content-between.align-items-center
                             p.title-order Tổng tiền
                             p.title-order #{userCart.totalPriceNew} $
+                            input(type="text", name="totalPrice" id="totalPrice" value=userCart.totalPriceNew class="d-none")
                         a(href="/checkout" class="btn btn-checkout") THANH TOÁN
+    script(src="/JS/cart.js") 
         //- else 
         //-     +page-not-found("Hiện không có sản phẩm nào trong giỏ hàng","Tiếp tục mua sắm")
                 //- .row 

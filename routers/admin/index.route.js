@@ -24,6 +24,8 @@ const brandRoute = require("./brands.route");
 const blogCategoryRoute = require("./blogs-category.route");
 //Embedd route blogs
 const blogRoute = require("./blogs.route");
+//Embedd route coupons
+const couponRoute = require("./coupons.route");
 
 module.exports = (app) => {
     //Use route dashboard
@@ -61,6 +63,12 @@ module.exports = (app) => {
         path_admin.prefixAdmin + "/brands",
         authMiddleware.login,
         brandRoute
+    );
+    //Use route coupons
+    app.use(
+        path_admin.prefixAdmin + "/coupons",
+        authMiddleware.login,
+        couponRoute
     );
     //Use route blogs-category
     app.use(

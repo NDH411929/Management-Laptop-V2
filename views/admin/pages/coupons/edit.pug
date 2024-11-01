@@ -1,0 +1,125 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+    +alert-success("10000")
+    +alert-error("10000")
+    h1(class="mb-4") Chỉnh sửa thương hiệu
+
+    form(
+        action=`${prefixAdmin}/coupons/edit/${coupon.id}?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        form(
+            action=`${prefixAdmin}/coupons/create/`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="codeCoupon") Nhập mã giảm giá
+                input(
+                    type="text"
+                    class="form-control"
+                    id="codeCoupon"
+                    name="codeCoupon"
+                    required
+                    value=coupon.codeCoupon
+                )
+                a(
+                    type="submit"
+                    class="btn btn-primary mt-3 random-coupon"
+                ) Random
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="percent"
+                    name="discountType"
+                    value="percent"
+                    checked=(coupon.discountType=="percent"?true:false)
+                )
+                label(for="percent" class="form-check-label") Giảm giá theo %
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="fixed"
+                    name="discountType"
+                    value="fixed"
+                    checked=(coupon.discountType=="fixed"?true:false)
+                )
+                label(for="fixed" class="form-check-label") Giảm giá cố định
+            div(class="form-group")
+                label(for="discountValue") Nhập giá trị
+                input(
+                    type="text"
+                    class="form-control"
+                    id="discountValue"
+                    name="discountValue"
+                    required
+                    value=coupon.discountValue
+                )
+            div(class="form-group")
+                label(for="minOrderValue") Nhập đơn giá tối thiểu để áp dụng mã (mặc định = 0)
+                input(
+                    type="text"
+                    class="form-control"
+                    id="minOrderValue"
+                    name="minOrderValue"
+                    value=coupon.minOrderValue
+                )
+            div(class="form-group")
+                label(for="usageLimit") Nhập số lượng
+                input(
+                    type="text"
+                    class="form-control"
+                    id="usageLimit"
+                    name="usageLimit"
+                    value=coupon.usageLimit
+                )
+            div(class="form-group")
+                -var startDate=moment(coupon.startDate).format("YYYY-MM-DD")
+                label(for="startDate") Chọn thời gian bắt đầu
+                input(
+                    type="date"
+                    class="form-control"
+                    id="startDate"
+                    name="startDate"
+                    value=startDate
+                )
+            div(class="form-group")
+                -var expirationDate=moment(coupon.expirationDate).format("YYYY-MM-DD")
+                label(for="expirationDate") Chọn thời gian hết hạn
+                input(
+                    type="date"
+                    class="form-control"
+                    id="expirationDate"
+                    name="expirationDate"
+                    value=expirationDate
+                )
+            div(class="form-group")
+                label(for="desc") Mô tả
+                textarea(
+                    class="form-control textarea-tinymce"
+                    id="desc"
+                    name="description"
+                    rows="5"
+                ) #{coupon.description}
+            div(class="form-group" form-preview-image)
+                label(for="thumbnail") Ảnh
+                input(
+                    type="file"
+                    class="form-control-file"
+                    id="thumbnail"
+                    name="thumbnail"
+                    accept="image/*"
+                    input-preview-image
+                )
+                img(src=(coupon.thumbnail?coupon.thumbnail:"") class="preview-image" preview-image)
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cập nhật
+    script(src="/admin/JS/coupon.js") 

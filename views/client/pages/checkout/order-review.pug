@@ -74,7 +74,8 @@ block main
                                                     td #{item.quantity}
                                                     td #{item.totalPrice}$
 
-
+                                if(order.coupon!="")
+                                    h4(class="text-right") Giảm giá từ mã: -#{order.discount}$
                                 if(order.products.length > 0)
                                     h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
             else 

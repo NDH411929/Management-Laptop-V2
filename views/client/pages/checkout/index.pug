@@ -95,11 +95,20 @@ block main
                                 p.desc-row-info(style="color:#fff") Tạm tính
                             each item in cartDetail.products
                                 .row-info.border-bottom.d-flex.justify-content-between.align-items-center
-                                    p.desc-row-info(style="color:#fff;font-size:14px") #{item.infoProduct.title}-#{item.color} <span style="color:#ffe07d;font-size:18px"> x#{item.quantity}</span>
+                                    if(item.color)
+                                        p.desc-row-info(style="color:#fff;font-size:14px") #{item.infoProduct.title}-#{item.color} <span style="color:#ffe07d;font-size:18px"> x#{item.quantity}</span>
+                                    else 
+                                        p.desc-row-info(style="color:#fff;font-size:14px") #{item.infoProduct.title} <span style="color:#ffe07d;font-size:18px"> x#{item.quantity}</span>
                                     p.desc-row-info(style="color:#fff;font-size:16px").saving  #{item.infoProduct.totalPrice} $
                             //- .row-info.d-flex.justify-content-between.align-items-center
                             //-     p.desc-row-info(style="color:#fff") Giảm giá từ mã
                             //-     p.desc-row-info(style="color:#fff") 0 $
+                            .row-info.d-flex.justify-content-between.align-items-center(style="padding-top:15px") 
+                                p.desc-row-info(style="color:#fff;font-size:14px") Giảm giá từ mã
+                                if(cartDetail.saleCoupon)
+                                    p.desc-row-info(style="color:#fff;font-size:14px") -#{cartDetail.saleCoupon} $
+                                else
+                                    p.desc-row-info(style="color:#fff;font-size:14px") 0 $
                             .row-info.d-flex.justify-content-between.align-items-center(style="padding-top:15px") 
                                 p.desc-row-info(style="color:#fff;font-size:14px") Phí vận chuyển
                                 p.desc-row-info(style="color:#fff;font-size:14px") miễn phí
