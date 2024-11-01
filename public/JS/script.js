@@ -242,3 +242,31 @@ var swiper2 = new Swiper(".mySwiper2", {
     },
 });
 //End script slide swiper
+
+//Apply vouchers
+const formApplyVouchers = document.querySelector("#form-apply-vouchers");
+if (formApplyVouchers) {
+    formApplyVouchers.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const idVoucher = formApplyVouchers.querySelector(
+            "input[data]:checked"
+        );
+        if (!idVoucher) {
+            alert("Vui lòng chọn mã giảm giá!");
+            return;
+        }
+        const minOrder = parseFloat(idVoucher.getAttribute("min-order"));
+        const totalPrice = parseFloat(
+            document.querySelector("input[name=totalPrice]").value
+        );
+        if (totalPrice >= minOrder) {
+            const path = `/${idVoucher.getAttribute("data")}/?_method=PATCH`;
+            formApplyVouchers.action += path;
+            formApplyVouchers.submit();
+        } else {
+            alert("Đơn hàng của bạn không thỏa mãn điều kiện giảm giá!");
+            return;
+        }
+    });
+}
+//End apply vouchers
