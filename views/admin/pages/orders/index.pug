@@ -89,14 +89,14 @@ block main
                                         href="javascript:;" 
                                         data-id=order.id 
                                         data-status=order.status
-                                        button-change-status
+                                        button-change-status-order
                                     ).badge.badge-secondary #{order.status}
                                 else 
                                     a(
                                         href="javascript:;" 
                                         data-id=order.id 
                                         data-status=order.status
-                                        button-change-status
+                                        button-change-status-order
                                     ).badge.badge-success #{order.status}
                                     if(order.statusDelivery=="processing")
                                         a(

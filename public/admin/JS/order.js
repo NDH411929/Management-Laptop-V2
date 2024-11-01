@@ -18,11 +18,13 @@ if (buttonStatusDelivery.length > 0) {
         });
     });
 }
-const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
-if (buttonChangeStatus.length > 0) {
+const buttonChangeStatusOrder = document.querySelectorAll(
+    "[button-change-status-order]"
+);
+if (buttonChangeStatusOrder.length > 0) {
     const formChangeStatus = document.querySelector("#form-change-status");
     const formPath = formChangeStatus.getAttribute("path");
-    buttonChangeStatus.forEach((button) => {
+    buttonChangeStatusOrder.forEach((button) => {
         button.addEventListener("click", () => {
             const currentStatus = button.getAttribute("data-status");
             const id = button.getAttribute("data-id");
