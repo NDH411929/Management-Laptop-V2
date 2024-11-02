@@ -30,24 +30,26 @@ module.exports.checkout = async (req, res) => {
             deleted: false,
             status: "active",
         });
-        const findCoupon = res.locals.infoUser.couponsId.find(
-            (item) => item.couponId == coupon.id
-        );
-        if (coupon && findCoupon.couponStatus == "active") {
-            if (coupon.discountType == "percent") {
-                cartDetail.totalPriceCoupon = (
-                    cartDetail.totalPrice *
-                    (1 - coupon.discountValue / 100)
+        if (coupon) {
+            const findCoupon = res.locals.infoUser.couponsId.find(
+                (item) => item.couponId == coupon.id
+            );
+            if (findCoupon.couponStatus == "active") {
+                if (coupon.discountType == "percent") {
+                    cartDetail.totalPriceCoupon = (
+                        cartDetail.totalPrice *
+                        (1 - coupon.discountValue / 100)
+                    ).toFixed(2);
+                } else {
+                    cartDetail.totalPriceCoupon = (
+                        cartDetail.totalPrice - coupon.discountValue
+                    ).toFixed(2);
+                }
+                cartDetail.saleCoupon = (
+                    cartDetail.totalPrice - cartDetail.totalPriceCoupon
                 ).toFixed(2);
-            } else {
-                cartDetail.totalPriceCoupon = (
-                    cartDetail.totalPrice - coupon.discountValue
-                ).toFixed(2);
+                cartDetail.totalPrice = cartDetail.totalPriceCoupon;
             }
-            cartDetail.saleCoupon = (
-                cartDetail.totalPrice - cartDetail.totalPriceCoupon
-            ).toFixed(2);
-            cartDetail.totalPrice = cartDetail.totalPriceCoupon;
         }
     }
 
@@ -196,15 +198,17 @@ module.exports.orderReview = async (req, res) => {
             const coupon = await Coupon.findOne({
                 _id: order.coupon,
             }).select("discountType discountValue");
-            if (coupon.discountType == "fixed") {
-                order.totalPrice = order.totalPrice - coupon.discountValue;
-                order.discount = coupon.discountValue;
-            } else {
-                order.discount =
-                    order.totalPrice -
-                    order.totalPrice * (1 - coupon.discountValue / 100);
-                order.totalPrice =
-                    order.totalPrice * (1 - coupon.discountValue / 100);
+            if (coupon) {
+                if (coupon.discountType == "fixed") {
+                    order.totalPrice = order.totalPrice - coupon.discountValue;
+                    order.discount = coupon.discountValue;
+                } else {
+                    order.discount =
+                        order.totalPrice -
+                        order.totalPrice * (1 - coupon.discountValue / 100);
+                    order.totalPrice =
+                        order.totalPrice * (1 - coupon.discountValue / 100);
+                }
             }
         }
         order.discount = order.discount.toFixed(0);

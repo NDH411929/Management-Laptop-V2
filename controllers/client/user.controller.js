@@ -238,15 +238,17 @@ module.exports.infoUser = async (req, res) => {
             const coupon = await Coupon.findOne({
                 _id: order.coupon,
             }).select("discountType discountValue");
-            if (coupon.discountType == "fixed") {
-                order.totalPrice = order.totalPrice - coupon.discountValue;
-                order.discount = coupon.discountValue;
-            } else {
-                order.discount =
-                    order.totalPrice -
-                    order.totalPrice * (1 - coupon.discountValue / 100);
-                order.totalPrice =
-                    order.totalPrice * (1 - coupon.discountValue / 100);
+            if (coupon) {
+                if (coupon.discountType == "fixed") {
+                    order.totalPrice = order.totalPrice - coupon.discountValue;
+                    order.discount = coupon.discountValue;
+                } else {
+                    order.discount =
+                        order.totalPrice -
+                        order.totalPrice * (1 - coupon.discountValue / 100);
+                    order.totalPrice =
+                        order.totalPrice * (1 - coupon.discountValue / 100);
+                }
             }
         }
         order.discount = order.discount.toFixed(0);
@@ -334,6 +336,8 @@ module.exports.voucher = async (req, res) => {
         } else {
             req.flash("success", "Mã giảm giá đã hết lượt sử dụng!");
         }
+        req.flash("success", "Lưu mã giảm giá thành công!");
     }
+
     res.redirect("back");
 };

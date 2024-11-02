@@ -52,48 +52,50 @@ module.exports.cart = async (req, res) => {
             _id: userCart.coupon_id,
             deleted: false,
         });
-        if (coupon.status == "active") {
-            const findCoupon = res.locals.infoUser.couponsId.find(
-                (item) => item.couponId == coupon.id
-            );
-            //Check coupon conditions
-            if (coupon && coupon.minOrderValue > userCart.totalPriceNew) {
+        if (coupon) {
+            if (coupon.status == "active") {
+                const findCoupon = res.locals.infoUser.couponsId.find(
+                    (item) => item.couponId == coupon.id
+                );
+                //Check coupon conditions
+                if (coupon.minOrderValue > userCart.totalPriceNew) {
+                    await Cart.updateOne(
+                        {
+                            _id: userCart.id,
+                        },
+                        { $unset: { coupon_id: userCart.coupon_id } }
+                    );
+                    res.redirect("back");
+                }
+                //Check coupon status
+                if (findCoupon.couponStatus == "active") {
+                    if (coupon.discountType == "percent") {
+                        userCart.totalPriceCoupon = (
+                            userCart.totalPriceNew *
+                            (1 - coupon.discountValue / 100)
+                        ).toFixed(2);
+                    } else {
+                        userCart.totalPriceCoupon = (
+                            userCart.totalPriceNew - coupon.discountValue
+                        ).toFixed(2);
+                    }
+                    userCart.saleCoupon = (
+                        userCart.totalPriceNew - userCart.totalPriceCoupon
+                    ).toFixed(2);
+                    userCart.totalPriceNew = userCart.totalPriceCoupon;
+                    userCart.saving = (
+                        parseFloat(userCart.saleDeal) +
+                        parseFloat(userCart.saleCoupon)
+                    ).toFixed(2);
+                }
+            } else {
                 await Cart.updateOne(
                     {
                         _id: userCart.id,
                     },
                     { $unset: { coupon_id: userCart.coupon_id } }
                 );
-                res.redirect("back");
             }
-            //Check coupon status
-            if (coupon && findCoupon.couponStatus == "active") {
-                if (coupon.discountType == "percent") {
-                    userCart.totalPriceCoupon = (
-                        userCart.totalPriceNew *
-                        (1 - coupon.discountValue / 100)
-                    ).toFixed(2);
-                } else {
-                    userCart.totalPriceCoupon = (
-                        userCart.totalPriceNew - coupon.discountValue
-                    ).toFixed(2);
-                }
-                userCart.saleCoupon = (
-                    userCart.totalPriceNew - userCart.totalPriceCoupon
-                ).toFixed(2);
-                userCart.totalPriceNew = userCart.totalPriceCoupon;
-                userCart.saving = (
-                    parseFloat(userCart.saleDeal) +
-                    parseFloat(userCart.saleCoupon)
-                ).toFixed(2);
-            }
-        } else {
-            await Cart.updateOne(
-                {
-                    _id: userCart.id,
-                },
-                { $unset: { coupon_id: userCart.coupon_id } }
-            );
         }
     }
     //Format total price
@@ -246,17 +248,22 @@ module.exports.applyVoucher = async (req, res) => {
             deleted: false,
         });
         // Check coupon conditions before add coupon to cart
-        if (coupon.minOrderValue <= userCart.totalPriceNew) {
-            await Cart.updateOne(
-                {
-                    account_id: user.id,
-                },
-                { coupon_id: id }
-            );
-            req.flash("success", "Thêm mã giảm giá thành công!");
+        if (coupon) {
+            if (coupon.minOrderValue <= userCart.totalPriceNew) {
+                await Cart.updateOne(
+                    {
+                        account_id: user.id,
+                    },
+                    { coupon_id: id }
+                );
+                req.flash("success", "Thêm mã giảm giá thành công!");
+            } else {
+                req.flash("error", "Đơn hàng của bạn chưa thỏa mãn điều kiện!");
+            }
         } else {
-            req.flash("error", "Đơn hàng của bạn chưa thỏa mãn điều kiện!");
+            req.flash("error", "Không tìm thấy mã giảm giá!");
         }
+
         // End check coupon conditions
     }
 

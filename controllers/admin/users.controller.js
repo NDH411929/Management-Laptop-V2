@@ -240,16 +240,18 @@ module.exports.detailOrder = async (req, res) => {
             const coupon = await Coupon.findOne({
                 _id: order.coupon,
             });
-            order.couponUsed = coupon;
-            if (coupon.discountType == "fixed") {
-                order.totalPrice = order.totalPrice - coupon.discountValue;
-                order.discount = coupon.discountValue;
-            } else {
-                order.discount =
-                    order.totalPrice -
-                    order.totalPrice * (1 - coupon.discountValue / 100);
-                order.totalPrice =
-                    order.totalPrice * (1 - coupon.discountValue / 100);
+            if (coupon) {
+                order.couponUsed = coupon;
+                if (coupon.discountType == "fixed") {
+                    order.totalPrice = order.totalPrice - coupon.discountValue;
+                    order.discount = coupon.discountValue;
+                } else {
+                    order.discount =
+                        order.totalPrice -
+                        order.totalPrice * (1 - coupon.discountValue / 100);
+                    order.totalPrice =
+                        order.totalPrice * (1 - coupon.discountValue / 100);
+                }
             }
         }
         order.discount = order.discount.toFixed(0);
