@@ -9,7 +9,6 @@ module.exports.cart = async (req, res) => {
     const userCart = res.locals.miniCart;
     userCart.totalPriceNew = 0;
     userCart.totalPrice = 0;
-    console.log(userCart);
 
     for (const item of userCart.products) {
         const detailProduct = await Product.findOne({
