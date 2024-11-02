@@ -23,6 +23,20 @@ const couponSchema = new mongoose.Schema({
         enum: ["active", "expired"],
         default: "active",
     },
+    createdBy: {
+        account_id: String,
+        createdAt: Date,
+    },
+    updatedBy: [
+        {
+            account_id: String,
+            updatedAt: Date,
+        },
+    ],
+    deletedBy: {
+        account_id: String,
+        deletedAt: Date,
+    },
     deleted: {
         type: Boolean,
         default: false,

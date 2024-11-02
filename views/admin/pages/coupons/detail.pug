@@ -1,0 +1,31 @@
+extends ../../layouts/default.pug
+
+block main
+    if (coupon.thumbnail)
+        div(class="mb-4")
+        img(
+            src=(coupon.thumbnail?coupon.thumbnail:"")
+            style="width: 100px"
+            class="mb-4"
+        )
+    if (coupon.codeCoupon)
+        div(class="mb-4") Mã giảm giá: <b>#{coupon.codeCoupon}</b>
+
+    if (coupon.status)
+        div(class="mb-4")
+        span Trạng thái:
+        if (coupon.status === "active")
+            span(class="badge badge-success" class="mb-4") Hoạt động
+        else
+            span(class="badge badge-danger" class="mb-4") Dừng hoạt động
+    if(coupon.createdBy.createdAt && coupon.fullNameCreated)
+        div(class="mb-4") Người tạo: #{coupon.fullNameCreated}
+        div(class="mb-4") Thời gian: #{moment(coupon.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+    -var length=coupon.updatedBy.length
+    if(length>0)
+        div(class="mb-4") <b>Cập nhật lần cuối</b>
+        div(class="mb-4") Người cập nhật: #{coupon.fullNameUpdated}
+        div(class="mb-4") Thời gian: #{moment(coupon.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}
+    
+    if (coupon.description)
+        div(class="mb-4") !{coupon.description}

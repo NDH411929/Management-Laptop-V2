@@ -41,6 +41,13 @@ module.exports.createPost = async (req, res) => {
             status: "active",
             codeCoupon: req.body.codeCoupon,
         });
+        //History created
+        let createdBy = {
+            account_id: res.locals.user.id,
+            createdAt: new Date(),
+        };
+        req.body.createdBy = createdBy;
+        //End history created
         if (!exsits) {
             const coupon = new Coupon(req.body);
             coupon.save();
@@ -79,6 +86,11 @@ module.exports.editPatch = async (req, res) => {
             status: "active",
             codeCoupon: req.body.codeCoupon,
         });
+        //History updated
+        let updatedBy = {
+            account_id: res.locals.user.id,
+            updatedAt: new Date(),
+        };
         if (!exsits || exsits.id == req.params.id) {
             const dateNow = new Date();
             if (dateNow.toISOString().split("T")[0] < req.body.expirationDate) {
@@ -88,7 +100,12 @@ module.exports.editPatch = async (req, res) => {
                 {
                     _id: req.params.id,
                 },
-                req.body
+                {
+                    ...req.body,
+                    $push: {
+                        updatedBy: updatedBy,
+                    },
+                }
             );
             req.flash("success", "Cập nhật thành công!");
         } else {
@@ -110,10 +127,50 @@ module.exports.delete = async (req, res) => {
             {
                 deleted: true,
                 status: "expired",
+                deletedBy: {
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date(),
+                },
             }
         );
         req.flash("success", "Xóa thành công!");
         res.redirect("back");
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
+};
+
+module.exports.detail = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const coupon = await Coupon.findOne(
+            {
+                _id: id,
+            },
+            {
+                deleted: false,
+            }
+        );
+        if (coupon.createdBy) {
+            const user = await Account.findOne({
+                _id: coupon.createdBy.account_id,
+            }).select("fullName");
+            if (user) {
+                coupon.fullNameCreated = user.fullName;
+            }
+        }
+        if (coupon.updatedBy.length > 0) {
+            const user = await Account.findOne({
+                _id: coupon.updatedBy[coupon.updatedBy.length - 1].account_id,
+            });
+            if (user) {
+                coupon.fullNameUpdated = user.fullName;
+            }
+        }
+        res.render("admin/pages/coupons/detail", {
+            title: "Detail Brand",
+            coupon: coupon,
+        });
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
     }
