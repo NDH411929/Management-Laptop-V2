@@ -21,49 +21,19 @@ html(lang="vn")
         link(href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet")
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
     body(style="background-color:#ececec") 
-        //- .coupon-detail(style="margin:0 auto")
-        //-     .coupon-item
-        //-         .inner-coupon-item
-        //-             svg.coupon-bg(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 0 431.20001220703125 132")
-        //-                 g(fill="none", fill-rule="evenodd")
-        //-                     g
-        //-                         g
-        //-                             g
-        //-                                 g
-        //-                                     g
-        //-                                         g(transform="translate(-3160 -2828) translate(3118 80) translate(42 2487) translate(0 140) translate(0 85) translate(0 36)")
-        //-                                             path(fill="#E5F2FF" stroke="#017FFF", d="M 423.20001220703125 0.5 c 2.071 0 3.946 0.84 5.303 2.197 c 1.358 1.357 2.197 3.232 2.197 5.303 h 0 v 116 c 0 2.071 -0.84 3.946 -2.197 5.303 c -1.357 1.358 -3.232 2.197 -5.303 2.197 h 0 H 140.986 c -0.125 -2.148 -1.047 -4.082 -2.475 -5.51 c -1.539 -1.54 -3.664 -2.49 -6.011 -2.49 s -4.472 0.95 -6.01 2.489 c -1.429 1.428 -2.35 3.362 -2.476 5.51 h 0 l -116.014 0.001 c -2.071 0 -3.946 -0.84 -5.303 -2.197 c -1.358 -1.357 -2.197 -3.232 -2.197 -5.303 h 0 V 8 c 0 -2.071 0.84 -3.946 2.197 -5.303 c 1.357 -1.358 3.232 -2.197 5.303 -2.197 h 116.014 c 0.125 2.148 1.047 4.082 2.476 5.51 c 1.538 1.539 3.663 2.49 6.01 2.49 s 4.472 -0.951 6.01 -2.49 c 1.429 -1.428 2.35 -3.362 2.476 -5.51 H 140.986 z")
-        //-                                             g(stroke="#017FFF", stroke-dasharray="2 4", stroke-linecap="square", mask="url(#14s2l20tnb)")
-        //-                                                 path(d="M0.5 0L0.5 114", transform="translate(132 11)")
-        //-             .coupon-content
-        //-                 .coupon-icon
-        //-                     div(style="position: relative;width: 100px;height: 100px;")
-        //-                         a.link-coupon(href=`/coupons/detail/${coupon.codeCoupon}`)
-        //-                             .wrap-img
-        //-                                 img.image-coupon(src=coupon.thumbnail, opacity="1")
-        //-                 .coupon-detail
-        //-                     .wrap-row-top
-        //-                         if(coupon.discountType=="percent")
-        //-                             h4.main-desc Giảm #{coupon.discountValue}% 
-        //-                             p.sub-desc Cho đơn hàng từ #{coupon.minOrderValue}$
-        //-                         else 
-        //-                             h4.main-desc Giảm #{coupon.discountValue}$
-        //-                             p.sub-desc Cho đơn hàng từ #{coupon.minOrderValue}$
-        //-                     .wrap-row-bottom
-        //-                         p.desc-date(data-date=coupon.expirationDate) #{coupon.expirationDate}
         .coupon-detail(style="transition: margin-top .3s cubic-bezier(.4,0,.2,1);")
-            .rGq7O2(style="background: #fff;box-sizing: border-box;display: flex;flex-direction: column;height: 43.75rem;margin: 1.875rem auto;padding: 2.5rem .625rem .625rem;position: relative;width: 23.4375rem;")
-                svg.AQXlOb(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 375 124" style="height: 7.75rem;left: 0;position: absolute;top: 0;" fill="#be1529" )
+            .inner-coupon-detail(style="background: #fff;box-sizing: border-box;display: flex;flex-direction: column;height: 43.75rem;margin: 1.875rem auto;padding: 2.5rem .625rem .625rem;position: relative;width: 23.4375rem;")
+                svg(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 375 124" style="height: 7.75rem;left: 0;position: absolute;top: 0;" fill="#be1529" )
                     defs
                         mask#mask(x="-158.6", y="-18", width="533.6", height="148.15", maskUnits="userSpaceOnUse")
-                            rect.MWR7K9(width="375", height="124" fill="#f36700")
+                            rect(width="375", height="124" fill="#f36700")
                         lineargradient#linear-gradient(x1="-118.19", y1="460.81", x2="-117.77", y2="460.74", gradientTransform="matrix(-384.46, 0, 0, 148.15, -45258.88, -68202.4)", gradientUnits="userSpaceOnUse")
                             stop(offset="0", stop-color="#ffa200", stop-opacity="0.48")
                             stop(offset="1", stop-color="#ffb600", stop-opacity="0.26")
-                    rect.dcwIOQ(width="375", height="124")
-                    g.LcThTp
-                        path.j6ktvE(d="M225.87-4.94Q120.52,212.82-96.37,79.56T225.87-4.94Z" fill="#e30019")
-                .FcXANd.CKx1ZL
+                    rect(width="375", height="124")
+                    g
+                        path(d="M225.87-4.94Q120.52,212.82-96.37,79.56T225.87-4.94Z" fill="#e30019")
+                .header-coupon
                     .coupon-item(style="width:354px")
                         .inner-coupon-item
                             svg.coupon-bg(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 0 431.20001220703125 132")
@@ -93,30 +63,27 @@ html(lang="vn")
                                             p.sub-desc Cho đơn hàng từ #{coupon.minOrderValue}$
                                     .wrap-row-bottom
                                         p.desc-date Còn lại: #{coupon.usageLimit} coupons
-                .Cf9I1o(tabindex="0" style="flex: 1;margin-top: 1.25rem;overflow-y: auto;padding: 0 .625rem;")
-                    .bsfbhI(style="margin-bottom:1.5rem")
+                .body-coupon(tabindex="0" style="flex: 1;margin-top: 1.25rem;overflow-y: auto;padding: 0 .625rem;")
+                    .item-detail(style="margin-bottom:1.5rem")
                         h4(style="color: rgba(0, 0, 0, .87);font-family: Roboto, sans-serif;font-size: .875rem;font-weight: 700;line-height: 1rem;margin-bottom: .5rem;margin-top: 0;text-align: left;") Mã giảm giá
-                        .htPgEc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") #{coupon.codeCoupon}
+                        .desc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") #{coupon.codeCoupon}
 
-                    .bsfbhI(style="margin-bottom:1.5rem")
+                    .item-detail(style="margin-bottom:1.5rem")
                         h4(style="color: rgba(0, 0, 0, .87);font-family: Roboto, sans-serif;font-size: .875rem;font-weight: 700;line-height: 1rem;margin-bottom: .5rem;margin-top: 0;text-align: left;") Hạn sử dụng mã
-                        .htPgEc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") 
+                        .desc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") 
                             div(class="createdAt" data-time=coupon.expirationDate) <span>23:59</span>
 
-                    .bsfbhI(style="margin-bottom:1.5rem")
+                    .item-detail(style="margin-bottom:1.5rem")
                         h4(style="color: rgba(0, 0, 0, .87);font-family: Roboto, sans-serif;font-size: .875rem;font-weight: 700;line-height: 1rem;margin-bottom: .5rem;margin-top: 0;text-align: left;") Đơn hàng tối thiểu
-                        .htPgEc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") #{coupon.minOrderValue}$
+                        .desc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") #{coupon.minOrderValue}$
 
-                    
-                    
-                    .bsfbhI(style="margin-bottom:1.5rem")
+                    .item-detail(style="margin-bottom:1.5rem")
                         h4(style="color: rgba(0, 0, 0, .87);font-family: Roboto, sans-serif;font-size: .875rem;font-weight: 700;line-height: 1rem;margin-bottom: .5rem;margin-top: 0;text-align: left;") Thanh Toán
-                        .htPgEc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") Tất cả các hình thức thanh toán
+                        .desc(style="color: rgba(0, 0, 0, .65);font-family: Roboto, sans-serif;font-size: .875rem;line-height: 1rem;word-wrap: break-word") Tất cả các hình thức thanh toán
 
-                    .bsfbhI(style="margin-bottom:1.5rem")
-                        //- h4(style="color: rgba(0, 0, 0, .87);font-family: Roboto, sans-serif;font-size: .875rem;font-weight: 700;line-height: 1rem;margin-bottom: .5rem;margin-top: 0;text-align: left;") Xem chi tiết
+                    .item-detail(style="margin-bottom:1.5rem")
                         div.description-coupon !{coupon.description}
-                .hgs7f3(tabindex="0", role="button" style="display:flex;align-items:center;justify-content:center")
+                .footer-coupon(tabindex="0", role="button" style="display:flex;align-items:center;justify-content:center")
                     button.btn.btn-solid-primary.btn-back(type="button" style="width:100%;margin-top:20px;background:#e30019;color:#fff;box-shadow: 0 2px 4px rgba(0, 0, 0, .24);") Đồng ý
 
         //Script bootstrap 
