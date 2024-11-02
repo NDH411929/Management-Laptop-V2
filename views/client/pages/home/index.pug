@@ -897,7 +897,7 @@ block main
                                     .coupon-content
                                         .coupon-icon
                                             div(style="position: relative;width: 100px;height: 100px;")
-                                                a.link-coupon(href="#!")
+                                                a.link-coupon(href=`/coupons/detail/${item.codeCoupon}`)
                                                     .wrap-img
                                                         img.image-coupon(src=item.thumbnail, alt=item.codeCoupon, opacity="1")
                                         .coupon-detail

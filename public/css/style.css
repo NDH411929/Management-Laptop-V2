@@ -2379,6 +2379,30 @@ select.sort-control::-ms-expand {
 
 /*End Page Order Success*/
 
+/*Page detail coupon*/
+
+.coupon-detail .description-coupon h4 {
+    color: rgba(0, 0, 0, 0.87);
+    font-family: Roboto, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    text-align: left;
+}
+
+.coupon-detail .description-coupon p {
+    color: rgba(0, 0, 0, 0.65);
+    font-family: Roboto, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1rem;
+    word-wrap: break-word;
+    letter-spacing: 0.6px;
+}
+
+/*End page detail coupon*/
+
 /* Footer */
 
 .footer {

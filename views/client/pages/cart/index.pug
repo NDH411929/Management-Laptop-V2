@@ -86,7 +86,7 @@ block main
                                     .coupon-content
                                         .coupon-icon
                                             div(style="position: relative;width: 100px;height: 100px;")
-                                                a.link-coupon
+                                                a.link-coupon(href=`/coupons/detail/${couponChoosed.codeCoupon}`)
                                                     .wrap-img
                                                         img.image-coupon(src=couponChoosed.thumbnail, opacity="1")
                                         .coupon-detail
@@ -142,7 +142,7 @@ block main
                                                             .coupon-content
                                                                 .coupon-icon(style="width: 132px; min-width: 132px;")
                                                                     div(style="position: relative;width: 116px;height: 116px;")
-                                                                        div.link-coupon
+                                                                        a.link-coupon(href=`/coupons/detail/${item.codeCoupon}`)
                                                                             div.wrap-img
                                                                                 if(item.couponStatus=="used") 
                                                                                     img.image-coupon.used(src=item.thumbnail, alt="", opacity="1" )

@@ -10,6 +10,8 @@ const cartRoutes = require("./carts.route");
 const checkoutRouters = require("./checkout.route");
 //Route trang dat hang
 const blogRouters = require("./blogs.route");
+//Route trang dat hang
+const couponRouters = require("./coupons.route");
 //Route trang user
 const userRouters = require("./users.route");
 //Cart middleware
@@ -68,4 +70,11 @@ module.exports = (app) => {
     );
     //Route page blogs
     app.use("/blogs", cartMiddleware.cart, userMiddleware.user, blogRouters);
+    //Route page coupons
+    app.use(
+        "/coupons",
+        cartMiddleware.cart,
+        userMiddleware.user,
+        couponRouters
+    );
 };

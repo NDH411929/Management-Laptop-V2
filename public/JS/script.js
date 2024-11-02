@@ -270,3 +270,12 @@ if (formApplyVouchers) {
     });
 }
 //End apply vouchers
+
+//Button back
+const buttonBack = document.querySelector(".btn-back");
+if (buttonBack) {
+    buttonBack.addEventListener("click", () => {
+        history.back();
+    });
+}
+//End button back
