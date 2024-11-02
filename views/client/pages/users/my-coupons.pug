@@ -1,0 +1,56 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/not-found.pug
+block main
+    .home.coupons
+        .container.my-3
+            .section-coupons(style="padding-bottom:24px")
+                .header-my-coupons(style="padding-top:16px") 
+                    h1.title(style="font-family: Manrope;font-size: 20px;font-weight: 600;text-align:center;margin-bottom:0") Mã giảm giá của tôi
+                .list-coupons(style="display: flex;flex-direction: column;justify-content: center;align-items: center;")
+                    each item in coupons
+                        .coupon-item(type="full" style="width: 430px;margin-top:16px")
+                            .inner-coupon-item(type="full" )
+                                svg.coupon-bg(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 0 431.20001220703125 132" data=item.codeCoupon)
+                                    g(fill="none", fill-rule="evenodd")
+                                        g
+                                            g
+                                                g
+                                                    g
+                                                        g
+                                                            g.transform1(transform="translate(-3160 -2828) translate(3118 80) translate(42 2487) translate(0 140) translate(0 85) translate(0 36)")
+                                                                path.path1(d="M423.20001220703125 0c4.418 0 8 3.582 8 8v116c0 4.418-3.582 8-8 8H140.5c0-4.419-3.582-8-8-8s-8 3.581-8 8H8c-4.418 0-8-3.582-8-8V8c0-4.418 3.582-8 8-8h116.5c0 4.418 3.582 8 8 8s8-3.582 8-8H392z")
+                                                                g.transform2(stroke-dasharray="2 4", stroke-linecap="square", mask="url(#14s2l20tnb)")
+                                                                    path(d="M0.5 0L0.5 114", transform="translate(132 11)")
+                                .coupon-content
+                                    .coupon-icon(style="width: 132px; min-width: 132px;")
+                                        div(style="position: relative;width: 116px;height: 116px;")
+                                            a.link-coupon(href=`/coupons/detail/${item.codeCoupon}`)
+                                                div.wrap-img
+                                                    if(item.couponStatus=="used") 
+                                                        img.image-coupon.used(src=item.thumbnail, alt="", opacity="1" )
+                                                    else
+                                                        if(item.status=="expired")
+                                                            img.image-coupon.expired(src=item.thumbnail, alt="", opacity="1" )
+                                                        else
+                                                            img.image-coupon(src=item.thumbnail, alt="", opacity="1" )
+                                    .coupon-detail
+                                        .wrap-row-top
+                                            if(item.discountType=="percent")
+                                                h4.main-desc Giảm #{item.discountValue}% 
+                                                p.sub-desc Cho đơn hàng từ #{item.minOrderValue}$
+                                            else 
+                                                h4.main-desc Giảm #{item.discountValue}$
+                                                p.sub-desc Cho đơn hàng từ #{item.minOrderValue}$
+                                        .wrap-row-bottom
+                                            p.desc-date(data-date=item.expirationDate) 
+                                            if(item.couponStatus=="used") 
+                                                div.btn-status.used Đã được sử dụng
+                                            else
+                                                if(item.status=="expired")
+                                                    div.btn-status.expired Hết hạn
+                                                else
+                                                    a.btn-status(type="primary" href="/cart") Áp dụng
+                .section-view-all(style="margin-top:24px")
+                    a(href=`/coupons`) Xem mã giảm giá khác
+    script(src="/JS/cart.js") 

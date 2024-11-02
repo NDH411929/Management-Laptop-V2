@@ -2,8 +2,13 @@ const Coupon = require("../../models/coupon.model");
 const createTreeHelper = require("../../helpers/createTree.helper");
 
 module.exports.coupons = async (req, res) => {
+    const coupons = await Coupon.find({
+        deleted: false,
+        status: "active",
+    });
     res.render("client/pages/coupons/index", {
         title: "Coupons",
+        coupons: coupons,
     });
 };
 

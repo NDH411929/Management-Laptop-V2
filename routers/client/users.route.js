@@ -44,4 +44,6 @@ router.patch(
 
 router.get("/vouchers/:id", authMiddleWare.login, controller.voucher);
 
+router.get("/my-coupons", authMiddleWare.login, controller.myCoupons);
+
 module.exports = router;

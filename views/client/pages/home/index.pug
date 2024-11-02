@@ -917,6 +917,8 @@ block main
                                                         a.btn-status(href=`/user/vouchers/${item.id}`) Lưu
                                                     else 
                                                         button.btn-status.active Hết lượt sử dụng
+                .section-view-all
+                    a(href=`/coupons`) Xem tất cả 
     .home.products-category
         .container.my-3
             .section-category
@@ -978,7 +980,7 @@ block main
                                                         span #{product.priceNew}$
                                                         span(class="proloop-label--on-sale") -#{product.discountPercentage}%
                     .section-view-all
-                        a(href=`/products/${category.slug}`) Xem tất cả 
+                        a(href="/coupons") Xem tất cả 
                        
     .home.blogs
         .container.my-3 

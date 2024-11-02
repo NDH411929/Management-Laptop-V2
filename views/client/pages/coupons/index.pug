@@ -1,0 +1,52 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/layout-product.pug
+include ../../mixins/alert.pug
+block main 
+    +alert-success(100000)
+    +alert-error(100000)
+    .home.coupons
+        .container.my-3
+            .section-coupons
+                .row-top
+                    a(href="/products").title-heading.inner-title Danh sách mã giảm giá
+                .row-bottom
+                    div.d-flex(style="gap:24px;flex-direction:column")
+                        each item in coupons
+                            .coupon-item(type="full")
+                                .inner-coupon-item(type="full")
+                                    svg.coupon-bg(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 0 431.20001220703125 132")
+                                        g(fill="none", fill-rule="evenodd")
+                                            g
+                                                g
+                                                    g
+                                                        g
+                                                            g
+                                                                g(transform="translate(-3160 -2828) translate(3118 80) translate(42 2487) translate(0 140) translate(0 85) translate(0 36)")
+                                                                    path(fill="#FFF", d="M423.20001220703125 0c4.418 0 8 3.582 8 8v116c0 4.418-3.582 8-8 8H140.5c0-4.419-3.582-8-8-8s-8 3.581-8 8H8c-4.418 0-8-3.582-8-8V8c0-4.418 3.582-8 8-8h116.5c0 4.418 3.582 8 8 8s8-3.582 8-8H392z")
+                                                                    g(stroke="#EEE", stroke-dasharray="2 4", stroke-linecap="square", mask="url(#14s2l20tnb)")
+                                                                        path(d="M0.5 0L0.5 114", transform="translate(132 11)")
+                                    .coupon-content
+                                        .coupon-icon
+                                            div(style="position: relative;width: 100px;height: 100px;")
+                                                a.link-coupon(href=`/coupons/detail/${item.codeCoupon}`)
+                                                    .wrap-img
+                                                        img.image-coupon(src=item.thumbnail, alt=item.codeCoupon, opacity="1")
+                                        .coupon-detail
+                                            .wrap-row-top
+                                                if(item.discountType=="percent")
+                                                    h4.main-desc Giảm #{item.discountValue}% 
+                                                    p.sub-desc Cho đơn hàng từ #{item.minOrderValue}$
+                                                else 
+                                                    h4.main-desc Giảm #{item.discountValue}$ 
+                                                    p.sub-desc Cho đơn hàng từ #{item.minOrderValue}$
+                                            .wrap-row-bottom
+                                                p.desc-date(style="" data-date=item.expirationDate) 
+                                                if infoUser && infoUser.couponsId.some(coupon => coupon.couponId === item.id)
+                                                    button.btn-status.active Đã lưu
+                                                else 
+                                                    if item.usageLimit > 0
+                                                        a.btn-status(href=`/user/vouchers/${item.id}`) Lưu
+                                                    else 
+                                                        button.btn-status.active Hết lượt sử dụng
+    script(src="/JS/home.js") 

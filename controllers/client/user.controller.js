@@ -341,3 +341,10 @@ module.exports.voucher = async (req, res) => {
 
     res.redirect("back");
 };
+
+module.exports.myCoupons = async (req, res) => {
+    res.render("client/pages/users/my-coupons.pug", {
+        title: "My Coupons",
+        coupons: res.locals.infoUser.coupons,
+    });
+};
