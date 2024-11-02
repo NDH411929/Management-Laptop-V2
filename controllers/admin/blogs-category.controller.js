@@ -126,3 +126,25 @@ module.exports.editPatch = async (req, res) => {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
     }
 };
+
+module.exports.delete = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await BlogCategory.updateOne(
+            {
+                _id: id,
+            },
+            {
+                deleted: true,
+                deletedBy: {
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date(),
+                },
+            }
+        );
+        req.flash("success", "Xóa thành công!");
+        res.redirect("back");
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
+};
