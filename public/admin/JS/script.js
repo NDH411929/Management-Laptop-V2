@@ -152,13 +152,27 @@ const formPreviewImage = document.querySelector("[form-preview-image]");
 if (formPreviewImage) {
     const inputPreviewImage = document.querySelector("[input-preview-image]");
     const previewImage = document.querySelector("[preview-image]");
+    const listPreview = formPreviewImage.querySelector(".list-preview");
     inputPreviewImage.addEventListener("change", (event) => {
-        const file = event.target.files[0];
+        const file = event.target.files;
         if (file) {
-            previewImage.src = URL.createObjectURL(file);
+            if (file.length > 1) {
+                listPreview.classList.remove("d-none");
+                listPreview.innerHTML = "";
+                const fileList = Array.from(file);
+
+                fileList.forEach((item) => {
+                    const img = document.createElement("img");
+                    img.setAttribute("src", URL.createObjectURL(item));
+                    img.classList.add("preview-item");
+                    listPreview.appendChild(img);
+                });
+                previewImage.src = "";
+            } else {
+                listPreview.classList.add("d-none");
+                previewImage.src = URL.createObjectURL(file[0]);
+            }
         }
-        console.log(previewImage);
-        console.log(inputPreviewImage);
     });
 }
 //End Preview Image
