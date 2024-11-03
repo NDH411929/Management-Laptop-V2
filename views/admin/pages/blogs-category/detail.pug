@@ -1,0 +1,40 @@
+extends ../../layouts/default.pug
+
+block main
+    if (blogCategory.thumbnail)
+        div(class="mb-4")
+        img(
+            src=(blogCategory.thumbnail?blogCategory.thumbnail:"")
+            style="width: 100px"
+            class="mb-4"
+        )
+    if (blogCategory.title)
+        div(class="mb-4") Tên danh mục bài viết: <b>#{blogCategory.title}</b>
+
+    if (blogCategory.position)
+        div(class="mb-4") Vị trí: <b>#{blogCategory.position}</b>
+
+    if (blogCategory.status)
+        div(class="mb-4")
+        span Trạng thái:
+        if (blogCategory.status === "active")
+            span(class="badge badge-success" class="mb-4") Hoạt động
+        else
+            span(class="badge badge-danger" class="mb-4") Dừng hoạt động
+
+    if (blogCategory.description)
+        div(class="mb-4") Nội dung: 
+        div(class="mb-4") !{blogCategory.description}
+        
+    
+    if(blogCategory.createdBy.createdAt && blogCategory.fullNameCreated)
+        div(class="mb-4") Người tạo: #{blogCategory.fullNameCreated}
+        div(class="mb-4") Thời gian: #{moment(blogCategory.createdBy.createdAt).format("DD-MM-YYYY HH:mm")}
+    -var length=blogCategory.updatedBy.length
+    if(length>0)
+        div(class="mb-4") <b>Cập nhật lần cuối</b>
+        div(class="mb-4") Người cập nhật: #{blogCategory.fullNameUpdated}
+        div(class="mb-4") Thời gian: #{moment(blogCategory.updatedBy[length-1].updatedAt).format("DD-MM-YYYY HH:mm")}
+    
+    if (blogCategory.description)
+        div(class="mb-4") Nội dung: !{blogCategory.description}

@@ -1,5 +1,6 @@
 const Blog = require("../../models/blog.model");
 const BlogCategory = require("../../models/blog-category.model");
+const Account = require("../../models/account.model");
 const paginationHelper = require("../../helpers/pagination.helper");
 const createTreeHelper = require("../../helpers/createTree.helper");
 const filterStatusHelper = require("../../helpers/filterStatus.helper");
@@ -43,6 +44,34 @@ module.exports.blogsCategory = async (req, res) => {
             filterStatus: filterStatus,
             keyword: searchBlogsCategory.keyword,
         });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
+};
+
+module.exports.changeStatus = async (req, res) => {
+    try {
+        if (res.locals.roleUser.permissions.includes("blogs-category_edit")) {
+            const id = req.params.id;
+            const status = req.params.status;
+            let updatedBy = {
+                account_id: res.locals.user.id,
+                updatedAt: new Date(),
+            };
+            await BlogCategory.updateOne(
+                { _id: id },
+                {
+                    status: status,
+                    $push: {
+                        updatedBy: updatedBy,
+                    },
+                }
+            );
+            req.flash("success", "Thay đổi trạng thái thành công!");
+            res.redirect("back");
+        } else {
+            return;
+        }
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
     }
@@ -144,6 +173,43 @@ module.exports.delete = async (req, res) => {
         );
         req.flash("success", "Xóa thành công!");
         res.redirect("back");
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
+};
+
+module.exports.detail = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const blogCategory = await BlogCategory.findOne(
+            {
+                _id: id,
+            },
+            {
+                deleted: false,
+            }
+        );
+        if (blogCategory.createdBy) {
+            const user = await Account.findOne({
+                _id: blogCategory.createdBy.account_id,
+            }).select("fullName");
+            if (user) {
+                blogCategory.fullNameCreated = user.fullName;
+            }
+        }
+        if (blogCategory.updatedBy.length > 0) {
+            const user = await Account.findOne({
+                _id: blogCategory.updatedBy[blogCategory.updatedBy.length - 1]
+                    .account_id,
+            });
+            if (user) {
+                blogCategory.fullNameUpdated = user.fullName;
+            }
+        }
+        res.render("admin/pages/blogs-category/detail", {
+            title: "Detail Blog Category",
+            blogCategory: blogCategory,
+        });
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
     }

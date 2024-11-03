@@ -9,6 +9,8 @@ const controller = require("../../controllers/admin/blogs-category.controller");
 
 router.get("/", controller.blogsCategory);
 
+router.patch("/change-status/:status/:id", controller.changeStatus);
+
 router.get("/create", controller.create);
 
 router.post(
@@ -28,5 +30,7 @@ router.patch(
 );
 
 router.delete("/delete/:id", controller.delete);
+
+router.get("/detail/:id", controller.detail);
 
 module.exports = router;
