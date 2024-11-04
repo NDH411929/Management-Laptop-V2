@@ -10,113 +10,117 @@ const reviewsHelper = require("../../helpers/reviews.helper");
 const Evaluate = require("../../models/evaluate.model");
 
 module.exports.products = async (req, res) => {
-    //Get list product sort by position
-    const products = await Product.find({
-        status: "active",
-        deleted: false,
-    }).sort({ position: "desc" });
-
-    const { sort_by, ...queryUser } = req.query;
-    //Check exists sort_by
-    if (Object.keys(queryUser).includes("sort_by")) {
-        //Delete sort_by
-        delete queryUser.sort_by;
-    }
-
-    //Get list category
-    const listProductCategory = await ProductCategory.find({
-        status: "active",
-        deleted: false,
-    });
-
-    //Get all sub category in parent category
-    const getAllProductCategory = async (categoryId, arr) => {
-        const child = await ProductCategory.find({
-            parent_id: categoryId,
+    try {
+        //Get list product sort by position
+        const products = await Product.find({
             status: "active",
             deleted: false,
-        });
-        for (const item of child) {
-            arr.push(item.id);
-            await getAllProductCategory(item.id, arr);
+        }).sort({ position: "desc" });
+
+        const { sort_by, ...queryUser } = req.query;
+        //Check exists sort_by
+        if (Object.keys(queryUser).includes("sort_by")) {
+            //Delete sort_by
+            delete queryUser.sort_by;
         }
-    };
 
-    for (const item of listProductCategory) {
-        const count = await Product.countDocuments({
-            parent_id: item.id,
+        //Get list category
+        const listProductCategory = await ProductCategory.find({
             status: "active",
             deleted: false,
         });
-        item.count = count;
-    }
 
-    for (const item of listProductCategory) {
-        let listSubCategoryId = [];
-        await getAllProductCategory(item.id, listSubCategoryId);
-        if (listSubCategoryId.length > 0) {
-            let totalCount = await Product.countDocuments({
+        //Get all sub category in parent category
+        const getAllProductCategory = async (categoryId, arr) => {
+            const child = await ProductCategory.find({
+                parent_id: categoryId,
+                status: "active",
+                deleted: false,
+            });
+            for (const item of child) {
+                arr.push(item.id);
+                await getAllProductCategory(item.id, arr);
+            }
+        };
+
+        for (const item of listProductCategory) {
+            const count = await Product.countDocuments({
                 parent_id: item.id,
                 status: "active",
                 deleted: false,
             });
-            for (const id of listSubCategoryId) {
-                const count = await Product.countDocuments({
-                    parent_id: id,
+            item.count = count;
+        }
+
+        for (const item of listProductCategory) {
+            let listSubCategoryId = [];
+            await getAllProductCategory(item.id, listSubCategoryId);
+            if (listSubCategoryId.length > 0) {
+                let totalCount = await Product.countDocuments({
+                    parent_id: item.id,
                     status: "active",
                     deleted: false,
                 });
-                totalCount += count;
+                for (const id of listSubCategoryId) {
+                    const count = await Product.countDocuments({
+                        parent_id: id,
+                        status: "active",
+                        deleted: false,
+                    });
+                    totalCount += count;
+                }
+                item.totalCount = totalCount;
+            } else {
+                const totalCount = await Product.countDocuments({
+                    parent_id: item.id,
+                    status: "active",
+                    deleted: false,
+                });
+                item.totalCount = totalCount;
             }
-            item.totalCount = totalCount;
-        } else {
-            const totalCount = await Product.countDocuments({
-                parent_id: item.id,
-                status: "active",
-                deleted: false,
-            });
-            item.totalCount = totalCount;
         }
-    }
 
-    //Get filter user choose
-    const arrFilter = filterSpec.filterUserChoosed(queryUser, products);
-    //End Get filter user choose
+        //Get filter user choose
+        const arrFilter = filterSpec.filterUserChoosed(queryUser, products);
+        //End Get filter user choose
 
-    //Filter products
-    let newProducts = [];
-    if (Object.keys(queryUser).length) {
-        if (Object.keys(queryUser).length > 1) {
-            newProducts = filterSpec.filterMultiSpec(queryUser, products);
+        //Filter products
+        let newProducts = [];
+        if (Object.keys(queryUser).length) {
+            if (Object.keys(queryUser).length > 1) {
+                newProducts = filterSpec.filterMultiSpec(queryUser, products);
+            } else {
+                newProducts = filterSpec.filterSpec(queryUser, products);
+            }
         } else {
-            newProducts = filterSpec.filterSpec(queryUser, products);
+            newProducts = products;
         }
-    } else {
-        newProducts = products;
+        //End filter products
+
+        //Create new price product
+        const newProduct = productHelper.newPriceProduct(newProducts);
+
+        //Get name & value filter
+        let arrObj = filterSpec.getNameFilter(products);
+
+        //Sort
+        if (req.query.sort_by) {
+            const [key, value] = req.query.sort_by.split("-");
+            sortHelper.sortedClient(key, value, newProduct);
+        }
+        //End Sort
+
+        res.render("client/pages/products/index", {
+            title: "Sản phẩm",
+            products: newProduct,
+
+            listProductCategory: listProductCategory,
+            filterSpec: arrObj,
+            arrFilter: arrFilter,
+        });
+    } catch (error) {
+        res.redirect("/");
     }
-    //End filter products
-
-    //Create new price product
-    const newProduct = productHelper.newPriceProduct(newProducts);
-
-    //Get name & value filter
-    let arrObj = filterSpec.getNameFilter(products);
-
-    //Sort
-    if (req.query.sort_by) {
-        const [key, value] = req.query.sort_by.split("-");
-        sortHelper.sortedClient(key, value, newProduct);
-    }
-    //End Sort
-
-    res.render("client/pages/products/index", {
-        title: "Sản phẩm",
-        products: newProduct,
-
-        listProductCategory: listProductCategory,
-        filterSpec: arrObj,
-        arrFilter: arrFilter,
-    });
 };
 
 module.exports.category = async (req, res) => {
@@ -246,7 +250,7 @@ module.exports.category = async (req, res) => {
             arrFilter: arrFilter,
         });
     } catch (error) {
-        res.redirect("/products");
+        res.redirect("/");
     }
 };
 
@@ -359,7 +363,7 @@ module.exports.brandOfCategory = async (req, res) => {
             arrFilter: arrFilter,
         });
     } catch (error) {
-        res.redirect("/products");
+        res.redirect("/");
     }
 };
 
@@ -454,131 +458,140 @@ module.exports.brandOfCategory = async (req, res) => {
 // };
 
 module.exports.detail = async (req, res) => {
-    const slug = req.params.slugProduct;
-    const product = await Product.findOne({
-        slug: slug,
-        deleted: false,
-    });
-    //Get reviews of product
-    const evaluate = await Evaluate.findOne({
-        product_id: product.id,
-    });
-    if (evaluate) {
-        const reviews = reviewsHelper.getReviews(evaluate.rate);
-        product.reviews = reviews;
-        let sum = evaluate.rate
-            .reduce(
-                (accumulator, currentValue) => accumulator + currentValue.value,
-                0
-            )
-            .toFixed(1);
-        const average = sum / evaluate.rate.length;
-        product.average = average;
+    try {
+        const slug = req.params.slugProduct;
+        const product = await Product.findOne({
+            slug: slug,
+            deleted: false,
+        });
+        //Get reviews of product
+        const evaluate = await Evaluate.findOne({
+            product_id: product.id,
+        });
+        if (evaluate) {
+            const reviews = reviewsHelper.getReviews(evaluate.rate);
+            product.reviews = reviews;
+            let sum = evaluate.rate
+                .reduce(
+                    (accumulator, currentValue) =>
+                        accumulator + currentValue.value,
+                    0
+                )
+                .toFixed(1);
+            const average = sum / evaluate.rate.length;
+            product.average = average;
+        }
+
+        //Get category of product
+        const productCategory = await ProductCategory.findOne({
+            _id: product.parent_id,
+            deleted: false,
+            status: "active",
+        });
+        product.category = productCategory;
+        product.priceNew = (
+            (1 - product.discountPercentage / 100) *
+            product.price
+        ).toFixed(2);
+
+        //Get product of category
+        const listProduct = await Product.find({
+            parent_id: product.parent_id,
+            status: "active",
+            deleted: false,
+        }).limit(3);
+        const newListProduct = productHelper.newPriceProduct(listProduct);
+
+        //Get blog of category
+        const blog = await Blog.find({
+            status: "active",
+            deleted: false,
+        }).limit(3);
+
+        res.render("client/pages/products/detail", {
+            title: "Chi tiết sản phẩm",
+            product: product,
+            blog: blog,
+            listProduct: newListProduct,
+        });
+    } catch (error) {
+        res.redirect("/");
     }
-
-    //Get category of product
-    const productCategory = await ProductCategory.findOne({
-        _id: product.parent_id,
-        deleted: false,
-        status: "active",
-    });
-    product.category = productCategory;
-    product.priceNew = (
-        (1 - product.discountPercentage / 100) *
-        product.price
-    ).toFixed(2);
-
-    //Get product of category
-    const listProduct = await Product.find({
-        parent_id: product.parent_id,
-        status: "active",
-        deleted: false,
-    }).limit(3);
-    const newListProduct = productHelper.newPriceProduct(listProduct);
-
-    //Get blog of category
-    const blog = await Blog.find({
-        status: "active",
-        deleted: false,
-    }).limit(3);
-
-    res.render("client/pages/products/detail", {
-        title: "Chi tiết sản phẩm",
-        product: product,
-        blog: blog,
-        listProduct: newListProduct,
-    });
 };
 
 module.exports.sendEvaluate = async (req, res) => {
-    const slug = req.params.slugProduct;
-    const tokenUser = req.cookies.tokenUser;
-    const product = await Product.findOne({
-        slug: slug,
-        deleted: false,
-    });
-    const user = await User.findOne({
-        tokenUser: tokenUser,
-    });
-    const existsEvaluate = await Evaluate.findOne({
-        product_id: product.id,
-    });
-    const value = parseInt(req.body.value);
-    if (value > 5 || value < 1) {
-        req.flash("error", "Lỗi!");
-        return;
-    }
-    if (!existsEvaluate) {
-        const object = {
+    try {
+        const slug = req.params.slugProduct;
+        const tokenUser = req.cookies.tokenUser;
+        const product = await Product.findOne({
+            slug: slug,
+            deleted: false,
+        });
+        const user = await User.findOne({
+            tokenUser: tokenUser,
+        });
+        const existsEvaluate = await Evaluate.findOne({
             product_id: product.id,
-            rate: [
-                {
-                    user_id: user.id,
-                    value: value,
-                    description: req.body.description,
-                },
-            ],
-        };
-        const evaluate = new Evaluate(object);
-        await evaluate.save();
-    } else {
-        const objectRate = {
-            user_id: user.id,
-            value: value,
-            description: req.body.description,
-        };
-        let check = "false";
-        for (const item of existsEvaluate.rate) {
-            if (item.user_id == user.id) {
-                check = "true";
+        });
+        const value = parseInt(req.body.value);
+        if (value > 5 || value < 1) {
+            req.flash("error", "Lỗi!");
+            return;
+        }
+        if (!existsEvaluate) {
+            const object = {
+                product_id: product.id,
+                rate: [
+                    {
+                        user_id: user.id,
+                        value: value,
+                        description: req.body.description,
+                    },
+                ],
+            };
+            const evaluate = new Evaluate(object);
+            await evaluate.save();
+        } else {
+            const objectRate = {
+                user_id: user.id,
+                value: value,
+                description: req.body.description,
+            };
+            let check = "false";
+            for (const item of existsEvaluate.rate) {
+                if (item.user_id == user.id) {
+                    check = "true";
+                }
+            }
+            if (check == "false") {
+                await Evaluate.updateOne(
+                    {
+                        product_id: product.id,
+                    },
+                    {
+                        $push: {
+                            rate: objectRate,
+                        },
+                    }
+                );
+            } else {
+                await Evaluate.updateOne(
+                    {
+                        product_id: product.id,
+                        "rate.user_id": user.id,
+                    },
+                    {
+                        $set: {
+                            "rate.$.value": value,
+                            "rate.$.description": req.body.description,
+                        },
+                    }
+                );
             }
         }
-        if (check == "false") {
-            await Evaluate.updateOne(
-                {
-                    product_id: product.id,
-                },
-                {
-                    $push: {
-                        rate: objectRate,
-                    },
-                }
-            );
-        } else {
-            await Evaluate.updateOne(
-                {
-                    product_id: product.id,
-                    "rate.user_id": user.id,
-                },
-                {
-                    $set: {
-                        "rate.$.value": value,
-                        "rate.$.description": req.body.description,
-                    },
-                }
-            );
-        }
+        req.flash("success", "Đánh giá thành công!");
+        res.redirect("back");
+    } catch (error) {
+        res.redirect("/");
     }
-    req.flash("success", "Đánh giá thành công!");
-    res.redirect("back");
 };

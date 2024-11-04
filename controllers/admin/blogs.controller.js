@@ -9,64 +9,64 @@ const systemConfig = require("../../config/system");
 const BlogCategory = require("../../models/blog-category.model");
 
 module.exports.blogs = async (req, res) => {
-    // try {
-    //Phần render ra ngoài view
-    const findBlogs = {
-        deleted: false,
-    };
-
-    //filterStatus
-    const filterStatus = filterStatusHelper(req.query);
-    if (req.query.status) {
-        //req.query là trả ra các query trên url (?status="active") hoặc (?price=123)
-        findBlogs.status = req.query.status;
-    }
-    //End filter status
-
-    //Search
-    const searchBlog = searchHelper(req.query);
-    if (searchBlog.regex) {
-        findBlogs.title = searchBlog.regex;
-    }
-    //End search
-
-    const blogs = await Blog.find(findBlogs);
-
-    for (const blog of blogs) {
-        const user = await Account.findOne({
-            _id: blog.createdBy.account_id,
-        }).select("-password");
-
-        const category = await BlogCategory.findOne({
-            _id: blog.parent_id,
-        });
-
-        if (category) {
-            blog.category = category.title;
-        }
-
-        const role = await Role.findOne({
-            _id: user.role_id,
+    try {
+        //Phần render ra ngoài view
+        const findBlogs = {
             deleted: false,
-        }).select("title");
+        };
 
-        if (user) {
-            blog.createdByFullName = user.fullName;
-            if (role) {
-                blog.roleUser = role.title;
+        //filterStatus
+        const filterStatus = filterStatusHelper(req.query);
+        if (req.query.status) {
+            //req.query là trả ra các query trên url (?status="active") hoặc (?price=123)
+            findBlogs.status = req.query.status;
+        }
+        //End filter status
+
+        //Search
+        const searchBlog = searchHelper(req.query);
+        if (searchBlog.regex) {
+            findBlogs.title = searchBlog.regex;
+        }
+        //End search
+
+        const blogs = await Blog.find(findBlogs);
+
+        for (const blog of blogs) {
+            const user = await Account.findOne({
+                _id: blog.createdBy.account_id,
+            }).select("-password");
+
+            const category = await BlogCategory.findOne({
+                _id: blog.parent_id,
+            });
+
+            if (category) {
+                blog.category = category.title;
+            }
+
+            const role = await Role.findOne({
+                _id: user.role_id,
+                deleted: false,
+            }).select("title");
+
+            if (user) {
+                blog.createdByFullName = user.fullName;
+                if (role) {
+                    blog.roleUser = role.title;
+                }
             }
         }
-    }
 
-    res.render("admin/pages/blogs/index", {
-        title: "Blogs",
-        blogs: blogs,
-        filterStatus: filterStatus,
-        keyword: searchBlog.keyword,
-    });
-    // } catch (error) {
-    //     res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
-    // }
+        res.render("admin/pages/blogs/index", {
+            title: "Blogs",
+            blogs: blogs,
+            filterStatus: filterStatus,
+            keyword: searchBlog.keyword,
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
 };
 
 module.exports.changeStatus = async (req, res) => {
