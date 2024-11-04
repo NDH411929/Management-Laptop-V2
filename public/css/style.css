@@ -2091,6 +2091,10 @@ select.sort-control::-ms-expand {
     text-decoration: underline;
 }
 
+.product-detail .product-desc-left .inner-desc img {
+    max-width: 50%;
+}
+
 .product-detail .list-color-product .color-product {
     align-items: center;
     gap: 5px;
