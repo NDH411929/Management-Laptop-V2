@@ -169,6 +169,7 @@ module.exports.changeStatus = async (req, res) => {
                 status: req.params.status,
             }
         );
+        req.flash("success", "Cập nhật trạng thái thành công!");
         res.redirect("back");
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
@@ -186,6 +187,7 @@ module.exports.changeStatusDelivery = async (req, res) => {
                 statusDelivery: req.params.statusDelivery,
             }
         );
+        req.flash("success", "Cập nhật trạng thái thành công!");
         res.redirect("back");
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);

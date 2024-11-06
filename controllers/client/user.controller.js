@@ -74,7 +74,7 @@ module.exports.loginPost = async (req, res) => {
             deleted: false,
         });
         if (!user) {
-            req.flash("error", "Email đã tồn tại! Vui lòng đăng nhập lại!");
+            req.flash("error", "Sai email hoặc mật khẩu!");
             res.redirect("back");
             return;
         }
