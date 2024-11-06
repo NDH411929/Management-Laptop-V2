@@ -109,8 +109,8 @@ const formLogin = document.querySelector("[form-login]");
 if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
         e.preventDefault();
-        const email = formLogin.querySelector("#email").value;
-        const password = formLogin.querySelector("#password").value;
+        const email = formLogin.querySelector("input[name=email]").value;
+        const password = formLogin.querySelector("input[name=password]").value;
         if (email == "") {
             alert("Vui lòng nhập email!");
             return;
@@ -127,9 +127,13 @@ const formRegister = document.querySelector("[form-register]");
 if (formRegister) {
     formRegister.addEventListener("submit", (e) => {
         e.preventDefault();
-        const email = formRegister.querySelector("#email").value;
-        const fullName = formRegister.querySelector("#fullName").value;
-        const password = formRegister.querySelector("#password").value;
+        const email = formRegister.querySelector("input[name=email]").value;
+        const fullName = formRegister.querySelector(
+            "input[name=fullName]"
+        ).value;
+        const password = formRegister.querySelector(
+            "input[name=password]"
+        ).value;
         if (fullName == "") {
             alert("Vui lòng nhập họ tên!");
             return;
@@ -223,25 +227,6 @@ if (createdAt.length > 0) {
     });
 }
 //End convert date
-
-//Script slide swiper
-var swiper = new Swiper(".mySwiper", {
-    spaceBetween: 10,
-    slidesPerView: 4,
-    freeMode: true,
-    watchSlidesProgress: true,
-});
-var swiper2 = new Swiper(".mySwiper2", {
-    spaceBetween: 0,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    thumbs: {
-        swiper: swiper,
-    },
-});
-//End script slide swiper
 
 //Apply vouchers
 const formApplyVouchers = document.querySelector("#form-apply-vouchers");

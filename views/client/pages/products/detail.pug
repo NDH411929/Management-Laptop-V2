@@ -290,4 +290,25 @@ block main
                             class="btn btn-danger"
                             style="background:#e30019;border-color:#e30019"
                         ) Gửi đánh giá
+    //-Script slide swiper
+    script(src="https://unpkg.com/swiper/swiper-bundle.min.js") 
+    script.
+        
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+            spaceBetween: 0,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiper,
+            },
+        });
+    //-End script slide swiper
     script(src="/JS/product.js") 
