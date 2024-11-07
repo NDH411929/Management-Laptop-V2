@@ -169,7 +169,10 @@ if (formPreviewImage) {
                 });
                 previewImage.src = "";
             } else {
-                listPreview.classList.add("d-none");
+                if (listPreview) {
+                    listPreview.classList.add("d-none");
+                }
+
                 previewImage.src = URL.createObjectURL(file[0]);
             }
         }
