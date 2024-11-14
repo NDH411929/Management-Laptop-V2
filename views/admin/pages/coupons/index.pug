@@ -51,9 +51,9 @@ block main
                             td(style="width:205px") #{coupon.codeCoupon}
                             td 
                                 if(coupon.discountType=="fixed")
-                                    div Giảm theo %
-                                else 
                                     div Giảm theo $
+                                else 
+                                    div Giảm theo %
                             td 
                                 if(coupon.discountType=="fixed")
                                     div #{coupon.discountValue}$
