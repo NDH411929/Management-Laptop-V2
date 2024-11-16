@@ -16,10 +16,10 @@ module.exports.home = async (req, res) => {
     let optionsCategory = [
         "laptop-gaming",
         "laptop-van-phong",
-        "chuot",
-        "pc-gvn",
+        // "chuot",
+        // "pc-gvn",
         "man-hinh",
-        "ban-phim",
+        // "ban-phim",
     ];
 
     const getProductFromCategory = await ProductCategory.find({

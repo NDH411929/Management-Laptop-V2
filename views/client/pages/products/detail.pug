@@ -5,7 +5,7 @@ include ../../mixins/alert.pug
 block main 
     +alert-success(1000000)
     +alert-error(1000000)
-    .product-detail
+    .product-detail.products
         .container.my-3
             .product-inner(style="background:#fff")
                 .row(style="margin:0")
@@ -183,6 +183,35 @@ block main
                                             .proloop-detail
                                                 .proloop-name(style="font-size:14px;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;display: -webkit-box;margin-bottom:4px;font-family: Manrope;") 
                                                     a(href=`/blogs/detail/${item.slug}` style="color:#000;font-weight:500;") #{item.title}
+        .container.my-3
+            .inner-products-viewed(style="background:#fff;border-radius:4px")
+                .box-head(style="padding:12px 24px")
+                    h2(style="font-size:18px") Sản phẩm đã xem
+                .section-content
+                    .list-products-viewed.d-flex(style="padding:0 4px")
+                        each product in productsViewed
+                            .item
+                                .item-box
+                                    .item-image
+                                        .proloop-label--top
+                                        a.aspect-ratio(href=`/products/detail/${product.slug}`, aria-label="Nguồn" )
+                                            picture.d-flex.justify-content-between.align-items-center
+                                                img(src=product.thumbnail, alt=product.slug class="item-img" style="width:100%;")
+                                    .item-detail
+                                        h3(style="font-size:14px")
+                                            a(href=`/products/detail/${product.slug}` ) #{product.title}
+                                        .proloop-technical
+                                            each tech in product.features_spec
+                                                if(tech.nameFeaturesSpec.length<=5)
+                                                    span(style="background: #f2f4f7;border: none;color: #667085;border: 1px solid #e0e0e0;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;line-height: 12px;margin-right: 5px;padding: 4px 5px;white-space: nowrap;") #{tech.nameFeaturesSpec} #{tech.valueDefault}
+                                                else 
+                                                    span(style="background: #f2f4f7;border: none;color: #667085;border: 1px solid #e0e0e0;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;line-height: 12px;margin-right: 5px;padding: 4px 5px;white-space: nowrap;") #{tech.valueDefault}
+                                        .proloop-price
+                                            .proloop-price-old 
+                                                span #{product.price}$
+                                            .proloop-price-new
+                                                span #{product.priceNew}$
+                                                span(class="proloop-label--on-sale") -#{product.discountPercentage}%
         .container.my-3
             .rate-inner(style="background:#fff;border-radius:4px") 
                 .box-head(style="padding:12px 24px")

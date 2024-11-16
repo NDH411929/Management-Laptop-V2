@@ -464,6 +464,33 @@ module.exports.detail = async (req, res) => {
             slug: slug,
             deleted: false,
         });
+
+        //Show product user viewed
+        let listProductViewed = "";
+        if (!req.cookies.listViewed) {
+            res.cookie("listViewed", product.id);
+            listProductViewed = product.id;
+        } else {
+            let arr = req.cookies.listViewed.split(" ");
+            if (!arr.includes(product.id)) {
+                res.cookie(
+                    "listViewed",
+                    req.cookies.listViewed + " " + product.id
+                );
+            }
+            listProductViewed = req.cookies.listViewed.split(" ");
+        }
+
+        const productsViewed = await Product.find({
+            _id: { $in: listProductViewed },
+            status: "active",
+            deleted: false,
+        }).limit(5);
+
+        const newListProductViewed =
+            productHelper.newPriceProduct(productsViewed);
+        //End Show product user viewed
+
         //Get reviews of product
         const evaluate = await Evaluate.findOne({
             product_id: product.id,
@@ -512,6 +539,7 @@ module.exports.detail = async (req, res) => {
             title: "Chi tiết sản phẩm",
             product: product,
             blog: blog,
+            productsViewed: newListProductViewed,
             listProduct: newListProduct,
         });
     } catch (error) {
