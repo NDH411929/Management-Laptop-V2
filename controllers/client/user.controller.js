@@ -386,3 +386,65 @@ module.exports.myCoupons = async (req, res) => {
         coupons: res.locals.infoUser.coupons,
     });
 };
+
+module.exports.myOrders = async (req, res) => {
+    try {
+        const cartId = res.locals.miniCart.id;
+        // const cart = await Cart.findOne({
+        //     _id: cartId,
+        // });
+        const orders = await Order.find({
+            cart_id: cartId,
+        });
+
+        for (const order of orders) {
+            order.totalPrice = 0;
+            order.discount = 0;
+            for (const item of order.products) {
+                const infoProduct = await Product.findOne({
+                    _id: item.product_id,
+                });
+                infoProduct.priceNew = (
+                    (infoProduct.price *
+                        (100 - infoProduct.discountPercentage)) /
+                    100
+                ).toFixed(2);
+                infoProduct.totalPrice = (
+                    infoProduct.priceNew * item.quantity
+                ).toFixed(2);
+                item.title = infoProduct.title;
+                item.thumbnail = infoProduct.thumbnail;
+                item.priceNew = infoProduct.priceNew;
+                item.totalPrice = infoProduct.totalPrice;
+                order.totalPrice += parseFloat(item.totalPrice);
+            }
+            if (order.coupon != "") {
+                const coupon = await Coupon.findOne({
+                    _id: order.coupon,
+                }).select("discountType discountValue");
+                if (coupon) {
+                    if (coupon.discountType == "fixed") {
+                        order.totalPrice =
+                            order.totalPrice - coupon.discountValue;
+                        order.discount = coupon.discountValue;
+                    } else {
+                        order.discount =
+                            order.totalPrice -
+                            order.totalPrice * (1 - coupon.discountValue / 100);
+                        order.totalPrice =
+                            order.totalPrice * (1 - coupon.discountValue / 100);
+                    }
+                }
+            }
+            order.discount = order.discount.toFixed(0);
+            order.totalPrice = order.totalPrice.toFixed(2);
+        }
+
+        res.render("client/pages/checkout/order-review", {
+            title: "Xem lại đơn hàng",
+            orders: orders,
+        });
+    } catch (error) {
+        res.redirect("/");
+    }
+};

@@ -46,4 +46,6 @@ router.get("/vouchers/:id", authMiddleWare.login, controller.voucher);
 
 router.get("/my-coupons", authMiddleWare.login, controller.myCoupons);
 
+router.get("/my-orders", authMiddleWare.login, controller.myOrders);
+
 module.exports = router;
