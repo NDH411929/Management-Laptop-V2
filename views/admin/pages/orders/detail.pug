@@ -25,6 +25,11 @@ block main
                                 td Email
                                 td
                                     b #{order.userInfo.email}
+                            tr
+                                td Thời gian đặt hàng
+                                td
+                                    if(order.createdAt)
+                                        b #{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}
             .row
                 .col-12
                     h4(class="mb-2") Thông tin đơn hàng

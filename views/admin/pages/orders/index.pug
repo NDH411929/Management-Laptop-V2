@@ -37,6 +37,96 @@ block main
                             sort-clear
                         ) Clear
     .card.mb-3
+        .card-header 
+            p Danh sách đơn chờ xác nhận hủy
+            a(href=`${prefixAdmin}/users/orders/view-canceled`) Xem đơn đã xác nhận hủy
+        .card-body
+            if(cancelOrders.length>0)
+                table(
+                    class="table table-hover table-sm"
+                    checkbox-multi
+                )
+                    thead 
+                        tr 
+                            th 
+                                if(roleUser.permissions.includes("orders-user_edit") || (roleUser.permissions.includes("orders-user_delete")))
+                                    input(type="checkbox", name="checkall")
+                            th STT
+                            //- th Mã đơn hàng
+                            th Tên khách hàng
+                            th Email khách hàng
+                            th Thời gian đặt hàng
+                            th Địa chỉ vận chuyển
+                            th Trạng thái đơn hàng
+                            //- th Người tạo
+                            th Hành động
+                    tbody 
+                        each order,index in cancelOrders
+                            tr 
+                                td 
+                                    if(roleUser.permissions.includes("orders-user_edit") || (roleUser.permissions.includes("orders-user_delete")))
+                                        input(type="checkbox", name="id", value=order.id)
+                                td #{index+1}
+                                //- td #{order.id}
+                                td #{order.userInfo.fullName}
+                                td #{order.userInfo.email}
+                                td
+                                    if(order.createdAt)
+                                        p #{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}
+                                    //- input(
+                                    //-     type="number"
+                                    //-     value="0" 
+                                    //-     style="width: 60px"
+                                    //-     min="1"
+                                    //-     name="position"
+                                    //- )
+                                    
+                                td #{order.addressDelivery.cityAddress}
+                                td 
+                                    if(order.status=="initial")
+                                        a.badge.badge-secondary #{order.status}
+                                    else 
+                                        a.badge.badge-success #{order.status}
+                                        if(order.statusDelivery=="processing")
+                                            a(style ="color:white;margin-left:10px").badge.badge-secondary #{order.statusDelivery}
+                                        if(order.statusDelivery=="stop-shipping")
+                                            a(style ="color:white;margin-left:10px").badge.badge-danger #{order.statusDelivery}
+                                        if(order.statusDelivery=="shipping")
+                                            a(style ="color:white;margin-left:10px").badge.badge-warning #{order.statusDelivery}
+                                        if(order.statusDelivery=="delivered")
+                                            a(style ="color:white;margin-left:10px").badge.badge-success #{order.statusDelivery}
+                                td
+                                    if(roleUser.permissions.includes("orders-user_view"))
+                                        a(
+                                            href=`${prefixAdmin}/users/orders/detail/${order.id}`
+                                            class="btn btn-secondary btn-sm"
+                                        ) Chi tiết
+                                    else 
+                                        a(
+                                            href=`${prefixAdmin}/users/orders/`
+                                            class="btn btn-secondary btn-sm"
+                                            no-view
+                                        ) Chi tiết
+                                    
+                                    if(roleUser.permissions.includes("orders-user_delete"))
+                                        a(
+                                            href=`${prefixAdmin}/users/orders/cancel/accept/${order.id}`
+                                            class="btn btn-success btn-sm ml-1"
+                                        ) Xác nhận hủy
+                                        a(
+                                            href=`${prefixAdmin}/users/orders/cancel/reject/${order.id}`
+                                            class="btn btn-danger btn-sm ml-1"
+                                        ) Từ chối hủy
+                                    else 
+                                        button(
+                                            class="btn btn-success btn-sm ml-1"
+                                            no-delete
+                                        ) Xác nhận hủy
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1" 
+                                            no-delete
+                                        ) Từ chối hủy
+    .card.mb-3
         .card-header Danh sách đơn đặt hàng
         .card-body 
             .row 
@@ -73,7 +163,7 @@ block main
                             td #{order.userInfo.email}
                             td
                                 if(order.createdAt)
-                                    #{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}
+                                    p #{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}
                                 //- input(
                                 //-     type="number"
                                 //-     value="0" 
@@ -84,52 +174,55 @@ block main
                                 
                             td #{order.addressDelivery.cityAddress}
                             td 
-                                if(order.status=="initial")
-                                    a(
-                                        href="javascript:;" 
-                                        data-id=order.id 
-                                        data-status=order.status
-                                        button-change-status-order
-                                    ).badge.badge-secondary #{order.status}
-                                else 
-                                    a(
-                                        href="javascript:;" 
-                                        data-id=order.id 
-                                        data-status=order.status
-                                        button-change-status-order
-                                    ).badge.badge-success #{order.status}
-                                    if(order.statusDelivery=="processing")
+                                if(order.cancel.status=="approved" || order.cancel.status=="initial") 
+                                    .badge.badge-secondary #{order.cancel.status}
+                                else
+                                    if(order.status=="initial")
                                         a(
                                             href="javascript:;" 
                                             data-id=order.id 
-                                            data-status=order.statusDelivery
-                                            button-change-status-delivery
-                                            style ="color:white;margin-left:10px"
-                                        ).badge.badge-secondary #{order.statusDelivery}
-                                    if(order.statusDelivery=="stop-shipping")
+                                            data-status=order.status
+                                            button-change-status-order
+                                        ).badge.badge-secondary #{order.status}
+                                    if(order.status=="approved") 
                                         a(
                                             href="javascript:;" 
                                             data-id=order.id 
-                                            data-status=order.statusDelivery
-                                            button-change-status-delivery
-                                            style ="color:white;margin-left:10px"
-                                        ).badge.badge-danger #{order.statusDelivery}
-                                    if(order.statusDelivery=="shipping")
-                                        a(
-                                            href="javascript:;" 
-                                            data-id=order.id 
-                                            data-status=order.statusDelivery
-                                            button-change-status-delivery
-                                            style ="color:white;margin-left:10px"
-                                        ).badge.badge-warning #{order.statusDelivery}
-                                    if(order.statusDelivery=="delivered")
-                                        a(
-                                            href="javascript:;" 
-                                            data-id=order.id 
-                                            data-status=order.statusDelivery
-                                            button-change-status-delivery
-                                            style ="color:white;margin-left:10px"
-                                        ).badge.badge-success #{order.statusDelivery}
+                                            data-status=order.status
+                                            button-change-status-order
+                                        ).badge.badge-success #{order.status}
+                                        if(order.statusDelivery=="processing")
+                                            a(
+                                                href="javascript:;" 
+                                                data-id=order.id 
+                                                data-status=order.statusDelivery
+                                                button-change-status-delivery
+                                                style ="color:white;margin-left:10px"
+                                            ).badge.badge-secondary #{order.statusDelivery}
+                                        if(order.statusDelivery=="stop-shipping")
+                                            a(
+                                                href="javascript:;" 
+                                                data-id=order.id 
+                                                data-status=order.statusDelivery
+                                                button-change-status-delivery
+                                                style ="color:white;margin-left:10px"
+                                            ).badge.badge-danger #{order.statusDelivery}
+                                        if(order.statusDelivery=="shipping")
+                                            a(
+                                                href="javascript:;" 
+                                                data-id=order.id 
+                                                data-status=order.statusDelivery
+                                                button-change-status-delivery
+                                                style ="color:white;margin-left:10px"
+                                            ).badge.badge-warning #{order.statusDelivery}
+                                        if(order.statusDelivery=="delivered")
+                                            a(
+                                                href="javascript:;" 
+                                                data-id=order.id 
+                                                data-status=order.statusDelivery
+                                                button-change-status-delivery
+                                                style ="color:white;margin-left:10px"
+                                            ).badge.badge-success #{order.statusDelivery}
                             td
                                 if(roleUser.permissions.includes("orders-user_view"))
                                     a(
@@ -142,28 +235,34 @@ block main
                                         class="btn btn-secondary btn-sm"
                                         no-view
                                     ) Chi tiết
-                                if(roleUser.permissions.includes("orders-user_delete"))
-                                    a(
-                                        href=`${prefixAdmin}/users/orders/edit/${order.id}`
-                                        class="btn btn-success btn-sm ml-1"
-                                    ) Duyệt 
-                                else 
-                                    a(
-                                        href=`${prefixAdmin}/users/orders/`
-                                        class="btn btn-success btn-sm ml-1"
-                                        no-edit
-                                    ) Duyệt
-                                if(roleUser.permissions.includes("orders-user_delete"))
-                                    button(
-                                        class="btn btn-danger btn-sm ml-1" 
-                                        data-id=order.id
-                                        button-delete
-                                    ) Xóa 
-                                else 
-                                    button(
-                                        class="btn btn-danger btn-sm ml-1"
-                                        no-delete
-                                    ) Xóa
+                                if(order.cancel.status=="initial")
+                                    if(roleUser.permissions.includes("orders-user_delete"))
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1"
+                                        ) Chờ xác nhận
+                                else
+                                    if(roleUser.permissions.includes("orders-user_delete"))
+                                        a(
+                                            href=`${prefixAdmin}/users/orders/edit/${order.id}`
+                                            class="btn btn-success btn-sm ml-1"
+                                        ) Duyệt 
+                                    else 
+                                        a(
+                                            href=`${prefixAdmin}/users/orders/`
+                                            class="btn btn-success btn-sm ml-1"
+                                            no-edit
+                                        ) Duyệt
+                                    if(roleUser.permissions.includes("orders-user_delete"))
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1" 
+                                            data-id=order.id
+                                            button-delete
+                                        ) Xóa 
+                                    else 
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1"
+                                            no-delete
+                                        ) Xóa
     +pagination(pagination)
     form(action=""
         method="POST"

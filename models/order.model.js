@@ -32,7 +32,10 @@ const orderSchema = new mongoose.Schema({
         },
     ],
     coupon: String,
-    cancel: Boolean,
+    cancel: {
+        status: String,
+        reason: String,
+    },
     createdAt: Date,
     deleted: {
         type: String,

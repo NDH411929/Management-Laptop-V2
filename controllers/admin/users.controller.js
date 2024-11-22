@@ -126,10 +126,19 @@ module.exports.orders = async (req, res) => {
         //         product.createdByFullName = user.fullName;
         //     }
         // }
+
+        let cancelOrders = [];
+        for (const item of orders) {
+            if (item.cancel.status == "initial") {
+                cancelOrders.push(item);
+            }
+        }
+
         //Phần render ra ngoài view
         res.render("admin/pages/orders/index", {
             title: "Order",
             orders: orders,
+            cancelOrders: cancelOrders,
             filterStatus: test,
             keyword: searchOrders.keyword,
             pagination: objectPagination,
@@ -415,6 +424,62 @@ module.exports.detailAccount = async (req, res) => {
             title: "Detail Account User",
             accountUser: accountUser,
             cartUser: cartUser,
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
+};
+
+module.exports.cancelOrder = async (req, res) => {
+    try {
+        const idOrder = req.params.id;
+        const status = req.params.status;
+        if (status == "accept") {
+            await Order.updateOne(
+                {
+                    _id: idOrder,
+                },
+                {
+                    cancel: {
+                        status: "approved",
+                    },
+                    deleted: true,
+                }
+            );
+            req.flash("success", "Xác nhận hủy thành công!");
+        } else {
+            await Order.updateOne(
+                {
+                    _id: idOrder,
+                },
+                {
+                    cancel: {
+                        status: "rejected",
+                    },
+                }
+            );
+            req.flash("success", "Xác nhận hủy thành công!");
+        }
+
+        res.redirect("back");
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    }
+};
+
+module.exports.orderCanceled = async (req, res) => {
+    try {
+        // const sorted = Object.keys()
+        const cancelOrders = await Order.find({
+            deleted: true,
+            cancel: {
+                status: "approved",
+            },
+        });
+
+        res.render("admin/pages/orders/view-canceled", {
+            title: "Canceled Orders",
+            cancelOrders: cancelOrders,
         });
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/dashboard`);

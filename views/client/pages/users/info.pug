@@ -174,8 +174,9 @@ block main
                                                 .row
                                                     .col-12
                                                         each order,index in orders
-                                                            h4(class="mb-4") Đơn hàng #{index+1}
-                                                            h5(class="mb-4") Thời gian đặt hàng #{index+1}
+                                                            div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                h4 Đơn hàng 
+                                                                span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
                                                             table(class="table table-bordered")
                                                                 thead
                                                                     tr
@@ -206,7 +207,7 @@ block main
                                                             if(order.discount)
                                                                 div(class="text-right") Giảm giá từ mã: <b>-#{order.discount}$</b>
                                                             if(order.products.length > 0)
-                                                                h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                                                h3(class="text-right mb-4") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                                     #list-new.tab-pane.fade(role="tabpanel", aria-labelledby="list-new-tab")
@@ -215,7 +216,9 @@ block main
                                                 .row
                                                     .col-12
                                                         each order,index in orders
-                                                            h4(class="mb-2") Đơn hàng #{index+1}
+                                                            div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                h4 Đơn hàng 
+                                                                span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
                                                             table(class="table table-bordered")
                                                                 thead
                                                                     tr
@@ -243,7 +246,7 @@ block main
 
 
                                                             if(order.products.length > 0)
-                                                                h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                                                h3(class="text-right mb-4") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                                     #list-processing.tab-pane.fade(role="tabpanel", aria-labelledby="list-processing-tab") 
@@ -253,7 +256,9 @@ block main
                                                     .col-12
                                                         each order,index in orders
                                                             if(order.statusDelivery=="processing")
-                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                    h4 Đơn hàng 
+                                                                    span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
                                                                 table(class="table table-bordered")
                                                                     thead
                                                                         tr
@@ -279,7 +284,7 @@ block main
                                                                                     td #{item.quantity}
                                                                                     td #{item.totalPrice}$
                                                                 if(order.products.length > 0)
-                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                                                    h3(class="text-right mb-4") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                                     #list-shipping.tab-pane.fade(role="tabpanel", aria-labelledby="list-shipping-tab")
@@ -289,7 +294,9 @@ block main
                                                     .col-12
                                                         each order,index in orders
                                                             if(order.statusDelivery=="shipping")
-                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                    h4 Đơn hàng 
+                                                                    span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
                                                                 table(class="table table-bordered")
                                                                     thead
                                                                         tr
@@ -315,7 +322,7 @@ block main
                                                                                     td #{item.quantity}
                                                                                     td #{item.totalPrice}$
                                                                 if(order.products.length > 0)
-                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                                                    h3(class="text-right mb-4") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                                     #list-success.tab-pane.fade(role="tabpanel", aria-labelledby="list-success-tab")
@@ -325,7 +332,9 @@ block main
                                                     .col-12
                                                         each order,index in orders
                                                             if(order.statusDelivery=="delivered")
-                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                                div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                    h4 Đơn hàng 
+                                                                    span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
                                                                 table(class="table table-bordered")
                                                                     thead
                                                                         tr
@@ -351,7 +360,7 @@ block main
                                                                                     td #{item.quantity}
                                                                                     td #{item.totalPrice}$
                                                                 if(order.products.length > 0)
-                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                                                    h3(class="text-right mb-4") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                                     #list-delete.tab-pane.fade(role="tabpanel", aria-labelledby="list-delete-tab") 
@@ -360,8 +369,19 @@ block main
                                                 .row
                                                     .col-12
                                                         each order,index in orders
-                                                            if(order.statusDelivery=="stop-shipping")
-                                                                h4(class="mb-2") Đơn hàng #{index+1}
+                                                            if(order.cancel.status=="approved" || order.cancel.status=="initial" || order.cancel.status=="rejected")
+                                                                if(order.cancel.status=="approved")
+                                                                    div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                        h4(class="mb-2") Đơn hàng <div class="badge badge-success" style="font-size:14px">Hủy thành công</div>
+                                                                        span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
+                                                                else if(order.cancel.status=="rejected")
+                                                                    div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                        h4(class="mb-2") Đơn hàng <div class="badge badge-danger" style="font-size:14px">Không đủ điều kiện hủy</div>
+                                                                        span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
+                                                                else 
+                                                                    div.d-flex(style="align-items:center;justify-content:space-between")
+                                                                        h4(class="mb-2") Đơn hàng <div class="badge badge-danger" style="font-size:14px">Đang chờ xác nhận</div>
+                                                                        span(class="createdAt" data-time=order.createdAt) #{order.createdAt}
                                                                 table(class="table table-bordered")
                                                                     thead
                                                                         tr
@@ -387,7 +407,8 @@ block main
                                                                                     td #{item.quantity}
                                                                                     td #{item.totalPrice}$
                                                                 if(order.products.length > 0)
-                                                                    h3(class="text-right") Tổng đơn hàng: #{order.totalPrice}$
+                                                                    h3(class="text-right mb-4") Tổng đơn hàng: #{order.totalPrice}$
                                             else 
                                                 +page-not-found("Hiện không tìm thấy đơn hàng nào","Tiếp tục mua sắm")
                             #logout.tab-pane.fade(role="tabpanel", aria-labelledby="v-pills-settings-tab")
+    script(src="/JS/product.js")

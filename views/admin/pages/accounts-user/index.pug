@@ -115,7 +115,7 @@ block main
                                         ) Dừng hoạt động
                             td 
                                 if(item.createdAt)
-                                    #{moment(item.createdAt).format("DD-MM-YYYY HH:mm")}
+                                   p #{moment(item.createdAt).format("DD-MM-YYYY HH:mm")}
                             td #{item.countOrders}
                             td
                                 if(roleUser.permissions.includes("accounts-user_view"))

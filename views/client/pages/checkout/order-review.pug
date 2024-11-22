@@ -9,47 +9,58 @@ block main
     .review-order
         .container.my-3
             if(orders.length>0)
-                //- .row
-                //-     .col-12
-                //-         h4(class="mb-2") Thông tin người đặt
-                //-         table(class="table table-bordered")
-                //-             tbody
-                //-                 tr
-                //-                     td Họ tên
-                //-                     td
-                //-                         b #{order.userInfo.fullName}
-                //-                 tr
-                //-                     td Số điện thoại
-                //-                     td
-                //-                         b #{order.userInfo.phoneNumber}
-                //-                 tr
-                //-                     td Địa chỉ
-                //-                     td
-                //-                         b #{order.userInfo.address}
-                //-                 tr
-                //-                     td Email
-                //-                     td
-                //-                         b #{order.userInfo.email}
                 .row
                     .col-12
                         each order in orders
-                            .alert.alert-success
-                                h4(class="alert-heading") Trạng thái đơn hàng
-                                if(order.status=="initial")
-                                    p Đơn hàng của bạn đang <b>chờ phê duyệt</b>!
-                                    p.mt-2 Sau khi phê duyệt thành công, chúng tôi sẽ thông báo và giao hàng cho bạn sớm nhất có thể!
-                                else 
-                                    p Đơn hàng của bạn đã <b>được xác nhận</b>!
-                                    if(order.statusDelivery=="processing")
-                                        p.mt-2 Đơn hàng của bạn đang được chúng tôi xử lý, chúng tôi sẽ giao hàng cho bạn sớm nhất có thể!
-                                    if(order.statusDelivery=="shipping")
-                                        p.mt-2 Đơn hàng của bạn đang được vận chuyển (Thời gian dự kiến: 3-5 ngày), chúng tôi sẽ giao hàng cho bạn sớm nhất có thể!
-                                    if(order.statusDelivery=="delivered")
-                                        p.mt-2 Đơn hàng của bạn đã được giao! Hãy cho chúng tôi biết đánh giá của bạn về sản phẩm!
-                                hr
-                                p(class="mb-0") Nếu có bất kỳ câu hỏi nào hãy liên hệ với chúng tôi qua email: <b>#{settingGeneral.email}</b> hoặc số điện thoại: <b>#{settingGeneral.phone}</b>
-                            .order-info(style="background:#fff;padding:24px")
+                            if(order.cancel.status=="initial")
+                                .alert.alert-danger
+                                    h4(class="alert-heading") Trạng thái đơn hàng
+                                    p Đơn hàng của bạn <b>đang chờ xác nhận hủy</b>!
+                                    p.mt-2 Bạn có thể xem thêm các sản phẩm khác của chúng tôi <a href="/products">tại đây!</a>
+                            else if(order.cancel.status=="approved")
+                                .alert.alert-danger
+                                    h4(class="alert-heading") Trạng thái đơn hàng
+                                    p Đơn hàng của bạn <b>đã được hủy</b>!
+                                    p.mt-2 Bạn có thể xem thêm các sản phẩm khác của chúng tôi <a href="/products">tại đây!</a>
+                            else if(order.cancel.status=="rejected")
+                                .alert.alert-danger
+                                    h4(class="alert-heading") Trạng thái đơn hàng
+                                    p Đơn hàng của bạn <b>không đủ điều kiện hủy</b>!
+                                    p.mt-2 Bạn có thể xem thêm các sản phẩm khác của chúng tôi <a href="/products">tại đây!</a>
+                            else
+                                .alert.alert-success
+                                    h4(class="alert-heading") Trạng thái đơn hàng
+                                    if(order.status=="initial")
+                                        p Đơn hàng của bạn đang <b>chờ phê duyệt</b>!
+                                        p.mt-2 Sau khi phê duyệt thành công, chúng tôi sẽ thông báo và giao hàng cho bạn sớm nhất có thể!
+                                    else 
+                                        p Đơn hàng của bạn đã <b>được xác nhận</b>!
+                                        if(order.statusDelivery=="processing")
+                                            p.mt-2 Đơn hàng của bạn đang được chúng tôi xử lý, chúng tôi sẽ giao hàng cho bạn sớm nhất có thể!
+                                        if(order.statusDelivery=="shipping")
+                                            p.mt-2 Đơn hàng của bạn đang được vận chuyển (Thời gian dự kiến: 3-5 ngày), chúng tôi sẽ giao hàng cho bạn sớm nhất có thể!
+                                        if(order.statusDelivery=="delivered")
+                                            p.mt-2 Đơn hàng của bạn đã được giao! Hãy cho chúng tôi biết đánh giá của bạn về sản phẩm!
+                                    hr
+                                    p(class="mb-0") Nếu có bất kỳ câu hỏi nào hãy liên hệ với chúng tôi qua email: <b>#{settingGeneral.email}</b> hoặc số điện thoại: <b>#{settingGeneral.phone}</b>
+                            .order-info.mb-3(style="background:#fff;padding:24px")
                                 h4(class="mb-2") Thông tin đơn hàng
+                                if(order.status=="initial" || order.statusDelivery=="processing")
+                                    if(order.cancel.status=="initial")
+                                        a.btn.btn-danger Chờ xác nhận hủy
+                                    else if(order.cancel.status=="approved")
+                                        a.btn.btn-secondary Đã hủy thành công
+                                    else if(order.cancel.status=="rejected")
+                                        a.btn.btn-secondary Không đủ điều kiện hủy
+                                        p Đơn hàng không đủ điều kiện hủy. Vui lòng đọc điều kiện hủy đơn hàng tại đây: ...
+                                    else 
+                                        a(href=`/user/my-orders/cancel/${order.id}`).btn.btn-danger Cancel
+                                else 
+                                    a.btn.btn-secondary Không đủ điều kiện hủy
+                                    p Đơn hàng không đủ điều kiện hủy. Vui lòng đọc điều kiện hủy đơn hàng tại đây: ...
+                                    
+                                    //- if(order.cancel==false)
+                                    //-     button.btn.btn-danger Cancel
                                 table(class="table table-bordered")
                                     thead
                                         tr

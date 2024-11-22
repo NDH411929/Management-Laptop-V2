@@ -233,7 +233,7 @@ module.exports.infoUser = async (req, res) => {
 
         const orders = await Order.find({
             cart_id: cartId,
-        });
+        }).sort({ createdAt: "desc" });
 
         for (const order of orders) {
             order.totalPrice = 0;
@@ -395,7 +395,7 @@ module.exports.myOrders = async (req, res) => {
         // });
         const orders = await Order.find({
             cart_id: cartId,
-        });
+        }).sort({ createdAt: "desc" });
 
         for (const order of orders) {
             order.totalPrice = 0;
@@ -447,4 +447,25 @@ module.exports.myOrders = async (req, res) => {
     } catch (error) {
         res.redirect("/");
     }
+};
+
+module.exports.cancelOrder = async (req, res) => {
+    const idOrder = req.params.id;
+    const requestCancel = {
+        status: "initial",
+        reason: "",
+    };
+    await Order.updateOne(
+        {
+            _id: idOrder,
+        },
+        {
+            cancel: requestCancel,
+        }
+    );
+    req.flash(
+        "success",
+        "Yêu cầu hủy đơn hành thành công! Vui lòng đợi kết quả!"
+    );
+    res.redirect("back");
 };

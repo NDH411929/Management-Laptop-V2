@@ -16,6 +16,10 @@ router.delete("/orders/delete/:id", controller.deleteOrder);
 
 router.get("/orders/detail/:id", controller.detailOrder);
 
+router.get("/orders/cancel/:status/:id", controller.cancelOrder);
+
+router.get("/orders/view-canceled", controller.orderCanceled);
+
 //Account User
 router.get("/accounts", controller.accountsUser);
 

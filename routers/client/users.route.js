@@ -48,4 +48,10 @@ router.get("/my-coupons", authMiddleWare.login, controller.myCoupons);
 
 router.get("/my-orders", authMiddleWare.login, controller.myOrders);
 
+router.get(
+    "/my-orders/cancel/:id",
+    authMiddleWare.login,
+    controller.cancelOrder
+);
+
 module.exports = router;

@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+
+block main 
+    .card.mb-3
+        .card-header 
+            p Danh sách đơn đã hủy
+        .card-body
+            if(cancelOrders.length>0)
+                table(
+                    class="table table-hover table-sm"
+                    checkbox-multi
+                )
+                    thead 
+                        tr
+                            th STT
+                            //- th Mã đơn hàng
+                            th Tên khách hàng
+                            th Email khách hàng
+                            th Thời gian đặt hàng
+                            th Địa chỉ vận chuyển
+                            th Thời gian hủy
+                            //- th Người tạo
+                            th Trạng thái đơn hàng
+                    tbody 
+                        each order,index in cancelOrders
+                            tr
+                                td #{index+1}
+                                td #{order.userInfo.fullName}
+                                td #{order.userInfo.email}
+                                td
+                                    if(order.createdAt)
+                                        p #{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}
+                                    
+                                td #{order.addressDelivery.cityAddress}
+                                
+                                td
+
+                                td 
+                                    a.badge.badge-secondary Đã hủy
+                                    
