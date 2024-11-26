@@ -72,8 +72,9 @@ block main
                         th Trạng thái
                         //- th Người tạo
                         th Hành động
-                tbody 
+                tbody
                     each product, index in products 
+                        
                         tr 
                             td 
                                 if(roleUser.permissions.includes("products_edit") || (roleUser.permissions.includes("products_delete")))

@@ -49,6 +49,7 @@ app.use(
 
 // Update expire date
 cron.schedule("* * * * *", async () => {
+    //Taọ thời gian hiện tại
     const today = new Date();
     try {
         await Coupon.updateMany(

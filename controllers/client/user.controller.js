@@ -404,18 +404,13 @@ module.exports.myOrders = async (req, res) => {
                 const infoProduct = await Product.findOne({
                     _id: item.product_id,
                 });
-                infoProduct.priceNew = (
-                    (infoProduct.price *
-                        (100 - infoProduct.discountPercentage)) /
+                item.priceNew = (
+                    (item.price * (100 - item.discountPercentage)) /
                     100
                 ).toFixed(2);
-                infoProduct.totalPrice = (
-                    infoProduct.priceNew * item.quantity
-                ).toFixed(2);
+                item.totalPrice = (item.priceNew * item.quantity).toFixed(2);
                 item.title = infoProduct.title;
                 item.thumbnail = infoProduct.thumbnail;
-                item.priceNew = infoProduct.priceNew;
-                item.totalPrice = infoProduct.totalPrice;
                 order.totalPrice += parseFloat(item.totalPrice);
             }
             if (order.coupon != "") {
